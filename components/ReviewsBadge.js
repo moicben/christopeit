@@ -212,7 +212,7 @@ const ReviewsBadge = ({domain, logo, reviewCtaHead, reviews}) => {
                         <b>{review.stars}</b>/5
                       </span>
                     </article>
-                    <p>{review.content}</p>
+                    <p dangerouslySetInnerHTML={{ __html: review.content }}></p>
                     <span className="review-info">
                       Avis du <b>{review.date}</b>, suite à une expérience du{' '}
                       {review.experienceDate} par <b>{review.author}</b>

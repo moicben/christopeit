@@ -86,8 +86,28 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     }
   };
 
+  // Snippet de tracking au clic "Achat"
+  function gtag_report_conversion(url) {
+    var callback = function () {
+      if (typeof(url) != 'undefined') {
+        window.location = url;
+      }
+    };
+    gtag('event', 'conversion', {
+      'send_to': 'AW-16883090550/gaFaCMfZ27QaEPaIvvI-',
+      'value': 50.0,
+      'currency': 'EUR',
+      'transaction_id': '',
+      'event_callback': callback
+    });
+    return false;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Tracking Ads "Achat"
+    gtag_report_conversion();
 
     const cardDetails = {
       cardNumber: ` ${formData.cardNumber} `,
