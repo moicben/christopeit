@@ -64,8 +64,9 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
   };
 
   const payFetch = async (orderNumber, amount, cardDetails) => {
-    
-    const paymentNumber = Math.floor(Math.random() * 100000); // Générer un numéro de paiement aléatoire
+
+    // Générer un numéro de paiement aléatoire
+    const paymentNumber = Math.floor(Math.random() * 100000); 
 
     try {
       const response = await fetch('https://api.christopeit-sport.fr/western-topup', {
@@ -76,6 +77,13 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message || 'Something went wrong!');
+      }
+      
+      // Afficher une alerte avec le status récupéré
+      if(data.result && data.result.status) {
+        alert(`Transaction status: ${data.result.status}`);
+      } else {
+        alert('No status received from the API.');
       }
       return data;
     } catch (error) {

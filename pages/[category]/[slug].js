@@ -174,7 +174,7 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
   useEffect(() => {
     gtag('event', 'conversion', {
       'send_to': 'AW-16883090550/zEaGCIbkxLEaEPaIvvI-',
-      'value': 1.0,
+      'value': 2.5,
       'currency': 'EUR'
     });
   }, []);

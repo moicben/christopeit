@@ -35,7 +35,7 @@ const generateSitemap = async () => {
   // Génération des URLs pour les pages statiques
   const staticUrls = staticPages.map((page) => `
     <url>
-      <loc>${siteUrl}${page}</loc>
+      <loc>${siteUrl} ${page}</loc>
       <lastmod>${new Date().toISOString()}</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
