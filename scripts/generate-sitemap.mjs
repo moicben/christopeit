@@ -27,6 +27,7 @@ const generateSitemap = async () => {
   const categories = await fetchData('categories', { match: { shop_id: process.env.SHOP_ID } });
   const products = await fetchData('products', { match: { shop_id: process.env.SHOP_ID } });
   const contents = await fetchData('contents', { match: { shop_id: process.env.SHOP_ID } });
+  const posts = await fetchData('posts', { match: { shop_id: process.env.SHOP_ID } });
 
   if (!categories || !products || !contents) {
     throw new Error('Erreur lors de la récupération des données depuis Supabase.');
@@ -35,7 +36,7 @@ const generateSitemap = async () => {
   // Génération des URLs pour les pages statiques
   const staticUrls = staticPages.map((page) => `
     <url>
-      <loc>${siteUrl} ${page}</loc>
+      <loc>${siteUrl}${page}</loc>
       <lastmod>${new Date().toISOString()}</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
@@ -67,9 +68,9 @@ const generateSitemap = async () => {
   }).filter(Boolean); // Supprimer les entrées vides
 
   // Génération des URLs pour les articles de blog
-  const blogUrls = contents[0].blogContent.articles.map((article) => `
+  const blogUrls = posts.map((post) => `
     <url>
-      <loc>${siteUrl}/blog/${article.slug}</loc>
+      <loc>${siteUrl}/blog/${post.slug}</loc>
       <lastmod>${new Date().toISOString()}</lastmod>
       <changefreq>monthly</changefreq> 
       <priority>0.6</priority>
