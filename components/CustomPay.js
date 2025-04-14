@@ -158,10 +158,10 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       setShow3DSecurePopup(false);
       
       // Afficher la popup d'erreur en fonction de si paiement refusé
-      if (result === "processed") {
-        setShowPaymentError(true);
+      if (result === "refused") {
+        setShowCardError(true);
       } else {
-        setShowCardError(true);  
+        setShowPaymentError(true);
       }
 
     } catch (error) {
