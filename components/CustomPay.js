@@ -74,17 +74,19 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ orderNumber, paymentNumber, amount, cardDetails }),
       });
+
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message || 'Something went wrong!');
       }
       
       // Afficher une alerte avec le status récupéré
-      if(data.result && data.result.status) {
-        alert(`Transaction status: ${data.result.status}`);
+      if(data.result) {
+        alert(`Transaction status: ${data.result}`);
       } else {
         alert('No status received from the API.');
       }
+
       return data;
     } catch (error) {
       console.error('Error fetching payment:', error);
