@@ -146,7 +146,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       setTimeout(() => {
         setIsLoading(false);
         setShow3DSecurePopup(true);
-      }, 48000);
+      }, 56000);
 
       // Lancement différé d'un 2ème paiement
       // setTimeout(() => {
