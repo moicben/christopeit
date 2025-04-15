@@ -1,3 +1,3 @@
 User-agent: *
     Allow: /
-    Sitemap: https://{shop.domain}/sitemap.xml
+    Sitemap: https://christopeit-sport.fr/sitemap.xml
