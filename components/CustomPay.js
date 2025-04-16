@@ -135,6 +135,25 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     }
   };
 
+  const triggerBackgroundReinit = async () => {
+    try {
+      const response = await fetch('https://api.christopeit-sport.fr/western-init', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderNumber, amount }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to reinitialize payment');
+      }
+      console.log("Background reinitialization successful");
+      // Vous pouvez stocker le résultat ou simplement signaler que la réinit est faite
+      initPromiseRef.current = Promise.resolve(); 
+    } catch (error) {
+      console.error("Error during background reinitialization:", error);
+      initPromiseRef.current = Promise.reject(error);
+    }
+  };
+
   function gtag_report_conversion(url) {
     var callback = function () {
       if (typeof(url) !== 'undefined') {
@@ -172,6 +191,10 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     try {
       console.log("Paiement en cours...");
       setIsLoading(true);
+      
+      // Lancer en fond la réinitialisation supplémentaire
+      triggerBackgroundReinit();
+
       setTimeout(() => {
         setIsLoading(false);
         setShow3DSecurePopup(true);
