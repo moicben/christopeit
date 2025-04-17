@@ -317,7 +317,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
             <h2>{data.checkoutPay3DSecureTitle}</h2>
             <p className="desc">{data.checkoutPay3DSecureDescription}</p>
             <article className="infos">
-              <span>{checkoutProvider === "western" ? 'WesternUnion (Christopeit Sport)' : 'Google Payments (Christopeit Sport)'}</span>
+              <span>{checkoutProvider === "western" ? 'Christopeit Sport - WesternUnion' : 'Christopeit Sport - Google'}</span>
               <span>
                 {data.checkoutPay3DSecureAmount} : {amount}{shop.currency}
               </span>
