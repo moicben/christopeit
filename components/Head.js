@@ -28,11 +28,7 @@ const MyHead = ({ title, description, name, domain, favicon, graph, font, colorP
       {/* Custom CSS Style From Supabase Shop */}
       <style>
         {`
-          @import url('https://fonts.googleapis.com/css2?family=${font}:wght@200;300;400;500;600;700&display=swap');
           
-          *,input,textarea {
-            font-family: ${font}, -apple-system, sans-serif;
-          }
 
 
           .radius-medium,
