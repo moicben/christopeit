@@ -31,16 +31,28 @@ async function fixSupabase(table, options = {}) {
         throw new Error(`Erreur lors de la récupération de ${table}: ${error.message}`);
     }
 
-    // Pour la table "posts", remplace tous les "\n" dans "content" par "<br>"
-    if (table === 'posts' && Array.isArray(data)) {
-        // Met à jour chaque ligne récupérée
+    // Pour la table "reviews", liste les correspondances avant remplacement puis remplace tous les "\n" dans "content" par "<br>"
+    if (table === 'reviews' && Array.isArray(data)) {
+        // Parcours de chaque ligne pour lister les correspondances
+        data.forEach((row) => {
+            if (typeof row.content === 'string') {
+                const matches = row.content.match(/\n/g);
+                if (matches) {
+                    console.log(`Pour la ligne ${row.id}, trouvées ${matches.length} correspondances:`, matches);
+                } else {
+                    console.log(`Pour la ligne ${row.id}, aucune correspondance trouvée.`);
+                }
+            }
+        });
+
+        // Remplacement des retours à la ligne par "<br/>"
         const updatePromises = data.map(async (row) => {
             if (typeof row.content === 'string') {
-                const updatedContent = row.content.replace(/`/g, '<br>');
+                const updatedContent = row.content.replace(/\n/g, '<br/>');
                 console.log('Row:', row); // Debugging
                 console.log('Updated Content:', updatedContent); // Debugging
 
-                // Met à jour la donnée dans Supabase
+                // Mise à jour de la donnée dans Supabase
                 const { error: updateError } = await supabase
                     .from(table)
                     .update({ content: updatedContent })
@@ -59,4 +71,4 @@ async function fixSupabase(table, options = {}) {
 }
 
 // Exécute la fonction pour la table "posts" avec un filtre sur shop_id
-fixSupabase('posts', { match: { shop_id: process.env.SHOP_ID } });
+fixSupabase('reviews', { match: { shop_id: process.env.SHOP_ID } });
