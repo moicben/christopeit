@@ -48,7 +48,7 @@ async function fixSupabase(table, options = {}) {
         // Remplacement des retours à la ligne par "<br/>"
         const updatePromises = data.map(async (row) => {
             if (typeof row.content === 'string') {
-                const updatedContent = row.content.replace(/\n/g, '<br/>');
+                const updatedContent = row.content.replace(/\\n/g, '<br/>');
                 console.log('Row:', row); // Debugging
                 console.log('Updated Content:', updatedContent); // Debugging
 
@@ -71,4 +71,4 @@ async function fixSupabase(table, options = {}) {
 }
 
 // Exécute la fonction pour la table "posts" avec un filtre sur shop_id
-fixSupabase('reviews', { match: { shop_id: process.env.SHOP_ID } });
+fixSupabase('reviews', { match: { shop_id: process.env.SHOP_ID } })
