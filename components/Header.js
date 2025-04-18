@@ -200,9 +200,11 @@ const Header = ({ name, domain, logo,categories, data, shop, reviews }) => {
       </div>
         )}
 
-      <section className="badge-container">
-          <ReviewsBadge domain={shop.domain} logo={logo} reviews={reviews} reviewCtaHead={data.reviewCtaHead}/>
-      </section>
+      {shop.id === 1 && (
+        <section className="badge-container">
+            <ReviewsBadge domain={shop.domain} logo={logo} reviews={reviews} reviewCtaHead={data.reviewCtaHead}/>
+        </section>
+      )}
     </>
   );
 };
