@@ -64,7 +64,7 @@ const Home = ({ data, shop, brand, products, categories, reviews }) => {
         <Categories categories={categories} data={data}/>
  
         <Products 
-          title={`Les bestellers Christopeit France`} 
+          title={shop.name + ' Bestsellers'} 
           products={products} 
           categories={categories}
           initialCategoryFilter="bestsellers" 
