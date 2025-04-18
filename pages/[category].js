@@ -136,7 +136,7 @@ export async function getStaticProps({ params }) {
   const shop = await fetchData('shops', { match: { id: process.env.SHOP_ID } });
   const data = await fetchData('contents', { match: { shop_id: process.env.SHOP_ID } });
   const brand = await fetchData('brands', { match: { shop_id: process.env.SHOP_ID } });
-  const reviews = await fetchData('reviews', { match: { shop_id: 1 } });
+  const reviews = await fetchData('reviews', { match: { shop_id: process.env.SHOP_ID } });
 
   console.log('Shop data:', shop);
 
