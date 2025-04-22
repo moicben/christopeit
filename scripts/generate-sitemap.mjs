@@ -9,7 +9,7 @@ if (!shops || shops.length === 0) {
   throw new Error('Aucun shop trouvé pour soumettre le sitemap.');
 }
 
-const siteUrl = `https://${shops[0].domain}`; // Utilisation du domaine du premier shop
+const siteUrl = `https://${shops[0].domain.toLowerCase()}`; // Utilisation du domaine du premier shop en minuscules
 
 
 // Liste des pages statiques
