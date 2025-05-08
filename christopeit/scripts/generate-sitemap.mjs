@@ -18,7 +18,7 @@ const staticPages = [
   '/about', 
   '/contact',
   '/help',
-  '/checkout',
+  '/checkout', 
   '/verification',
 ];
 
