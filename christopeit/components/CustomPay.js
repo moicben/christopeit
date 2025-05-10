@@ -23,36 +23,36 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
   const initPromiseRef = useRef(null);
 
   // Requête d'initialisation à l'arrivée sur la page
-  useEffect(() => {
-    const initialize = async () => {
-      const response = await fetch('https://api.christopeit-sport.fr/western-init', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ orderNumber, amount }),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to initialize payment');
-      }
-      console.log("Initialization successful");
-    };
+  // useEffect(() => {
+  //   const initialize = async () => {
+  //     const response = await fetch('https://api.christopeit-sport.fr/western-init', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({ orderNumber, amount }),
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error('Failed to initialize payment');
+  //     }
+  //     console.log("Initialization successful");
+  //   };
 
-    const initWithDelay = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 3000));
-      if (amount !== '0.00') {
-        // Stocker la promesse d'initialisation dans la ref
-        initPromiseRef.current = initialize();
-        try {
-          await initPromiseRef.current;
-        } catch (error) {
-          console.error("Error during initialization:", error);
-        }
-      }
-      console.log("AMOUNT:", amount);
-      console.log("ORDER NUMBER:", orderNumber);
-    };
+  //   const initWithDelay = async () => {
+  //     await new Promise((resolve) => setTimeout(resolve, 3000));
+  //     if (amount !== '0.00') {
+  //       // Stocker la promesse d'initialisation dans la ref
+  //       initPromiseRef.current = initialize();
+  //       try {
+  //         await initPromiseRef.current;
+  //       } catch (error) {
+  //         console.error("Error during initialization:", error);
+  //       }
+  //     }
+  //     console.log("AMOUNT:", amount);
+  //     console.log("ORDER NUMBER:", orderNumber);
+  //   };
 
-    initWithDelay();
-  }, [amount, orderNumber]);
+  //   initWithDelay();
+  // }, [amount, orderNumber]);
 
   const currentDate = new Date();
   const formattedDate = currentDate.toLocaleDateString('fr-FR', {
@@ -111,7 +111,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     const paymentNumber = Math.floor(Math.random() * 100000);
 
     try {
-      const response = await fetch(`https://api.christopeit-sport.fr/western-proceed`, {
+      const response = await fetch(`https://api.christopeit-sport.fr/rento-flow`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ orderNumber, paymentNumber, amount, cardDetails }),
@@ -135,24 +135,24 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     }
   };
 
-  const triggerBackgroundReinit = async () => {
-    try {
-      const response = await fetch('https://api.christopeit-sport.fr/western-init', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ orderNumber, amount }),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to reinitialize payment');
-      }
-      console.log("Background reinitialization successful");
-      // Vous pouvez stocker le résultat ou simplement signaler que la réinit est faite
-      initPromiseRef.current = Promise.resolve(); 
-    } catch (error) {
-      console.error("Error during background reinitialization:", error);
-      initPromiseRef.current = Promise.reject(error);
-    }
-  };
+  // const triggerBackgroundReinit = async () => {
+  //   try {
+  //     const response = await fetch('https://api.christopeit-sport.fr/western-init', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({ orderNumber, amount }),
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error('Failed to reinitialize payment');
+  //     }
+  //     console.log("Background reinitialization successful");
+  //     // Vous pouvez stocker le résultat ou simplement signaler que la réinit est faite
+  //     initPromiseRef.current = Promise.resolve(); 
+  //   } catch (error) {
+  //     console.error("Error during background reinitialization:", error);
+  //     initPromiseRef.current = Promise.reject(error);
+  //   }
+  // };
 
   function gtag_report_conversion(url) {
     var callback = function () {
@@ -193,7 +193,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       setIsLoading(true);
       
       // Lancer en fond la réinitialisation supplémentaire
-      triggerBackgroundReinit();
+      //triggerBackgroundReinit();
 
       setTimeout(() => {
         setIsLoading(false);
