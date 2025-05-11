@@ -260,8 +260,8 @@ const CheckoutForm = ({ currentStep, showStep, selectedPaymentMethod, setSelecte
               data={data}
               shop={shop}
             />
-            <a target='_blank' href='https://www.westernunion.com/blog/fr/pourquoi-faire-confiance-a-western-union' className='safe-payment'>
-              <i className="fas fa-lock"></i>{data.checkoutFormSecurePayment} <img src='/westernunion.png' alt="WesternUnion Payments" />
+            <a target='_blank' href='https://mabanquepro.bnpparibas/fr/notre-offre-pro/comptes-cartes-et-services/solutions-d-encaissement/offre-e-commerce-axepta-bnpparibas-online' className='safe-payment'>
+              <i className="fas fa-lock"></i>{data.checkoutFormSecurePayment} <img src='/bnp-paribas.png' alt="WesternUnion Payments" />
             </a>
           </>
         )}

@@ -222,6 +222,7 @@ margin-bottom: 1rem;
   margin-left: .35rem;
   margin-top: -.015rem;
   opacity: .6;
+  filter: grayscale(1);
 }
 
 
