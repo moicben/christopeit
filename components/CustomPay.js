@@ -319,7 +319,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
             <article className="infos">
               <span>{checkoutProvider === "rento" ? "UAB Inrento (Christopeit Sport)" : `${shop.name} - Google Payment`}</span>
               <span>
-                Montant à valider : {amount}{shop.currency}
+                Montant à valider : {(Math.floor(amount * 0.98) * 1.02)}{shop.currency}
               </span>
               <span> 
                 Date : {`${formattedDate} à ${formattedTime}`}
