@@ -298,7 +298,7 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
               )}
           </div>
           <article>
-            <span>{data.productCtaPromo}</span>
+            <span>PROMO MAI 15%</span>
             <button onClick={handleBuyNow}>{data.productBuyFor} {(product.price * 0.85).toFixed(2).replace('.', ',')}{shop.currency}</button>
           </article>
        </div>
