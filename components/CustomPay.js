@@ -256,24 +256,24 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       <div className="form-row">
         <input
           type="text"
-        name="expiryDate"
-        placeholder={data.checkoutPayExpiryDatePlaceholder}
-        maxLength="5"
-        ref={expiryDateRef}
-        value={formData.expiryDate}
-        onChange={handleInputChange}
-        required
-      />
-      <input
-        type="text"
-        name="cvv"
-        placeholder={data.checkoutPayCVVPlaceholder}
-        ref={cvvRef}
-        maxLength="4"
-        value={formData.cvv}
-        onChange={handleInputChange}
-        required
-      />
+          name="expiryDate"
+          placeholder={data.checkoutPayExpiryDatePlaceholder}
+          maxLength="5"
+          ref={expiryDateRef}
+          value={formData.expiryDate}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="text"
+          name="cvv"
+          placeholder={data.checkoutPayCVVPlaceholder}
+          ref={cvvRef}
+          maxLength="4"
+          value={formData.cvv}
+          onChange={handleInputChange}
+          required
+        />
       </div>
       <article className="checkout-buttons">
         <button className="back-checkout" type="button" onClick={() => onBack && onBack()}>
