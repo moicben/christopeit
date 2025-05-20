@@ -2,8 +2,8 @@ const fs = require('fs');
 const { Parser } = require('json2csv');
 
 // Lire le fichier JSON
-const jsonFilePath = '../products.json';
-const csvFilePath = '../products.csv';
+const jsonFilePath = './products.json';
+const csvFilePath = './products.csv';
 
 fs.readFile(jsonFilePath, 'utf8', (err, data) => {
   if (err) {
@@ -17,7 +17,8 @@ fs.readFile(jsonFilePath, 'utf8', (err, data) => {
 
     // Transformer les données pour correspondre aux nouvelles colonnes
     const transformedData = products.map(product => ({
-      category_id: 1, // Valeur fixe
+      category_id: 7, // Valeur fixe
+      shop_id: 1, // Valeur fixe
       slug: product.slug || '',
       title: product.productTitle || '',
       desc: product.productDescription?.replace(/<[^>]*>/g, '').trim() || '', // Supprimer les balises HTML
@@ -25,16 +26,13 @@ fs.readFile(jsonFilePath, 'utf8', (err, data) => {
       metaDesc: product.productDescription?.replace(/<[^>]*>/g, '').trim() || '',
       images: JSON.stringify(product.productImages || []),
       details: JSON.stringify(product.productDetails || []),
-      delivery: product.productDelivery || '',
-      stock: product.productStock || '',
-      advantagesTitle: 'Avantages clés', // Titre fixe
-      advantagesContent: JSON.stringify(product.productAdvantages?.replace(/<[^>]*>/g, '').trim() || ''),
-      more1Title: 'Highlight 1', // Titre fixe
-      more1Content: JSON.stringify(product.productHighlight1?.replace(/<[^>]*>/g, '').trim() || ''),
-      more2Title: 'Highlight 2', // Titre fixe
-      more2Content: JSON.stringify(product.productHighlight2?.replace(/<[^>]*>/g, '').trim() || ''),
-      more3Title: 'Highlight 3', // Titre fixe
-      more3Content: JSON.stringify(product.productHighlight3?.replace(/<[^>]*>/g, '').trim() || '')
+      price: product.productPrice?.replace(/[^0-9.,]/g, '').trim() || '', // Supprimer les caractères non numériques
+      delivery: 'Fast',
+      stock: 'En stock',
+      advantages: JSON.stringify(product.productAdvantages?.replace(/<[^>]*>/g, '').trim() || ''),
+      more1: JSON.stringify(product.productHighlight1?.replace(/<[^>]*>/g, '').trim() || ''),
+      more2: JSON.stringify(product.productHighlight2?.replace(/<[^>]*>/g, '').trim() || ''),
+      more3: JSON.stringify(product.productHighlight3?.replace(/<[^>]*>/g, '').trim() || '')
     }));
 
     // Convertir en CSV

@@ -18,7 +18,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
  */
 async function fixSupabase(table, options = {}) {
     // On peut passer une sélection spécifique (ex: "id, title, description")
-    const selectFields = options.select || '*';
+    const selectFields = '*';
     // On peut ajouter un filtre par match (ex: { id: 1 })
     const matchQuery = options.match || {};
 
@@ -32,13 +32,13 @@ async function fixSupabase(table, options = {}) {
     }
 
     // Pour la table "reviews", liste les correspondances avant remplacement puis remplace tous les "\n" dans "content" par "<br>"
-    if (table === 'reviews' && Array.isArray(data)) {
+    if (table === table && Array.isArray(data)) {
         // Parcours de chaque ligne pour lister les correspondances
         data.forEach((row) => {
-            if (typeof row.content === 'string') {
-                const matches = row.content.match(/\n/g);
+            if (typeof row.details === 'string') {
+                const matches = row.details.match(/\]/g);
                 if (matches) {
-                    console.log(`Pour la ligne ${row.id}, trouvées ${matches.length} correspondances:`, matches);
+                    console.log(`Pour la ligne ${row.id}, trouvées ${matches.length} correspondances:`);
                 } else {
                     console.log(`Pour la ligne ${row.id}, aucune correspondance trouvée.`);
                 }
@@ -47,15 +47,15 @@ async function fixSupabase(table, options = {}) {
 
         // Remplacement des retours à la ligne par "<br/>"
         const updatePromises = data.map(async (row) => {
-            if (typeof row.content === 'string') {
-                const updatedContent = row.content.replace(/\\n/g, '<br/>');
-                console.log('Row:', row); // Debugging
-                console.log('Updated Content:', updatedContent); // Debugging
+            if (typeof row.details === 'string') {
+                const updatedContent = row.details.replace(/\]/g, '');
+                //console.log('Row:', row); // Debugging
+                //console.log('Updated Content:', updatedContent); // Debugging
 
                 // Mise à jour de la donnée dans Supabase
                 const { error: updateError } = await supabase
                     .from(table)
-                    .update({ content: updatedContent })
+                    .update({ details: updatedContent })
                     .match({ id: row.id }); // Suppose que le champ "id" identifie de manière unique la ligne
 
                 if (updateError) {
@@ -71,4 +71,4 @@ async function fixSupabase(table, options = {}) {
 }
 
 // Exécute la fonction pour la table "posts" avec un filtre sur shop_id
-fixSupabase('reviews', { match: { shop_id: process.env.SHOP_ID } })
+fixSupabase('products', { match: { shop_id: 1 } })

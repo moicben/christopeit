@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const Categories = ({ categories, title, data }) => {
   // Filter out "all"
-  const filteredCategories = categories.filter(category => category.slug !== "all");
+  const filteredCategories = categories.filter(category => category.slug !== "all" && category.slug !== "bestsellers");
 
   // Fonction pour gérer l'ajout et la suppression de classes
   const handleMouseEnter = (e) => {

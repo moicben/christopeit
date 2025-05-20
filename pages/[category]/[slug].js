@@ -282,7 +282,7 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
         <Products
           categories={categories}
           products={relatedProducts}
-          title={`Nos autres ${category.title}`}
+          title={`Autres Équipements - ${category.title}`}
           showCategoryFilter={false}
           data={data}
           shop={shop}
@@ -295,7 +295,7 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
         <div className="cta-banner">
           <div className="banner-content">
               <h3>{product.title}</h3>
-              <p className="description">{product.desc.replace(/<li>/g, '').replace(/<\/li>/g, ' ⋅').replace(/<\/il>/g, '').replace(/<ul>/g, '').replace(/<\/ul>/g, '').replace(/<strong>/g, '').replace(/<\/strong>/g, '').replace(/<b>/g, '').replace(/<\/b>/g, '')}</p>
+              <p className="description">{product.desc.replace(/<li>/g, ', ').replace(/<\/li>/g, ' ⋅').replace(/<\/il>/g, '').replace(/<ul>/g, '').replace(/<\/ul>/g, '').replace(/<strong>/g, '').replace(/<\/strong>/g, '').replace(/<b>/g, '').replace(/<\/b>/g, '').replace(/<br>/g, ', ')}</p>
               {product.discounted ? (
                 <>
                   <p className="price new color-primary">

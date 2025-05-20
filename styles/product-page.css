@@ -300,7 +300,9 @@ section.product-hero {
   position: absolute;
   margin: 0;
   top: -2rem;
-  left: 2.7rem;
+  left: 0;
+  width: 50%;
+  text-align: center;
   color: #999;
   font-weight: 500;
   text-transform: uppercase;

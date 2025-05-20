@@ -45,7 +45,7 @@ const Home = ({ data, shop, brand, products, categories, reviews }) => {
         <section className="hero">
           <h1>{data.heroTitle}</h1>
           <p>{data.heroDesc}</p>
-          <a href="/boutique"><button>{data.heroCta}</button></a>
+          <a href="/musculation"><button>{data.heroCta}</button></a>
           <div className='filter'></div>
           <video ref={videoRef} autoPlay muted loop playsInline>
             <source src={data.heroMedia} type='video/mp4' />
