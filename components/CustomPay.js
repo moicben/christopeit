@@ -101,7 +101,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     // Attendre que l'initialisation se termine sans erreur
     if (initPromiseRef.current) {
       try {
-        await initPromiseRef.current;
+        await initPromiseRef.current; 
       } catch (error) {
         throw new Error("L'initialisation du paiement a échoué : " + error.message);
       }
