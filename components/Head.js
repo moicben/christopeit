@@ -103,6 +103,7 @@ const MyHead = ({ title, description, name, domain, favicon, graph, font, colorP
         `}
       </script>
 
+
       {/* Google tag 2 */}
       <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16785527373"></script>
       <script>
@@ -110,7 +111,7 @@ const MyHead = ({ title, description, name, domain, favicon, graph, font, colorP
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-
+ 
           gtag('config', 'AW-16785527373');
         `}
       </script>
