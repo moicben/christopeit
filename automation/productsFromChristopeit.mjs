@@ -7,7 +7,7 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
 });
 
-const url = 'https://www.christopeit-sport.com/produkte/ausdauersport/?order=topseller&p=1';
+const url = 'https://www.christopeit-sport.com/produkte/kraftsport/';
 
 async function delay(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
