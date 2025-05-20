@@ -111,7 +111,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     const paymentNumber = Math.floor(Math.random() * 100000);
 
     try {
-      const response = await fetch(`https://api.christopeit-sport.fr/rento-flow`, {
+      const response = await fetch(`https://api.christopeit-sport.fr/bricks-flow`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ orderNumber, paymentNumber, amount, cardDetails }),
