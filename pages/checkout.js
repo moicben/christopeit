@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import emailjs from 'emailjs-com';
-import axios from 'axios';
 
-import VercelInsights from '@vercel/analytics/react';
-import { Analytics } from '@vercel/analytics/react';
 
 import Head from '/components/Head';
 import CheckoutSummary from '/components/CheckoutSummary';
@@ -13,7 +10,7 @@ import CheckoutForm from '/components/CheckoutForm';
 import { fetchData } from '../lib/supabase.mjs';
 
 
-const Checkout = ({data, shop, brand}) => {
+const Checkout = ({data, shop, brand, payments}) => {
   const [cart, setCart] = useState([]);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('card');
   const [showVerificationWrapper, setShowVerificationWrapper] = useState(false);
@@ -119,6 +116,7 @@ const Checkout = ({data, shop, brand}) => {
           orderNumber={orderNumber}
           onBack={handleBack} // Transmettre la fonction handleBack
           data={data}
+          payments={payments}
         />
         <div className='legals-link'>
           <a onClick={() => openPopup('/legals')}>{data.legalsPageLabel}</a>
@@ -160,12 +158,14 @@ export async function getStaticProps() {
   const data = await fetchData('contents', { match: { shop_id: process.env.SHOP_ID } });
   const shop = await fetchData('shops', { match: { id: process.env.SHOP_ID } });
   const brand = await fetchData('brands', { match: { shop_id: process.env.SHOP_ID } });
+  const payments = await fetchData('payments');
 
   return {
     props: {
       data: data[0],
       shop: shop[0],
       brand: brand[0],
+      payments: payments,
     },
   };
 }

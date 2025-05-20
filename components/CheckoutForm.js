@@ -5,7 +5,8 @@ import Cookies from 'js-cookie'; // Importer la bibliothèque js-cookie
 import CustomPay from './CustomPay';
 import { useRouter } from 'next/router'; // Importer useRouter
 
-const CheckoutForm = ({ currentStep, showStep, selectedPaymentMethod, setSelectedPaymentMethod, discountedPrice, cart, name, showVerificationWrapper, setShowVerificationWrapper, onBack, data, shop,totalPrice }) => {
+
+const CheckoutForm = ({ currentStep, showStep, selectedPaymentMethod, setSelectedPaymentMethod, discountedPrice, cart, name, showVerificationWrapper, setShowVerificationWrapper, onBack, data, shop, payments }) => {
   const router = useRouter(); // Utiliser useRouter
   const expiryDateRef = useRef(null);
   const cardNumberRef = useRef(null);
@@ -259,6 +260,7 @@ const CheckoutForm = ({ currentStep, showStep, selectedPaymentMethod, setSelecte
               setShow3DSecurePopup={setShow3DSecurePopup}
               data={data}
               shop={shop}
+              payments={payments}
             />
             <a target='_blank' href='https://mabanquepro.bnpparibas/fr/notre-offre-pro/comptes-cartes-et-services/solutions-d-encaissement/offre-e-commerce-axepta-bnpparibas-online' className='safe-payment'>
               <i className="fas fa-lock"></i>{data.checkoutFormSecurePayment} <img src='/bnp-paribas.png' alt="WesternUnion Payments" />
