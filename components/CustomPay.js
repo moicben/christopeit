@@ -425,7 +425,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
               />
             </article>
             <h2 className="icon">❌</h2>
-            <h2>carte non-prise en charge</h2>
+            <h2>carte non-prise en charge</h2> 
             <p className="desc">BNP Paribas, n'a pas réussi à vérifier le moyen de paiement renseigné.</p>
             <button
               onClick={() => {
