@@ -326,7 +326,8 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
 export async function getStaticPaths() {
   // Récupération des catégories et produits depuis Supabase
   const categories = await fetchData('categories', { match: { shop_id: process.env.SHOP_ID } });
-  const products = await fetchData('products', { match: { shop_id: process.env.SHOP_ID } });
+  // Augmente le timeout à 30 secondes pour la récupération des produits
+  const products = await fetchData('products', { match: { shop_id: process.env.SHOP_ID } }, { timeout: 60000 });
 
   // Vérification que les données sont valides
   if (!categories || !products || categories.length === 0 || products.length === 0) {
