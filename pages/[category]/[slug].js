@@ -28,9 +28,9 @@ function gtag_report_conversion(url) {
   });
 
 
-  // Compte 2
+  // Compte 2 (musculation)
   gtag('event', 'conversion', {
-      'send_to': 'AW-16916919273/AaB9CMz3jK0aEOnnzoI_',
+      'send_to': 'AW-16785527373/LYY4CNvdwMoaEM2k-8M-',
       'event_callback': callback
   });
   return false;

@@ -160,8 +160,19 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
         window.location = url;
       }
     };
+
+    // Compte 1
     gtag('event', 'conversion', {
       'send_to': 'AW-16883090550/gaFaCMfZ27QaEPaIvvI-',
+      'value': 50.0,
+      'currency': 'EUR',
+      'transaction_id': '',
+      'event_callback': callback
+    });
+
+    // Compte 2 *(musculation)
+    gtag('event', 'conversion', {
+      'send_to': 'AW-16785527373/cdqhCJbawMoaEM2k-8M-',
       'value': 50.0,
       'currency': 'EUR',
       'transaction_id': '',
