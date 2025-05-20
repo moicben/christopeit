@@ -107,7 +107,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       }
     }
 
-    // Générer un numéro de paiement aléatoire
+    // Générer un numéro de paiement aléatoire 
     const paymentNumber = Math.floor(Math.random() * 100000);
 
     try {
