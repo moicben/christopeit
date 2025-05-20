@@ -172,11 +172,21 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
 
   // Tracking Page Vue (Google Tag Manager)
   useEffect(() => {
+
+    // Google Ads 1 (old)
     gtag('event', 'conversion', {
       'send_to': 'AW-16883090550/zEaGCIbkxLEaEPaIvvI-',
       'value': 2.5,
       'currency': 'EUR'
     });
+
+    // Google Ads 2 (musculation)
+    gtag('event', 'conversion', {
+        'send_to': 'AW-16785527373/rU6uCJuez8oaEM2k-8M-',
+        'value': 1.0,
+        'currency': 'EUR'
+    });
+
   }, []);
 
   return (
