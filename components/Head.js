@@ -106,7 +106,7 @@ const MyHead = ({ title, description, name, domain, favicon, graph, font, colorP
       {/* Google tag 2 */}
       <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16785527373"></script>
       <script>
-        {`
+        {` 
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
