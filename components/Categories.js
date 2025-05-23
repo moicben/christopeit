@@ -21,7 +21,7 @@ const Categories = ({ categories, title, data }) => {
           {filteredCategories.map((category, index) => (
             <a href={`/${category.slug}`} key={index} className="category-card" style={{ backgroundImage: `url(${category.image})` }}>
               <div className="category-content">
-                <h3>{category.title}</h3>
+                <h3>{category.name}</h3>
                 <p
                   className="category-button"
                   onMouseEnter={handleMouseEnter}

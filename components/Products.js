@@ -31,7 +31,13 @@ const Products = ({ title, products, description, showCategoryFilter = true, ini
     return priceMatch && categoryMatch;
   });
 
+  // 🔹 Trier : bestsellers en premier, puis selon le critère choisi
   const sortedProducts = filteredProducts.sort((a, b) => {
+    // 1) Best-seller first
+    if (a.bestseller !== b.bestseller) {
+      return (b.bestseller ? 1 : 0) - (a.bestseller ? 1 : 0);
+    }
+    // 2) Ensuite, tri selon sortOrder
     const priceA = a.price;
     const priceB = b.price;
     const titleA = a.title.toLowerCase();
@@ -46,6 +52,7 @@ const Products = ({ title, products, description, showCategoryFilter = true, ini
     } else if (sortOrder === 'za') {
       return titleB.localeCompare(titleA);
     }
+    return 0;
   });
 
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -98,7 +105,7 @@ const Products = ({ title, products, description, showCategoryFilter = true, ini
       HU: require('date-fns/locale/hu'),
       RO: require('date-fns/locale/ro')
     };
-
+          
     // console.log("LANGUEEE" + shop.language)
     const language = languageMap[shop.language]; // Utilisation de la locale correspondante ou undefined par défaut
     const deliveryDate = addDays(today, deliveryDays);

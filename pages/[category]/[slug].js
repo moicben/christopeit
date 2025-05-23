@@ -271,31 +271,46 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
         <Reviews data={data} />
   
         <section className="product-details">
-          <div className="wrapper advantages" dangerouslySetInnerHTML={{ __html: product.advantages }}/>
-          <div className="wrapper" dangerouslySetInnerHTML={{ __html: product.more1 }}/>
-          <div className="wrapper" dangerouslySetInnerHTML={{ __html: product.more2 }}/>
-          <div className="wrapper" dangerouslySetInnerHTML={{ __html: product.more3 }}/>
+          {product.advantages && (<div className="wrapper advantages" dangerouslySetInnerHTML={{ __html: product.advantages }}/>)}
+          <div className="wrapper more" dangerouslySetInnerHTML={{ __html: product.more1 }}/>
+          {product.more2 && (<div className="wrapper" dangerouslySetInnerHTML={{ __html: product.more2 }}/>)}
+          {product.more3 && (<div className="wrapper" dangerouslySetInnerHTML={{ __html: product.more3 }}/>)}
         </section>
   
-        <Testimonials data={data} shop={shop} reviews={reviews} />
+        
 
         <Products
           categories={categories}
           products={relatedProducts}
-          title={`Autres Équipements - ${category.title}`}
+          title={`Produits similaires`}
           showCategoryFilter={false}
           data={data}
           shop={shop}
         />
 
-        <Categories title='Catégories similaires' categories={otherCategories} data={data}/>
+        <Testimonials data={data} shop={shop} reviews={reviews} />
+
+        <Categories title='Autres catégories' categories={otherCategories} data={data}/>
         
       </main>
       {showBanner && (
         <div className="cta-banner">
           <div className="banner-content">
               <h3>{product.title}</h3>
-              <p className="description">{product.desc.replace(/<li>/g, ', ').replace(/<\/li>/g, ' ⋅').replace(/<\/il>/g, '').replace(/<ul>/g, '').replace(/<\/ul>/g, '').replace(/<strong>/g, '').replace(/<\/strong>/g, '').replace(/<b>/g, '').replace(/<\/b>/g, '').replace(/<br>/g, ', ')}</p>
+              <p className="description">{product.desc
+                .replace(/<a[\s\S]*?<\/a>/gi, '') // remove <a> tags and their content
+                .replace(/<li>/g, '')
+                .replace(/<\/li>/g, ' ⋅')
+                .replace(/<\/il>/g, '')
+                .replace(/<ul>/g, '')
+                .replace(/<\/ul>/g, '') 
+                .replace(/<strong>/g, '')
+                .replace(/<\/strong>/g, '')
+                .replace(/<b>/g, '')
+                .replace(/<\/b>/g, '')
+                .replace(/<br>/g, ', ')
+                .replace(/, /g, ' ')
+              }</p>
               {product.discounted ? (
                 <>
                   <p className="price new color-primary">
@@ -325,7 +340,7 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
 
 export async function getStaticPaths() {
   // Récupération des catégories et produits depuis Supabase
-  const categories = await fetchData('categories', { match: { shop_id: process.env.SHOP_ID } });
+  const categories = await fetchData('categories', { match: { shop_id: process.env.SHOP_ID, show: true }, order: { id: 'desc' } });
   const products = await fetchData('products', { match: { shop_id: process.env.SHOP_ID } });
 
   // Vérification que les données sont valides
@@ -366,7 +381,7 @@ export async function getStaticProps({ params }) {
   const data = await fetchData('contents', { match: { shop_id: process.env.SHOP_ID } });
 
   // Récupération des catégories et produits depuis Supabase
-  const categories = await fetchData('categories', { match: { shop_id: process.env.SHOP_ID } });
+  const categories = await fetchData('categories', { match: { shop_id: process.env.SHOP_ID, show: true }, order: { id: 'desc' } });
   const products = await fetchData('products', { match: { shop_id: process.env.SHOP_ID } });
   const reviews = await fetchData('reviews', { match: { shop_id: process.env.SHOP_ID } });
 

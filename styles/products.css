@@ -65,7 +65,7 @@
 
 .product-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 0rem;
 }
 
@@ -110,10 +110,10 @@
 .product-item h3 {
   margin: 4rem 0rem 0;
   font-weight: 400;
-  height: 1.5rem;
   color: #111;
   overflow: hidden;
   font-size: 1rem;
+  height: 1.5rem;
 }
 
 .product-item p {
@@ -283,7 +283,7 @@
   }
 
   .product-item.best-seller .best-wrap{
-    bottom:10rem;
+    bottom:8.5rem;
   }
 
   .product-item .initial-price{

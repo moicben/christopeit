@@ -120,7 +120,7 @@ const CategoryPage = ({data, shop, brand, categories, category, filteredProducts
 
 // 🔹 Génération des pages dynamiques
 export async function getStaticPaths() {
-  const categories = await fetchData('categories', { match: { shop_id: process.env.SHOP_ID } });
+  const categories = await fetchData('categories', { match: { shop_id: process.env.SHOP_ID, show: true }, order: { id: 'desc' } });
   
   const paths = categories.map((category) => ({
     params: { category: category.slug },
@@ -131,7 +131,7 @@ export async function getStaticPaths() {
 
 // 🔹 Préchargement des données côté serveur
 export async function getStaticProps({ params }) {
-  const categories = await fetchData('categories', { match: { shop_id: process.env.SHOP_ID } });
+  const categories = await fetchData('categories', { match: { shop_id: process.env.SHOP_ID, show: true }, order: { id: 'desc' } });
   const products = await fetchData('products', { match: { shop_id: process.env.SHOP_ID } });
   const shop = await fetchData('shops', { match: { id: process.env.SHOP_ID } });
   const data = await fetchData('contents', { match: { shop_id: process.env.SHOP_ID } });

@@ -45,11 +45,9 @@ const Home = ({ data, shop, brand, products, categories, reviews }) => {
         <section className="hero">
           <h1>{data.heroTitle}</h1>
           <p>{data.heroDesc}</p>
-          <a href="/musculation"><button>{data.heroCta}</button></a>
+          <a href="/halteres-musculation"><button>{data.heroCta}</button></a>
           <div className='filter'></div>
-          <video ref={videoRef} autoPlay muted loop playsInline>
-            <source src={data.heroMedia} type='video/mp4' />
-          </video>
+          <img src={data.heroMedia} alt="Hero" />
         </section>
 
         <ScrollingBanner items={data.saleBanner} />
@@ -91,7 +89,7 @@ export async function getStaticProps() {
   const brand = await fetchData('brands', { match: { shop_id: process.env.SHOP_ID } });
 
   const products = await fetchData('products', { match: { shop_id: process.env.SHOP_ID } });
-  const categories = await fetchData('categories', { match: { shop_id: process.env.SHOP_ID }, order: { id: 'desc' } });
+  const categories = await fetchData('categories', { match: { shop_id: process.env.SHOP_ID, show: true }, order: { id: 'desc' } });
   const reviews = await fetchData('reviews', { match: { shop_id: process.env.SHOP_ID } });
   const posts = await fetchData('posts', { match: { shop_id: process.env.SHOP_ID } });
 

@@ -77,7 +77,7 @@ export default function ProductInfos({ product, handleAddToCart, buttonText, sho
         <li>
           <i className="fas fa-box-open"></i>
           <span>
-            Expédié <br></br>sous 48h
+            Expédié <br></br>sous 24h
           </span>
         </li>
       </ul>
@@ -93,13 +93,15 @@ export default function ProductInfos({ product, handleAddToCart, buttonText, sho
         <p>- Retours étendus jusqu'au 14/03/2025 </p>
       </div> */}
       <div className='carousels-container'>
-        <details >
-          <summary>Détails techniques du produit</summary>
-          <div
-            className="product-content"
-            dangerouslySetInnerHTML={{ __html: product.details }}
-          />
-        </details>
+        {product.details && (
+          <details >
+            <summary>Détails techniques du produit</summary>
+            <div
+              className="product-content"
+              dangerouslySetInnerHTML={{ __html: product.details }}
+            />
+          </details>
+        )}
         <details >
           <summary>Livraison, garantie et retours</summary>
           <div className="product-content guarantee">

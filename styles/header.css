@@ -56,7 +56,7 @@
 
   .nav .dropdown {
     position: relative;
-    margin-left: 4rem;
+    margin-left: 6rem;
     margin-right: 0;
   }
 
@@ -132,17 +132,6 @@
     gap: 1rem;
   }
 
-  /*Hide categories "all"*/
-  .header nav li:nth-child(2),
-  .header nav li:nth-child(6){
-    display: none;
-  }
-
-  /*Re-order Musculation in second*/
-  .header nav li:nth-child(7),
-  .header nav li:nth-child(1){
-    order: -1;
-  }
   
   .header nav a {
     text-decoration: none;
@@ -382,7 +371,7 @@
 
 
 
-@media (max-width: 1280px){
+@media (max-width: 1080px){
   .nav .dropdown {
     margin-left : 0rem;
   }

@@ -30,7 +30,6 @@ section.product-hero {
 
 .product-page .popup-content{
   width: 800px;
-  height: 100vh;
   margin: 0 auto;
   padding: 0;
   overflow: hidden;
@@ -501,21 +500,6 @@ details .product-content table{
   width: 100%;
 }
 
-.product-details .wrapper > div > div{
-  display: flex;
-  justify-content: space-between;
-}
-
-.product-details .wrapper > div > div > div{
-  width: calc(50% - 2rem);
-}
-
-.product-details .wrapper:last-child{
-  margin-bottom: 0rem;
-  padding-bottom: 4rem;
-}
-
-
 .product-details h2{
   font-size: 2rem;
   text-align: center;
@@ -544,20 +528,101 @@ details .product-content table{
   width: 100%;
 }
 
-.product-details .wrapper.advantages > div > div{
+.product-details .wrapper h3 {
+  font-weight: 500;
+}
+
+/* Product Advantages */
+
+.wrapper.advantages h3{
+  color: #666;
+  font-size: 1.25rem;
+  margin-bottom: -1rem;
+}
+
+.wrapper.advantages{
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  margin: 0 -1rem;
-  text-align: center;
+  background-color: #FAEFE6;
+  padding: 4rem 4rem 2rem 4rem ;
+}
+
+.wrapper.advantages > *{
+  min-width: calc(50% - 4rem) !important;
+  width: calc(50% - 4rem) !important;
+  max-width: calc(50% - 4rem) !important;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper.advantages > span{
+  padding-bottom: 2rem;
+}
+
+.wrapper.advantages > *:nth-child(1){
+  
+}
+.wrapper.advantages > *:nth-child(1){
+  order: 1;
+}
+.wrapper.advantages > *:nth-child(2) {
+  order: 3;
+}
+.wrapper.advantages>*:nth-child(3) {
+  order: 2;
+}
+.wrapper.advantages>*:nth-child(4) {
+  order: 4;
+}
+.wrapper.advantages>*:nth-child(5) {
+  order: 5;
+}
+.wrapper.advantages>*:nth-child(6) {
+  order: 7;
+}
+.wrapper.advantages>*:nth-child(7) {
+  order: 6;
+}
+.wrapper.advantages>*:nth-child(8) {
+  order: 8;
+}
+.wrapper.advantages>*:nth-child(9) {
+  order: 9;
+}
+.wrapper.advantages>*:nth-child(10) {
+  order: 11;
+}
+.wrapper.advantages>*:nth-child(11) {
+  order: 10;
+}
+.wrapper.advantages>*:nth-child(12) {
+  order: 12;
+}
+.wrapper.advantages>*:nth-child(13) {
+  order: 13;
+}
+.wrapper.advantages>*:nth-child(14) {
+  order:15;
 }
 
 
+/* Product More Content */
 
-.product-details .wrapper.advantages > div > div > div{
-  padding: 1rem;
+.wrapper.more{
+  padding: 4rem 4rem 4rem 4rem;
+
 }
 
+.concepttechno-block{
+  display: flex;
+  align-items: center;
+}
 
+h3.vtmn-typo_title-5.vtmn-mb-4{
+  margin-top: 4rem;
+}
 
 
 
