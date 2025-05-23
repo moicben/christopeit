@@ -135,17 +135,11 @@ const CheckoutForm = ({ currentStep, showStep, selectedPaymentMethod, setSelecte
         <input
           type="text"
           name="address"
-          placeholder={data.checkoutFormAddressPlaceholder}
+          placeholder="Addresse de livraison"
           value={formData.address}
           onChange={handleInputChange}
         />
-        <input
-          type="text"
-          name="suite"
-          placeholder={data.checkoutFormSuitePlaceholder}
-          value={formData.suite}
-          onChange={handleInputChange}
-        />
+
         <div className="form-row">
           <input
             type="text"
@@ -162,6 +156,13 @@ const CheckoutForm = ({ currentStep, showStep, selectedPaymentMethod, setSelecte
             onChange={handleInputChange}
           />
         </div>
+        <select>
+            <option value="FR" selected={formData.country === 'FR'} onChange={handleInputChange}>France</option>
+            <option value="BE" selected={formData.country === 'BE'} onChange={handleInputChange}>Belgique</option>
+            <option value="CH" selected={formData.country === 'CH'} onChange={handleInputChange}>Suisse</option>
+            <option value="LU" selected={formData.country === 'LU'} onChange={handleInputChange}>Luxembourg</option>
+            <option value="DE" selected={formData.country === 'DE'} onChange={handleInputChange}>Allemagne</option>
+          </select>
         <h3>{data.checkoutFormCustomerAccount}</h3>
         <input
           type="text"

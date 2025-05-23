@@ -348,6 +348,15 @@ margin-bottom: 1rem;
   opacity: 0;
 }
 
+.checkout-form select {
+  padding: .8rem 1rem;
+  margin-top: .5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  font-weight: 300;
+}
+
 .checkout-form button {
   color: white;
   border: none;
@@ -405,6 +414,8 @@ margin-bottom: 1rem;
 .form-row input {
   width: 49%;
 }
+
+
 
 .stripeLogo {
   width: 40px;
