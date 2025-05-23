@@ -45,7 +45,7 @@ const Home = ({ data, shop, brand, products, categories, reviews }) => {
         <section className="hero">
           <h1>{data.heroTitle}</h1>
           <p>{data.heroDesc}</p>
-          <a href="/halteres-musculation"><button>{data.heroCta}</button></a>
+          <a href="/halteres"><button>Découvrir les haltères</button></a>
           <div className='filter'></div>
           <img src={data.heroMedia} alt="Hero" />
         </section>
