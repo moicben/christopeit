@@ -2,7 +2,7 @@ const fs = require('fs');
 const { Parser } = require('json2csv');
 
 // Lire le fichier JSON
-const jsonFilePath = './products.json';
+const jsonFilePath = './decathlon-products.json';
 const csvFilePath = './products.csv';
 
 fs.readFile(jsonFilePath, 'utf8', (err, data) => {
@@ -17,22 +17,19 @@ fs.readFile(jsonFilePath, 'utf8', (err, data) => {
 
     // Transformer les données pour correspondre aux nouvelles colonnes
     const transformedData = products.map(product => ({
-      category_id: 7, // Valeur fixe
+      category_id: 10, // Valeur fixe
       shop_id: 1, // Valeur fixe
-      slug: product.slug || '',
-      title: product.productTitle || '',
-      desc: product.productDescription?.replace(/<[^>]*>/g, '').trim() || '', // Supprimer les balises HTML
-      metaTitle: product.productTitle || '',
-      metaDesc: product.productDescription?.replace(/<[^>]*>/g, '').trim() || '',
-      images: JSON.stringify(product.productImages || []),
-      details: JSON.stringify(product.productDetails || []),
-      price: product.productPrice?.replace(/[^0-9.,]/g, '').trim() || '', // Supprimer les caractères non numériques
+      slug: product.slug,
+      title: product.productTitle,
+      desc: product.productDescription, 
+      metaTitle: product.productTitle,
+      metaDesc: product.productDescription,
+      images: JSON.stringify(product.productImages),
+      price: product.productPrice?.replace(/[^0-9.,]/g, '').trim(),
       delivery: 'Fast',
       stock: 'En stock',
-      advantages: JSON.stringify(product.productAdvantages?.replace(/<[^>]*>/g, '').trim() || ''),
-      more1: JSON.stringify(product.productHighlight1?.replace(/<[^>]*>/g, '').trim() || ''),
-      more2: JSON.stringify(product.productHighlight2?.replace(/<[^>]*>/g, '').trim() || ''),
-      more3: JSON.stringify(product.productHighlight3?.replace(/<[^>]*>/g, '').trim() || '')
+      advantages: product.productAdvantages,
+      more1: product.productDetails,
     }));
 
     // Convertir en CSV
