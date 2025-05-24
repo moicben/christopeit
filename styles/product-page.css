@@ -504,34 +504,44 @@ details .product-content table{
   text-align: center;
 }
 
-
-.product-details img{
-  height: 100%;
-  object-fit: cover;
-}
-
-
-.product-details .wrapper p:last-child {
-  color:#111;
-  font-size: 1.25rem ;
-}
-
-.product-details .wrapper p:first-child {
-  font-size: 1.6rem;
-  line-height: 2rem;
-  color: #666;
-}
-
-.product-details iframe {
-  height: 414px;
-  width: 100%;
-}
-
 .product-details .wrapper h3 {
   font-weight: 500;
+  margin-bottom: 0;
 }
 
-/* Product Advantages */
+
+
+
+/* Product Advantages OLD */
+.wrapper.advantages h2 {
+  margin-top: 0;
+}
+
+.wrapper.advantages>div{
+  grid-column: span 2;
+}
+.wrapper.advantages > div > div{
+  width: 100%;
+  display: flex;
+}
+
+.wrapper.advantages>div>div>div{
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  padding: 1.5rem;
+}
+
+
+
+.wrapper.advantages h4{
+  font-weight: 400;
+  color: #999;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+/* Product Advantages NEW */
 
 .wrapper.advantages h3{
   color: #666;
@@ -539,80 +549,110 @@ details .product-content table{
   margin-bottom: -1rem;
 }
 
-.wrapper.advantages{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  background-color: #FAEFE6;
-  padding: 4rem 4rem 2rem 4rem ;
+.wrapper.advantages {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:0rem;
+  background-color: #fcf6f2;
+  padding: 4rem 4rem 3rem 4rem;
 }
 
-.wrapper.advantages > *{
-  min-width: calc(50% - 4rem) !important;
-  width: calc(50% - 4rem) !important;
-  max-width: calc(50% - 4rem) !important;
-  display: inline-block;
-  margin: 0;
+.wrapper.advantages > * {
+  order: unset; /* Reset any previous ordering */
+}
+
+.wrapper.advantages > .wrapper.vtmn-mr-4.svelte-bupr9u{
   padding: 0;
+  grid-column: span 1;
 }
 
-.wrapper.advantages > span{
-  padding-bottom: 2rem;
+.wrapper.advantages > span.vtmn-flex.flex-wrap.vtmn-items-center.vtmn-flex-grow.svelte-bupr9u{
+  margin-bottom: 2rem;
 }
 
-.wrapper.advantages > *:nth-child(1){
-  
-}
-.wrapper.advantages > *:nth-child(1){
+.wrapper.advantages > *:nth-child(1) {
   order: 1;
 }
 .wrapper.advantages > *:nth-child(2) {
   order: 3;
 }
-.wrapper.advantages>*:nth-child(3) {
+.wrapper.advantages > *:nth-child(3) {
   order: 2;
 }
-.wrapper.advantages>*:nth-child(4) {
+.wrapper.advantages > *:nth-child(4) {
   order: 4;
 }
-.wrapper.advantages>*:nth-child(5) {
+.wrapper.advantages > *:nth-child(5) {
   order: 5;
 }
-.wrapper.advantages>*:nth-child(6) {
+.wrapper.advantages > *:nth-child(6) {
   order: 7;
 }
-.wrapper.advantages>*:nth-child(7) {
+.wrapper.advantages > *:nth-child(7) {
   order: 6;
 }
-.wrapper.advantages>*:nth-child(8) {
+.wrapper.advantages > *:nth-child(8) {
   order: 8;
 }
-.wrapper.advantages>*:nth-child(9) {
-  order: 9;
+.wrapper.advantages > *:nth-child(9) {
+  display: none;
 }
-.wrapper.advantages>*:nth-child(10) {
-  order: 11;
+.wrapper.advantages > *:nth-child(10) {
+  display: none;
 }
-.wrapper.advantages>*:nth-child(11) {
-  order: 10;
+.wrapper.advantages > *:nth-child(11) {
+  display: none;
 }
-.wrapper.advantages>*:nth-child(12) {
-  order: 12;
+.wrapper.advantages > *:nth-child(12) {
+  display: none;
 }
-.wrapper.advantages>*:nth-child(13) {
-  order: 13;
+.wrapper.advantages > *:nth-child(13) {
+  display: none;
 }
-.wrapper.advantages>*:nth-child(14) {
-  order:15;
+.wrapper.advantages > *:nth-child(14) {
+  display: none;
 }
 
 
-/* Product More Content */
+/* Wrapper More OLD */
 
-.wrapper.more{
-  padding: 4rem 4rem 4rem 4rem;
+.wrapper.more>div{
+  
 
 }
+
+.wrapper.more>div>div{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.wrapper.more>div>div> div{
+  width: calc(50% - 2rem);
+}
+
+.wrapper.more > div> div > div > p{
+  font-size: 2rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #999;
+}
+
+.wrapper.more>div>div>div{
+  font-size: 18px;
+  font-weight: 300;
+  color: #111;
+}
+
+.wrapper.more>div>div>div iframe,
+.wrapper.more>div>div>div img{
+  width: 100%;
+  height: 400px;
+  object-fit: cover;  
+}
+
+
+/* Wrapper More NEW */
 
 .concepttechno-block{
   display: flex;
@@ -623,6 +663,28 @@ h3.vtmn-typo_title-5.vtmn-mb-4{
   margin-top: 4rem;
 }
 
+.wrapper.more {
+  padding: 4rem 4rem 4rem 4rem;
+
+}
+
+.wrapper.more ul {
+  flex-direction: column;
+}
+
+.wrapper.more li {
+  list-style: disc;
+  margin-left: 1rem;
+  font-weight: 300;
+}
+
+.wrapper.more p{
+  font-size: 1rem;
+}
+
+.wrapper.more li::marker {
+  color: #333;
+}
 
 
 
@@ -800,6 +862,10 @@ h3.vtmn-typo_title-5.vtmn-mb-4{
 
 /* Mobile Styles */
 @media (max-width: 1024px) {
+  .product-page .popup-overlay{
+    align-items: center;
+  }
+
   .product-hero .wrapper{
     padding: 0rem;
   }
@@ -813,7 +879,7 @@ h3.vtmn-typo_title-5.vtmn-mb-4{
   }
 
   .product-page .popup-content{
-    height: 450px;
+    height: 75vh;
     width: 100%;
   }
 
@@ -930,7 +996,7 @@ h3.vtmn-typo_title-5.vtmn-mb-4{
   }
 
   .product-details {
-  padding: 1rem 2rem 0 2rem;
+  
   }
 
   .product-details .wrapper{
@@ -954,7 +1020,34 @@ h3.vtmn-typo_title-5.vtmn-mb-4{
     width: 100%;
   }
 
-  .product-details .wrapper.advantages>div>div>div{
+  .wrapper.more {
+    padding: 2rem;
+  }
+
+  /* Product Advantages */
+
+  .wrapper.advantages{
+    padding: 2rem;
+    margin: 2em 0;
+  }
+
+  
+
+  .wrapper.advantages>div>div>div>div {
+    width: 100%;
+  }
+
+    .wrapper.advantages h4{
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+  .wrapper.advantages img{
+    width: 100%;
+    max-height: 300px;
+  }
+
+  .wrapper.advantages>div>div>div{
     padding: 0;
   }
 
@@ -975,7 +1068,7 @@ h3.vtmn-typo_title-5.vtmn-mb-4{
   .product-details img{
     min-width:calc(100% + 4rem);
     margin-left: -2rem;
-    height: 275px;
+    height: 275px !important;
     object-fit: cover;
   }
 
@@ -992,8 +1085,26 @@ h3.vtmn-typo_title-5.vtmn-mb-4{
   }
 
   .product-details .advantages h4{
-    margin: .5rem 0 1.5rem 0;
+    margin: 1rem 0 1.5rem 0;
   }
+
+  /* Product Advantages NEW */
+    .wrapper.advantages img.svelte-11itto {
+      min-width: auto;
+      height: 48px !important;
+      width: auto;
+    }
+
+    .wrapper.advantages h3{
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      margin-right: 1rem;
+    }
+
+    .wrapper.advantages p.vtmn-mt-4.vtmn-mb-0.vtmn-w-full.vtmn-order-3.svelte-bupr9u{
+      font-size: 1rem;
+      margin-right: 1rem;
+    }
 
   .product-content {
     max-width: 100%;

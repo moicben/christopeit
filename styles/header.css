@@ -54,9 +54,18 @@
     margin-left: -4rem;
   }
 
+    .nav .dropdown.fitness{
+      margin-left: 0;
+    }
+
+  .nav .dropdown.fitness i{
+    border: none;
+    font-size: 1rem;
+  }
+
   .nav .dropdown {
     position: relative;
-    margin-left: 6rem;
+    margin-left: 4rem;
     margin-right: 0;
   }
 
@@ -107,6 +116,7 @@
     padding: .75rem .75rem .5rem;
     font-weight: 400;
     font-size: .89rem;
+    min-width: 100px;
   }
   
   .nav .dropdown:hover .dropdown-menu {
@@ -394,19 +404,19 @@
     }
 
     .header .nav ul{
-        width: 100%;
-        position: absolute;
-        right: -100%;
-        top: 86px;
-        background-color: white;
-        z-index: 10;
-        flex-direction: column;
-        transition: 0.5s ease-in-out;
-        height: calc(100vh - 3rem);
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        border-top: solid 1px #dee2e6;
+      width: 100%;
+      position: absolute;
+      right: -105%;
+      top: 86px;
+      background-color: white;
+      z-index: 10;
+      flex-direction: column;
+      transition: 0.5s ease-in-out;
+      height: calc(100vh - 3rem);
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      border-top: solid 1px #dee2e6;
     }
 
     .header .nav ul.open {
@@ -414,11 +424,11 @@
     }
 
     .header ul li:nth-child(1){
-      margin-top: 5vh;
+      margin-top: 2rem;
     }
 
     .nav ul li {
-        margin-bottom: 5vh ;
+        margin-bottom: 2rem ;
         text-align: center;
     }
 
@@ -484,10 +494,27 @@
       top: 5px;
     }
 
-    .dropdown{
+    .dropdown.fitness{
+      width: 100%;
+      left: -1rem;
+      top: -7.5rem;
+      border-top: none;
+    }
+
+    .dropdown.fitness .dropdown-menu{
+      border-top: none;
+    }
+
+    .dropdown.fitness .dropdown-menu li a{
+      font-weight: 500;
+    }
+
+
+
+    .dropdown.brand{
       width: 100%;
         left: -1.5rem;
-        top: -11vh;
+        top: 5vh;
     }
 
     .dropdown > a{
@@ -498,9 +525,9 @@
       display: block !important;
     }
 
-        .nav .dropdown{
-          margin-left: 1rem;
-        }
+    .nav .dropdown{
+      margin-left: 1rem;
+    }
 
     .nav .dropdown-menu {
       position: static;

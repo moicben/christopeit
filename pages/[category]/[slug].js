@@ -7,6 +7,7 @@ import Products from '../../components/Products';
 import Reviews from '../../components/Reviews';
 import Categories from '../../components/Categories'; 
 import Testimonials from 'components/Testimonials';
+import ScrollingBanner from 'components/ScrollingBanner';
 
 import ProductInfos from '../../components/ProductInfos';
 
@@ -201,7 +202,7 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
       
       <main className='product-page'>
         <Header logo={brand.logo} categories={categories} data={data} shop={shop} reviews={reviews} />
-
+        <ScrollingBanner items={data.saleBanner} />
         {isPopupVisible && (
           <div className="popup-overlay" onClick={closePopup}>
             <button class="close-popup"><i class="fas fa-times"></i></button>
@@ -272,9 +273,9 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
   
         <section className="product-details">
           {product.advantages && (<div className="wrapper advantages" dangerouslySetInnerHTML={{ __html: product.advantages }}/>)}
-          <div className="wrapper more" dangerouslySetInnerHTML={{ __html: product.more1 }}/>
-          {product.more2 && (<div className="wrapper" dangerouslySetInnerHTML={{ __html: product.more2 }}/>)}
-          {product.more3 && (<div className="wrapper" dangerouslySetInnerHTML={{ __html: product.more3 }}/>)}
+          {product.more1 && (<div className="wrapper more" dangerouslySetInnerHTML={{ __html: product.more1 }}/>)}
+          {product.more2 && (<div className="wrapper more" dangerouslySetInnerHTML={{ __html: product.more2 }}/>)}
+          {product.more3 && (<div className="wrapper more" dangerouslySetInnerHTML={{ __html: product.more3 }}/>)}
         </section>
   
         

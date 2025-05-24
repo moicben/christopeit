@@ -64,22 +64,9 @@ const ReviewsBadge = ({domain, logo, reviewCtaHead, reviews}) => {
     return totalReviews > 0 ? ((starReviews / totalReviews) * 100).toFixed(2) : 0;
   };
 
-  // Filtrer les avis par étoiles si un filtre est sélectionné
-    const filteredReviews = reviews
+  // Filtrer les avis par étoiles si un filtre est sélectionné, puis trier par date décroissante
+  const filteredReviews = reviews
     .filter((review) => {
-      const reviewStars = Number(review.stars);
-      return (
-        (selectedStars.length > 0 ? selectedStars.includes(reviewStars) : true) &&
-        review.content &&
-        review.reviewDate && // Correction ici
-        review.experienceDate &&
-        review.author
-      );
-    })
-    .slice((currentPage - 1) * reviewsPerPage, currentPage * reviewsPerPage);
-
-  const totalPages = Math.ceil(
-    reviews.filter((review) => {
       const reviewStars = Number(review.stars);
       return (
         (selectedStars.length > 0 ? selectedStars.includes(reviewStars) : true) &&
@@ -88,7 +75,22 @@ const ReviewsBadge = ({domain, logo, reviewCtaHead, reviews}) => {
         review.experienceDate &&
         review.author
       );
-    }).length / reviewsPerPage
+    })
+    .sort((a, b) => new Date(b.id) - new Date(a.id))  // tri par date desc.
+    .slice((currentPage - 1) * reviewsPerPage, currentPage * reviewsPerPage);
+
+  const totalPages = Math.ceil(
+    reviews
+      .filter((review) => {
+        const reviewStars = Number(review.stars);
+        return (
+          (selectedStars.length > 0 ? selectedStars.includes(reviewStars) : true) &&
+          review.content &&
+          review.reviewDate &&
+          review.experienceDate &&
+          review.author
+        );
+      }).length / reviewsPerPage
   );
 
   // console.log('Total Pages:', totalPages); // Debugging
@@ -214,7 +216,7 @@ const ReviewsBadge = ({domain, logo, reviewCtaHead, reviews}) => {
                     </article>
                     <p dangerouslySetInnerHTML={{ __html: review.content }}></p>
                     <span className="review-info">
-                      Avis du <b>{review.date}</b>, suite à une expérience du{' '}
+                      Avis du <b>{review.reviewDate}</b>, suite à une expérience du{' '}
                       {review.experienceDate} par <b>{review.author}</b>
                     </span>
                   </li>

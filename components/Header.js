@@ -118,15 +118,30 @@ const Header = ({ name, domain, logo,categories, data, shop, reviews }) => {
           <a className="logo-header" href="/"><img src={logo} alt="Logo"/></a>
           <nav className="nav">
             <ul>
-              {categories
-                .sort((a, b) => a.id - b.id) // Tri des catégories par id
-                .map((category) => (
-                <li key={category.id}>
-                  <a href={`/${category.slug}`}>{category.name}</a>
-                </li>
-              ))}
-                    
-              <li className="dropdown">
+              <li>
+                <a href='/bestsellers'>Bestsellers</a>
+              </li>
+              <li>
+                <a href='/halteres'>Haltères</a>
+              </li>
+              <li>
+                <a href='/kits-halteres'>Kits</a>
+              </li>
+              <li>
+                <a href='/barres-musculation'>Barres</a>
+              </li>
+
+              <li className="dropdown fitness">
+                <a href="#"><i className='fas fa-chevron-down'/>Fitness</a>
+                <ul className="dropdown-menu">
+                  <li><a href="/velos-appartement">Vélos</a></li>
+                  <li><a href="/rameurs">Rameurs</a></li>
+                  <li><a href="/tapis-roulants">Tapis</a></li>
+                </ul>
+              </li>
+
+
+              <li className="dropdown brand">
                 <a className='color-primary' href="#"><i className='fas fa-info border-primary'></i>{shop.name}</a>
                 <ul className="dropdown-menu">
                   <li><a href="/about">{data.headerLink1}</a></li>
