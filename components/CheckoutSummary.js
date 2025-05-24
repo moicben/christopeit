@@ -30,7 +30,7 @@ const CheckoutSummary = ({ cart, totalPrice, discount, discountedPrice, name, pa
     <>
       <div className="shop-info">
         <h2>{data.checkoutPayLabel}</h2>
-        <h1 className='color-primary'>{`${(cart.reduce((total, item) => total + item.price * item.quantity, 0) * (1 - `.15`)).toLocaleString(shop.language, { minimumFractionDigits: 2 })} ${shop.currency}`}</h1>
+        <h1 className='color-primary'>{`${(cart.reduce((total, item) => total + item.price * item.quantity, 0) * (1 - `.15`)).toFixed(2)}`}{shop.currency}</h1>
       </div>
       <div className="cart-summary">
         <ul>
@@ -39,7 +39,7 @@ const CheckoutSummary = ({ cart, totalPrice, discount, discountedPrice, name, pa
               <div className="cart-item">
                 <h4>{item.title}</h4>
                 <p className='quantity'>(x{item.quantity})</p>
-                <p>{item.price.toLocaleString(shop.language, { minimumFractionDigits: 2 })} {shop.currency}</p>
+                <p>{item.price.toFixed(2)} {shop.currency}</p>
               </div>
             </li>
           ))}
@@ -47,7 +47,7 @@ const CheckoutSummary = ({ cart, totalPrice, discount, discountedPrice, name, pa
         <div className="cart-item discount">
           <h4>{data.checkoutPromoLabel} <input value="MAI15"/></h4>
           <p className='quantity'>{data.checkoutPromoRate}%</p>
-          <p>{`-${(cart.reduce((total, item) => total + item.price * item.quantity, 0) * `.15`).toLocaleString(shop.language, { minimumFractionDigits: 2 })} ${shop.currency}`}</p>
+          <p>{`-${(cart.reduce((total, item) => total + item.price * item.quantity, 0) * `.15`).toFixed(2)} ${shop.currency}`}</p>
         </div>
         <div className="cart-item discount">
           <h4>{data.productDeliveryLabel}</h4>
@@ -56,12 +56,12 @@ const CheckoutSummary = ({ cart, totalPrice, discount, discountedPrice, name, pa
         </div>
         <div className="cart-item subtotal">
           <h4>{data.checkoutBeforePromo}</h4>
-          <p>{`${cart.reduce((total, item) => total + item.price * item.quantity, 0).toLocaleString(shop.language, { minimumFractionDigits: 2 })} ${shop.currency}`}</p>
+          <p>{`${cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)} ${shop.currency}`}</p>
         </div>
 
         <div className="total-price">
           <h4>{data.cartTotal}</h4>
-          <p>{`${(cart.reduce((total, item) => total + item.price * item.quantity, 0) * (1 - `.15`)).toLocaleString(shop.language, { minimumFractionDigits: 2 })} ${shop.currency}`}</p>
+          <p>{`${(cart.reduce((total, item) => total + item.price * item.quantity, 0) * (1 - `.15`)).toFixed(2)} ${shop.currency}`}</p>
         </div>
       </div>
       <p className='secure footer'>2025 © {data.footerCopyright} - {name} INC. 32455</p>

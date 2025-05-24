@@ -21,7 +21,7 @@ export default async (req, res) => {
 
       // Transform cart to only include product IDs and quantities
       const simplifiedCart = cart.map(item => ({
-        product: item.productTitle, 
+        product: item.title, 
         quantity: item.quantity,  
       }));
 
