@@ -513,6 +513,7 @@ details .product-content table{
 
 
 /* Product Advantages OLD */
+
 .wrapper.advantages h2 {
   margin-top: 0;
 }
@@ -539,6 +540,7 @@ details .product-content table{
   color: #999;
   margin-bottom: 1rem;
   font-size: 1.5rem;
+  text-align: center;
 }
 
 /* Product Advantages NEW */
@@ -554,7 +556,14 @@ details .product-content table{
   grid-template-columns: repeat(2, 1fr);
   gap:0rem;
   background-color: #fcf6f2;
+  max-width: 100%;
+  padding: 0;
+}
+
+.wrapper.advantages > div {
   padding: 4rem 4rem 3rem 4rem;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 .wrapper.advantages > * {
@@ -564,10 +573,11 @@ details .product-content table{
 .wrapper.advantages > .wrapper.vtmn-mr-4.svelte-bupr9u{
   padding: 0;
   grid-column: span 1;
+  margin: 4rem 0 0rem 8rem;
 }
 
 .wrapper.advantages > span.vtmn-flex.flex-wrap.vtmn-items-center.vtmn-flex-grow.svelte-bupr9u{
-  margin-bottom: 2rem;
+  margin: 0rem 0rem 4rem 8rem;
 }
 
 .wrapper.advantages > *:nth-child(1) {
@@ -631,14 +641,14 @@ details .product-content table{
   width: calc(50% - 2rem);
 }
 
-.wrapper.more > div> div > div > p{
+.wrapper.more > div> div > div > p:first-child {
   font-size: 2rem;
   font-weight: 400;
   text-transform: uppercase;
   color: #999;
 }
 
-.wrapper.more>div>div>div{
+.wrapper.more>div>div>div p{
   font-size: 18px;
   font-weight: 300;
   color: #111;
@@ -1031,16 +1041,29 @@ h3.vtmn-typo_title-5.vtmn-mb-4{
     margin: 2em 0;
   }
 
+    .wrapper.advantages > div {
+    padding: 2rem;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .wrapper.advantages .wrapper.vtmn-mr-4.svelte-bupr9u{
+    margin: 0;
+  }
+
+  .wrapper.advantages span.vtmn-flex.flex-wrap.vtmn-items-center.vtmn-flex-grow.svelte-bupr9u{
+    margin: 0 0rem 2rem 0;
+  }
   
 
   .wrapper.advantages>div>div>div>div {
     width: 100%;
   }
 
-    .wrapper.advantages h4{
-      text-align: center;
-      margin-top: 1rem;
-    }
+  .wrapper.advantages h4{
+    text-align: center;
+    margin-top: 1rem;
+  }
 
   .wrapper.advantages img{
     width: 100%;
@@ -1050,6 +1073,22 @@ h3.vtmn-typo_title-5.vtmn-mb-4{
   .wrapper.advantages>div>div>div{
     padding: 0;
   }
+
+  .wrapper.more > div > div > div{
+    margin-bottom: 3rem;
+  }
+
+    .wrapper.more>div>div>div img{
+      margin-bottom: -4rem;
+    }
+
+  .wrapper.more>div>div>div>p:first-child{
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 2rem;
+  }
+
+    
 
   .product-details .wrapper p:first-child {
     font-size: 1.5rem;
@@ -1086,6 +1125,7 @@ h3.vtmn-typo_title-5.vtmn-mb-4{
 
   .product-details .advantages h4{
     margin: 1rem 0 1.5rem 0;
+    font-size: 1.25rem;
   }
 
   /* Product Advantages NEW */

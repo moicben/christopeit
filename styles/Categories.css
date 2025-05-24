@@ -24,6 +24,11 @@
   grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
 }
 
+.category-grid a:nth-child(5),
+.category-grid a:nth-child(6) {
+  display: none;
+}
+
 /* Carte de catégorie */
 .category-card {
   position: relative;
