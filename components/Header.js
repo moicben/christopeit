@@ -147,7 +147,7 @@ const Header = ({ name, domain, logo,categories, data, shop, reviews }) => {
                   <li><a href="/about">{data.headerLink1}</a></li>
                   
                   <li><a href="/blog">{data.headerLink2}</a></li>
-                  <li>
+                  <li> 
                     <a
                       href="#"
                       onClick={(e) => {
