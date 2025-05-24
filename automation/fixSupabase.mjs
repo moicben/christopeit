@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
 
-dotenv.config(); // Assurez-vous d'avoir dotenv installé et configuré
+dotenv.config();
 
 const supabaseUrl = 'https://bpybtzxqypswjiizkzja.supabase.co'
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJweWJ0enhxeXBzd2ppaXpremphIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI1NDE1NjYsImV4cCI6MjA1ODExNzU2Nn0.08Uh9FjenwJ23unlZxyXDDDf4ZurGPjZai1cKBB6r9o'
@@ -17,58 +17,45 @@ const supabase = createClient(supabaseUrl, supabaseKey);
  * @returns {Promise<Object[]>} - Les données initialement récupérées.
  */
 async function fixSupabase(table, options = {}) {
-    // On peut passer une sélection spécifique (ex: "id, title, description")
     const selectFields = '*';
-    // On peut ajouter un filtre par match (ex: { id: 1 })
-    const matchQuery = options.match || {};
+    const matchQuery   = options.match || {};
 
-    const { data, error } = await supabase
+    // On construit la query
+    let query = supabase
         .from(table)
         .select(selectFields)
         .match(matchQuery);
 
-    if (error) {
-        throw new Error(`Erreur lors de la récupération de ${table}: ${error.message}`);
+    // Pour la table reviews, on ajoute un tri sur reviewDate puis experienceDate
+    if (table === 'reviews') {
+        // on ne conserve que les IDs entre 400 et 639
+        query = query
+            .order('reviewDate',    { ascending: true })
+            .order('experienceDate',{ ascending: true })
+            .gte('id', 400)
+            .lte('id', 639);
     }
 
-    // Pour la table "reviews", liste les correspondances avant remplacement puis remplace tous les "\n" dans "content" par "<br>"
-    if (table === table && Array.isArray(data)) {
-        // Parcours de chaque ligne pour lister les correspondances
-        data.forEach((row) => {
-            if (typeof row.details === 'string') {
-                const matches = row.details.match(/\]/g);
-                if (matches) {
-                    console.log(`Pour la ligne ${row.id}, trouvées ${matches.length} correspondances:`);
-                } else {
-                    console.log(`Pour la ligne ${row.id}, aucune correspondance trouvée.`);
-                }
-            }
-        });
-
-        // Remplacement des retours à la ligne par "<br/>"
-        const updatePromises = data.map(async (row) => {
-            if (typeof row.details === 'string') {
-                const updatedContent = row.details.replace(/\]/g, '');
-                //console.log('Row:', row); // Debugging
-                //console.log('Updated Content:', updatedContent); // Debugging
-
-                // Mise à jour de la donnée dans Supabase
-                const { error: updateError } = await supabase
-                    .from(table)
-                    .update({ details: updatedContent })
-                    .match({ id: row.id }); // Suppose que le champ "id" identifie de manière unique la ligne
-
-                if (updateError) {
-                    console.error(`Erreur lors de la mise à jour de la ligne ${row.id}: ${updateError.message}`);
-                }
-            }
-        });
-
-        await Promise.all(updatePromises);
+    const { data, error } = await query;
+    if (error) throw new Error(error.message);
+    if (table === 'reviews' && data.length) {
+        // pour chaque review, on remplace le dernier caractère par "4"
+        await Promise.all(data.map(row => {
+            const rd = String(row.reviewDate);
+            const ed = String(row.experienceDate);
+            return supabase
+                .from('reviews')
+                .update({
+                    reviewDate:    rd.slice(0, -1) + '4',
+                    experienceDate: ed.slice(0, -1) + '4'
+                })
+                .eq('id', row.id);
+        }));
     }
-
     return data;
 }
 
-// Exécute la fonction pour la table "posts" avec un filtre sur shop_id
-fixSupabase('products', { match: { shop_id: 1 } })
+// lance le fix
+fixSupabase('reviews', { match: { shop_id: 1 } })
+  .then(res => console.log(`Mis à jour ${res.length} reviews.`))
+  .catch(err => console.error(err));
