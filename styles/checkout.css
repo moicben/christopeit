@@ -463,7 +463,9 @@ margin-bottom: 1rem;
 }
 
 .payment-method.selected {
-  border: solid 1.5px #333;
+  border: solid 2px #333;
+  height: calc(4rem + 2px);
+  width: calc(100% + 2px);
 }
 
 .payment-method * {
@@ -709,6 +711,17 @@ margin-bottom: 1rem;
 }
 
 
+.verification-popup.error .notice p{
+  font-size: 12px;
+  line-height: 18px;
+  color: #999;
+  font-weight: 300;
+  display: block;
+  margin: 0;
+
+}
+
+
 
 
 .loader {
@@ -947,11 +960,14 @@ margin-bottom: 1rem;
 
   .verification-popup .notice{
     width: 100%;
+    margin-bottom: -.5rem;
+    margin-top: 1.5rem;
   }
 
 
   .verification-popup.d-secure .infos{
     padding: 0.5rem 2rem;
+    width: calc(100% - 2rem);
   }
 
   .input-list span{
