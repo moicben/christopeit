@@ -138,7 +138,7 @@ const Header = ({ name, domain, logo,categories, data, shop, reviews }) => {
                   <li><a href="/rameurs">Rameurs</a></li>
                   <li><a href="/tapis-roulants">Tapis</a></li>
                 </ul>
-              </li>
+              </li> 
 
 
               <li className="dropdown brand">
