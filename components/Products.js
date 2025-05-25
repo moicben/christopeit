@@ -1,17 +1,21 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { format, addDays } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import Pagination from './Pagination'; // Import du composant Pagination
 
 const Products = ({ title, products, description, showCategoryFilter = true, initialCategoryFilter = 'all', disablePagination = false, categories, data, shop }) => {
   const [currentPage, setCurrentPage]   = useState(1);
-  const [sortOrder, setSortOrder]       = useState('az');
+  const [sortOrder, setSortOrder]       = useState('bestsellers');
   const [priceRange, setPriceRange]     = useState('all');
   const [weightRange, setWeightRange]   = useState('all');    // ← nouveau
   const [categoryFilter, setCategoryFilter] = useState(initialCategoryFilter);
   const [hoveredProduct, setHoveredProduct] = useState(null);
   const productsPerPage = 15;
   const productListRef = useRef(null);
+
+  // 1) Nouveaux hooks pour le sticky
+  const [stickyFilters, setStickyFilters] = useState(false);
+  const filtersRef = useRef(null);
 
   // Création d'un dictionnaire pour accéder rapidement aux slugs des catégories par leur ID
   const categorySlugMap = (categories || []).reduce((map, category) => {
@@ -183,11 +187,27 @@ const Products = ({ title, products, description, showCategoryFilter = true, ini
     return format(deliveryDate, 'EEE dd MMM', { locale: language});
   };
 
+  // 2) Effet scroll pour activer le sticky
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!filtersRef.current) return;
+      const triggerOffset = filtersRef.current.offsetTop;
+      setStickyFilters(window.scrollY > triggerOffset);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <section className="products">
       <div className='wrapper'>
         {title && <h2>{title}</h2>}
-        <div className='product-filters'>
+
+        {/* 3) on lie le ref et on ajoute la classe sticky */}
+        <div
+          ref={filtersRef}
+          className={`product-filters${stickyFilters ? ' sticky' : ''}`}
+        >
           <div className='sort-dropdown'>
             <label htmlFor="sortOrder">Trier par : </label>
               <select 
@@ -239,6 +259,7 @@ const Products = ({ title, products, description, showCategoryFilter = true, ini
           </div>
          
         </div>
+
         <div className="product-list" ref={productListRef}>
           {currentProducts.map(product => {
             const categorySlug = categorySlugMap[product.category_id]; // Récupération du slug de la catégorie via category_id
