@@ -131,23 +131,15 @@ const Header = ({ name, domain, logo,categories, data, shop, reviews }) => {
                 <a href='/barres-musculation'>Barres</a>
               </li>
 
-              <li className="dropdown fitness">
+              {/* <li className="dropdown fitness">
                 <a href="#"><i className='fas fa-chevron-down'/>Fitness</a>
                 <ul className="dropdown-menu">
                   <li><a href="/velos-appartement">Vélos</a></li>
                   <li><a href="/rameurs">Rameurs</a></li>
                   <li><a href="/tapis-roulants">Tapis</a></li>
                 </ul>
-              </li> 
-
-
-              <li className="dropdown brand">
-                <a className='color-primary' href="#"><i className='fas fa-info border-primary'></i>{shop.name}</a>
-                <ul className="dropdown-menu">
-                  <li><a href="/about">{data.headerLink1}</a></li>
-                  
-                  <li><a href="/blog">{data.headerLink2}</a></li>
-                  <li> 
+              </li>  */}
+              <li> 
                     <a
                       href="#"
                       onClick={(e) => {
@@ -161,6 +153,15 @@ const Header = ({ name, domain, logo,categories, data, shop, reviews }) => {
                       {data.headerLink3}
                     </a>
                   </li>
+
+
+              <li className="dropdown brand">
+                <a className='color-primary' href="#"><i className='fas fa-info border-primary'></i>{shop.name}</a>
+                <ul className="dropdown-menu">
+                  <li><a href="/about">{data.headerLink1}</a></li>
+                  
+                  <li><a href="/blog">{data.headerLink2}</a></li>
+                  
                   <li><a href="/contact">{data.headerLink4}</a></li>
                   <li><a href="/help">{data.headerLink5}</a></li>
                 </ul>

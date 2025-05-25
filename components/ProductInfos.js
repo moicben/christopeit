@@ -3,6 +3,21 @@ import { format, addDays } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
 export default function ProductInfos({ product, handleAddToCart, buttonText, shop, data }) {
+  // utilitaire pour extraire un tableau de poids numériques
+  const getWeights = (weightJson) => {
+    if (!weightJson) return [];
+    let arr = Array.isArray(weightJson)
+      ? weightJson
+      : (() => {
+          try { return JSON.parse(weightJson); }
+          catch { 
+            const n = parseFloat(weightJson);
+            return isNaN(n) ? [] : [n];
+          }
+        })();
+    return arr.map(v => Number(v)).filter(n => !isNaN(n));
+  };
+
   const handleBuyNow = () => {
     //vider le panier actuel :
     localStorage.setItem('cart', JSON.stringify([]));
@@ -28,8 +43,24 @@ export default function ProductInfos({ product, handleAddToCart, buttonText, sho
   };
 
   return (
-    <div className={`product-info ${product.bestseller ? 'best-seller' : ''}`}>
-      <span className='best-wrap bg-main color-primary'>🏆 {data.productBestsellerLabel}</span>
+    <div className='product-info'>
+      <div className='wrap-infos'>
+      {product.bestseller &&
+       <span className='bestseller bg-main color-primary'>🏆 {data.productBestsellerLabel}</span>
+      }
+
+      {/* affichage poids min–max */}
+      {product.weight && (() => {
+        const w = getWeights(product.weight);
+        if (!w.length) return null;
+        const min = Math.min(...w);
+        const max = Math.max(...w);
+        const label = min === max
+          ? `${min}KG`
+          : `${min}-${max}KG`;
+        return <span className='weight'>{label}</span>;
+      })()}
+      </div>
       <h1>{product.title}</h1>
       {product.discounted ? (
         <>
@@ -49,7 +80,7 @@ export default function ProductInfos({ product, handleAddToCart, buttonText, sho
 
       <article className="purchase-row">
         <p className="comptor">PROMO MAI 15%</p>
-        <button className="buy-now bg-primary border-primary" onClick={handleBuyNow}>
+        <button className="buy-now bg-primary" onClick={handleBuyNow}>
           {data.productBuyFor} {(product.price * 0.85).toFixed(2).replace('.', ',')}{shop.currency}
         </button>
         <button className='bg-white' onClick={handleAddToCart}>{buttonText}</button>

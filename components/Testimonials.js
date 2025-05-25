@@ -35,7 +35,12 @@ const Testimonials = ({shop, data, reviews}) => {
     );
   };
 
-  const currentReviews = reviews.slice(currentIndex, currentIndex + reviewsPerPage);
+  // Trier les avis par id (date) décroissante
+  const sortedReviews = reviews
+    .slice()                                     // duplique le tableau
+    .sort((a, b) => new Date(b.id) - new Date(a.id));
+
+  const currentReviews = sortedReviews.slice(currentIndex, currentIndex + reviewsPerPage);
 
   return (
     <section className="testimonials" id='reviews'>
