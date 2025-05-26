@@ -1,0 +1,268 @@
+.simulator-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.simulator-popup {
+  position: relative;
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 660px;
+}
+
+.simulator-popup img {
+  width: 400px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: .5rem;
+}
+
+.simulator-popup h4 {
+  margin: -1rem 0 1rem 0;
+  font-size: 1rem;
+  color: #666;
+}
+
+.simulator-popup h2 {
+  margin: 0 0 .5rem 0;
+  font-size: 1.5rem;
+  color: #111;
+}
+
+
+
+.simulator-popup > article > h3 {
+  margin: 0 auto 1rem auto;
+  color: #555;
+  font-size: 1rem;
+  width: 400px;
+  text-transform: none;
+  font-weight: 300;
+}
+
+.simulator-popup .close-btn {
+  position: absolute;
+  top: 0rem;
+  right: 1.25rem;
+  background: transparent;
+  padding: 0;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.2s ease-in-out;
+}
+
+.simulator-popup .close-btn:hover {
+  color: red;
+}
+
+
+.simulator-popup .smaller{
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 0;
+}
+
+
+
+/* Step Styles */
+
+.simulator-popup article {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+.simulator-popup article.active {
+  display: flex;
+}
+
+.simulator-popup .levels,
+.simulator-popup .objectives,
+.simulator-popup .budgets {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.simulator-popup .level,
+.simulator-popup .objective,
+.simulator-popup .budget {
+  padding: 0.75rem 1.25rem;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  color: #666;
+}
+
+.simulator-popup .level:hover,
+.simulator-popup .objective:hover,
+.simulator-popup .budget:hover {
+  background: #eee;
+  border-color: #bbb;
+  
+}
+
+.simulator-popup .start-btn,
+.simulator-popup .next-btn,
+.simulator-popup .finish-btn {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+.simulator-popup .start-btn:hover,
+.simulator-popup .next-btn:hover,
+.simulator-popup .finish-btn:hover {
+  background: #333;
+}
+
+.simulator-popup .product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.simulator-popup .product-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.75rem;
+  transition: box-shadow 0.2s;
+  text-align: center;
+}
+.simulator-popup .product-item:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.simulator-popup .product-item img {
+  height: auto;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+}
+.simulator-popup .product-item h3 {
+  font-size: 1rem;
+  margin: 0.25rem 0;
+}
+.simulator-popup .product-item .price {
+  font-weight: 400;
+  color: #666;
+}
+.simulator-popup .product-item .initial-price {
+  text-decoration: line-through;
+  margin-right: 0.5rem;
+  color: #999;
+}
+
+
+
+.simulator-popup .old-price{
+  color: #999;
+  font-weight: 300;
+  font-size: 0.85rem;
+  text-decoration: line-through;
+  margin-left: .5rem;
+}
+
+.simulator-popup .smaller.end{
+  margin: 0rem 2rem 1.5rem 2rem;
+}
+
+.simulator-popup h3.result{
+  font-size: 1rem;
+  color: #666;
+  text-transform: uppercase;
+  font-weight: 400;
+  border: solid 1px #ddd;
+  padding: .5rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 0;
+  width: auto;
+}
+
+
+@media (max-width: 768px) {
+  .simulator-popup{
+    padding: 1.5rem;
+    margin: 1.5rem;
+    width: 100%;
+  }
+
+  .simulator-popup .start-btn{
+    width: 100%;
+  }
+
+  .simulator-popup .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    margin: .5rem 0;
+  }
+  .simulator-popup img {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 0;
+  }
+  .simulator-popup h2 {
+    font-size: 1.1rem;
+  }
+  .simulator-popup > article > h3{
+    width: 100%;
+    font-size: .9rem;
+    line-height: 1.3rem;
+  }
+  .simulator-popup h4 {
+    font-size: 0.9rem;
+  }
+
+  .simulator-popup .levels,
+  .simulator-popup .objectives,
+  .simulator-popup .budgets{
+  flex-direction: column;
+  }
+
+  .simulator-popup .product-grid{
+    gap: 0.5rem;
+  }
+
+  .simulator-popup .product-item h3{
+    height: 2.2rem;
+    font-size: .9rem;
+    line-height: 1.1rem;
+  }
+
+  .simulator-popup .product-item:nth-child(5),
+  .simulator-popup .product-item:nth-child(6){
+    display: none;
+  }
+
+  .simulator-popup .smaller.end {
+    margin: 0rem 2rem 1rem 2rem; 
+    line-height: 1rem;
+  }
+}

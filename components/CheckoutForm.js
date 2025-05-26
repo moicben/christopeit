@@ -190,7 +190,7 @@ const CheckoutForm = ({ currentStep, showStep, selectedPaymentMethod, setSelecte
         <button type="button" id="delivery-checkout" onClick={() => handleNextStep(1)} disabled={isLoading}>
           {isLoading ? <span className="loader border-top-primary"></span> : data.checkoutFormProceedToPayment}
         </button>
-        {globalError && <p className="error">{globalError}</p>}
+        {globalError && <p className="error">Renseignez les informations ci-dessus, avant de passer à la phase de paiement</p>}
       </div>
 
       <div className={`checkout-step ${currentStep === 1 ? 'active' : ''}`}>

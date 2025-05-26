@@ -8,10 +8,11 @@ import Testimonials from '../components/Testimonials';
 import Head from '../components/Head';
 import Categories from '../components/Categories';
 import ScrollingBanner from "components/ScrollingBanner";
+import SimulatorPopup from '../components/SimulatorPopup';
 
 import { fetchData } from "../lib/supabase.mjs";
 
-const CategoryPage = ({data, shop, brand, categories, category, filteredProducts, otherCategories, reviews }) => {
+const CategoryPage = ({data, shop, brand, categories, category, filteredProducts, otherCategories, reviews, products}) => {
   if (!category) {
     return <h1>404 error</h1>;
   }
@@ -39,8 +40,6 @@ const CategoryPage = ({data, shop, brand, categories, category, filteredProducts
 
   return (
     <div className="container">
-
-
       <Head name={shop.name} domain={shop.domain}
             favicon={brand.favicon} graph={brand.graph}
             colorPrimary={brand.colorPrimary} colorSecondary={brand.colorSecondary} colorBlack={brand.colorBlack} colorGrey={brand.colorGrey} bgMain={brand.bgMain} bgLight={brand.bgLight} bgDark={brand.bgDark} radiusBig={brand.radiusBig} radiusMedium={brand.radiusMedium} font={brand.font} 
@@ -58,6 +57,8 @@ const CategoryPage = ({data, shop, brand, categories, category, filteredProducts
           </div>
         </section>
         <ScrollingBanner items={data.saleBanner} />
+
+        <SimulatorPopup products={products} categories={categories}/>
        
         <Products
           products={filteredProducts}
@@ -172,7 +173,7 @@ export async function getStaticProps({ params }) {
       data: data[0],
       brand: brand[0],
       shop: shop[0],
-      products: products[0],
+      products: products,
       otherCategories,
       categories,
       reviews,

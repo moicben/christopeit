@@ -110,6 +110,7 @@ margin-bottom: 1rem;
   width: 5rem;
   opacity: .75;
   margin-left: .25rem;
+  font-size: 13px;
 }
 
 .cart-item * {
@@ -135,12 +136,31 @@ margin-bottom: 1rem;
 }
 
 
-.discount {
+.cart-item.discount {
   display: flex;
   justify-content: space-between;
   margin: 1.5rem 0 2rem 0;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid #ccc;
+  width: 100%;
+  gap: 0;
+}
+
+.cart-item.promo button{
+  position: relative;
+  background-color: #ddd;
+  color: #333;
+  border: none;
+  padding: 0 .5rem;
+  height: 25.5px;
+  top: -1px;
+  font-size: .7rem;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.cart-item.promo h4{
+  width: 100%;
 }
 
 .total-price {
@@ -907,9 +927,15 @@ margin-bottom: 1rem;
   }
 
 
-  .discount {
+  .cart-item.discount {
     margin: 1rem 0 1.5rem 0;
     padding-bottom: 1rem;
+  }
+
+  .cart-item.promo h4{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
   }
 
   .discount h4 {

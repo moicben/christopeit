@@ -31,11 +31,11 @@ const Products = ({ title, products, description, showCategoryFilter = true, ini
     // cas où la colonne arrive déjà sous forme de tableau JS
     if (Array.isArray(weightJson)) {
       arr = weightJson;
-      console.log("getWeights – input array:", arr);
+      //console.log("getWeights – input array:", arr);
     } else {
       try {
         arr = JSON.parse(weightJson);
-        console.log("getWeights – after JSON.parse:", arr);
+        //console.log("getWeights – after JSON.parse:", arr);
       } catch (error) {
         console.warn("getWeights – JSON.parse failed:", error);
         // si ce n'était pas un JSON, on tente un parseFloat

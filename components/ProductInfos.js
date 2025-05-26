@@ -79,9 +79,9 @@ export default function ProductInfos({ product, handleAddToCart, buttonText, sho
       <div className="product-description" dangerouslySetInnerHTML={{ __html: product.desc }} />
 
       <article className="purchase-row">
-        <p className="comptor">PROMO MAI 15%</p>
+        <p className="comptor">PROMO MAI 10%</p>
         <button className="buy-now bg-primary" onClick={handleBuyNow}>
-          {data.productBuyFor} {(product.price * 0.85).toFixed(2).replace('.', ',')}{shop.currency}
+          {data.productBuyFor} {(product.price * 0.90).toFixed(2).replace('.', ',')}{shop.currency}
         </button>
         <button className='bg-white' onClick={handleAddToCart}>{buttonText}</button>
       </article>

@@ -118,13 +118,13 @@
   font-size: .75rem;
   border-radius: 4px;
   opacity: .75;
-  margin-right: .5rem;
 }
 
 
 .product-item > .infos-wrap > .weight {
   background-color: #eee;
   padding: .25rem .5rem;
+  margin-left: .5rem;
 }
 
 .product-item h3 {
@@ -232,7 +232,7 @@
 @media (max-width:1024px){
 
   .products .wrapper{
-    padding: 2rem;
+    padding: 2rem 1rem;
   }
 
   .products h2{
@@ -312,7 +312,17 @@
   }
 
   .product-item .infos-wrap{
+    display: flex;
     bottom:11rem;
+    flex-wrap: wrap;
+  }
+
+  .product-item .infos-wrap > span{
+    margin-bottom: .5rem;
+  }
+
+  .product-item>.infos-wrap>.weight{
+    margin-left: .25rem;
   }
 
   .product-item .initial-price{
