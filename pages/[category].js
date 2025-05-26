@@ -7,6 +7,7 @@ import About from '../components/About';
 import Testimonials from '../components/Testimonials';
 import Head from '../components/Head';
 import Categories from '../components/Categories';
+
 import ScrollingBanner from "components/ScrollingBanner";
 import SimulatorPopup from '../components/SimulatorPopup';
 
@@ -56,8 +57,8 @@ const CategoryPage = ({data, shop, brand, categories, category, filteredProducts
             </div>
           </div>
         </section>
+        
         <ScrollingBanner items={data.saleBanner} />
-
         <SimulatorPopup products={products} categories={categories}/>
        
         <Products

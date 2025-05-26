@@ -37,6 +37,12 @@
   color: #666;
 }
 
+.simulator-popup h5{
+  margin: .5rem 0 0 0;
+  color: #333;
+  font-size: 12px;
+}
+
 .simulator-popup h2 {
   margin: 0 0 .5rem 0;
   font-size: 1.5rem;

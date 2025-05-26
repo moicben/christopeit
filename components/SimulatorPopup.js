@@ -23,7 +23,7 @@ const SimulatorPopup = ({ products = [], categories = [], shop, data }) => {
   // 1) Affiche la popup une seule fois par session, après 10 s
   useEffect(() => {
     const shown = sessionStorage.getItem('SimulatorPopupShown');
-    if (!shown) {
+    if (shown) {
       const timer = setTimeout(() => {
         setIsVisible(true);
         sessionStorage.setItem('SimulatorPopupShown', 'true');
@@ -157,6 +157,7 @@ const SimulatorPopup = ({ products = [], categories = [], shop, data }) => {
           </div>
           <p className="smaller end">🖱️ Cliquez sur un produit pour le découvrir dans un nouvel onglet</p>
           <h3 className='result'>Votre code de réduction : <span className="color-primary">SIMU10{Math.floor(Math.random() * (987 - 156 + 1)) + 156}</span></h3>
+            <h5>Avant de fermer cette fenêtre, copier le code.</h5>
         </article>
       </div>
     </div>

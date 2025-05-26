@@ -10,6 +10,7 @@ import Reviews from '../components/Reviews';
 import Head from '../components/Head';
 import ScrollingBanner from '../components/ScrollingBanner';
 import Categories from '../components/Categories';
+import SimulatorPopup from '../components/SimulatorPopup';
 
 import { fetchData }  from '../lib/supabase.mjs'; // Assurez-vous que le chemin est correct
 import { da } from 'date-fns/locale';
@@ -51,6 +52,7 @@ const Home = ({ data, shop, brand, products, categories, reviews }) => {
         </section>
 
         <ScrollingBanner items={data.saleBanner} />
+        <SimulatorPopup products={products} categories={categories}/>
         
         <section className="intro">
           <div className='wrapper'>
