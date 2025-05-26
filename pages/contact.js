@@ -59,7 +59,7 @@ const Contact = ({ shop,brand, data, categories, reviews }) => {
             <br></br>
             <p><i className="fas fa-map-marker-alt"></i> {shop.address}</p>
             <p><i className="fas fa-envelope"></i> support@{shop.domain.toLowerCase()}</p>
-            <p><i className="fas fa-phone"></i> {shop.phone}</p>
+            <p><i className="fas fa-phone"></i> +44 7832 482 622</p>
           </div>
           <div className="contact-form">
             {formSubmitted ? (
