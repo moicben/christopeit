@@ -1,5 +1,18 @@
 import { useEffect, useState } from 'react';
 
+function gtag_report_conversion(url) {
+  const callback = () => {
+    if (typeof url !== 'undefined') {
+      window.location = url;
+    }
+  };
+  window.gtag('event', 'conversion', {
+    send_to: 'AW-16785527373/4ln6CMra5M0aEM2k-8M-',
+    event_callback: callback
+  });
+  return false;
+}
+
 const SimulatorPopup = ({ products = [], categories = [], shop, data }) => {
   const [isVisible, setIsVisible]       = useState(false);
   const [step, setStep]                 = useState(1);
@@ -10,7 +23,7 @@ const SimulatorPopup = ({ products = [], categories = [], shop, data }) => {
   // 1) Affiche la popup une seule fois par session, après 10 s
   useEffect(() => {
     const shown = sessionStorage.getItem('SimulatorPopupShown');
-    if (shown) {
+    if (!shown) {
       const timer = setTimeout(() => {
         setIsVisible(true);
         sessionStorage.setItem('SimulatorPopupShown', 'true');
@@ -110,12 +123,18 @@ const SimulatorPopup = ({ products = [], categories = [], shop, data }) => {
               <button
                 key={b}
                 className={`budget ${b}`}
-                onClick={() => { setBudgetChoice(b); handleNext(); }}
+                onClick={() => {
+                  // déclenchement de la conversion avant de passer à l'étape suivante
+                  gtag_report_conversion();
+                  setBudgetChoice(b);
+                  handleNext();
+                }}
               >
                 {b === 'low' ? 'Moins de 25€' : b === 'medium' ? '25€ à 75€' : 'Plus de 75€'}
               </button>
             ))}
           </div>
+          <p className='smaller'>Vous allez découvrir le résultat de votre simulation à la prochaine étape.</p>
         </article>
 
         <article className={step === 5 ? 'active' : ''}>
