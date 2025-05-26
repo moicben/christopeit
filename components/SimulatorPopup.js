@@ -23,7 +23,7 @@ const SimulatorPopup = ({ products = [], categories = [], shop, data }) => {
   // 1) Affiche la popup une seule fois par session, après 10 s
   useEffect(() => {
     const shown = sessionStorage.getItem('SimulatorPopupShown');
-    if (shown) {
+    if (!shown) {
       const timer = setTimeout(() => {
         setIsVisible(true);
         sessionStorage.setItem('SimulatorPopupShown', 'true');
