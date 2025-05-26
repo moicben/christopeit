@@ -244,6 +244,7 @@
   }
   .simulator-popup h4 {
     font-size: 0.9rem;
+    margin-top: 0;
   }
 
   .simulator-popup .levels,
