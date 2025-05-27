@@ -401,7 +401,7 @@ export async function getStaticProps({ params }) {
   // Trouver le produit correspondant au slug et à la catégorie
   const product = products.find(p => p.slug === slug && p.category_id === category.id);
 
-  if (!product) {
+  if (!product) { 
     return {
       notFound: true,
     };
