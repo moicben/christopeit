@@ -229,7 +229,7 @@ const Products = ({ title, products, description, showCategoryFilter = true, ini
               <option value="bestsellers">Bestsellers</option>
               <option value="az">Ordre alphabétique</option>
               <option value="asc">Prix croissant (-/+)</option>
-              <option value="desc">Prix décroissant (+/-)</option>
+              <option value="desc">Prix décroissant (+/-)</option> 
               <option value="weight_asc">Poids croissant</option>
               <option value="weight_desc">Poids décroissant</option>
             </select>
