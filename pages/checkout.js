@@ -46,6 +46,29 @@ const Checkout = ({data, shop, brand, payments}) => {
     emailjs.init("8SL7vzVHt7qSqEd4i");
   }, []);
 
+  useEffect(() => {
+    // Ajouter le script GTM au chargement de la page
+    const script1 = document.createElement('script');
+    script1.async = true;
+    script1.src = "https://www.googletagmanager.com/gtag/js?id=AW-16785527373";
+    document.head.appendChild(script1);
+
+    const script2 = document.createElement('script');
+    script2.innerHTML = `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-16785527373');
+    `;
+    document.head.appendChild(script2);
+
+    // Nettoyage des scripts si nécessaire
+    return () => {
+      document.head.removeChild(script1);
+      document.head.removeChild(script2);
+    };
+  }, []);
+
   const totalPrice = cart.reduce((total, item) => {
     const price = item.price;
     return total + (price * item.quantity);
