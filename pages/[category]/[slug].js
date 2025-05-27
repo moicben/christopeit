@@ -29,7 +29,7 @@ function gtag_report_conversion(url) {
   });
 
 
-  // Compte 2 (musculation)
+  // Compte 2 (New)
   gtag('event', 'conversion', {
       'send_to': 'AW-16785527373/LYY4CNvdwMoaEM2k-8M-',
       'event_callback': callback
@@ -405,7 +405,7 @@ export async function getStaticProps({ params }) {
     return {
       notFound: true,
     };
-  }
+  } 
 
   // Produits associés (même catégorie, exclure le produit actuel)
   const relatedProducts = products.filter(
