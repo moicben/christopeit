@@ -179,7 +179,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       'value': 50.0,
       'currency': 'EUR',
       'transaction_id': '',
-      'event_callback': callback
+      'event_callback': callback 
     }); 
 
     
