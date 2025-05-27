@@ -71,7 +71,7 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
       } else {
         setShowBanner(false);
       }
-    };
+    }; 
 
     window.addEventListener('scroll', handleScroll);
 
