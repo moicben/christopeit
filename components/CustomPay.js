@@ -180,7 +180,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       'currency': 'EUR',
       'transaction_id': '',
       'event_callback': callback
-    });
+    }); 
 
     
     return false;
