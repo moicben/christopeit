@@ -389,7 +389,7 @@ export async function getStaticProps({ params }) {
   const reviews = await fetchData('reviews', { match: { shop_id: process.env.SHOP_ID } });
 
 
-  // Trouver la catégorie correspondant au slug
+  // Trouver la catégorie correspondant au slug 
   const category = categories.find(cat => cat.slug === categorySlug);
 
   if (!category) {
