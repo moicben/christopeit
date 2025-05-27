@@ -67,7 +67,7 @@ const Checkout = ({data, shop, brand, payments}) => {
       document.head.removeChild(script1);
       document.head.removeChild(script2);
     };
-  }, []);
+  }, []); 
 
   const totalPrice = cart.reduce((total, item) => {
     const price = item.price;
