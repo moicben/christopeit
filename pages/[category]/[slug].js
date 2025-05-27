@@ -66,7 +66,7 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > window.innerHeight * 1.2) { 
+      if (window.scrollY > window.innerHeight * 1.2) {
         setShowBanner(true);
       } else {
         setShowBanner(false);
@@ -87,7 +87,7 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
     return `${h}h ${m}m ${s}s`;
   };
 
-  if (!product) {
+  if (!product) { 
     return <div>Produit ou site non trouvé</div>;
   }
 
