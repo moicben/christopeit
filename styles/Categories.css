@@ -25,7 +25,9 @@
 }
 
 .category-grid a:nth-child(5),
-.category-grid a:nth-child(6) {
+.category-grid a:nth-child(6),
+.category-grid a:nth-child(7),
+.category-grid a:nth-child(8) {
   display: none;
 }
 

@@ -11,6 +11,7 @@ import Head from '../components/Head';
 import ScrollingBanner from '../components/ScrollingBanner';
 import Categories from '../components/Categories';
 import SimulatorPopup from '../components/SimulatorPopup';
+import Certifications from 'components/Certifications';
 
 import { fetchData }  from '../lib/supabase.mjs'; // Assurez-vous que le chemin est correct
 import { da } from 'date-fns/locale';
@@ -46,13 +47,16 @@ const Home = ({ data, shop, brand, products, categories, reviews }) => {
         <section className="hero">
           <h1>{data.heroTitle}</h1>
           <p>{data.heroDesc}</p>
-          <a href="/halteres"><button>Découvrir les haltères</button></a>
+          <a href="/bestsellers"><button>Découvrir les bestsellers</button></a>
           <div className='filter'></div>
-          <img src={data.heroMedia} alt="Hero" />
+          <video ref={videoRef} autoPlay muted loop playsInline>
+            <source src='https://bpybtzxqypswjiizkzja.supabase.co/storage/v1/object/public/ecom/christopeit-france/hero.webm' type='video/webm' />
+          </video>
+          {/* <img src={data.heroMedia} alt="Hero" /> */}
         </section>
 
         <ScrollingBanner items={data.saleBanner} />
-        <SimulatorPopup products={products} categories={categories}/>
+        {/* <SimulatorPopup products={products} categories={categories}/> */}
         
         <section className="intro">
           <div className='wrapper'>
@@ -71,6 +75,8 @@ const Home = ({ data, shop, brand, products, categories, reviews }) => {
           data={data}
           shop={shop}
         />
+
+        <Certifications/>
         
         <Testimonials data={data} shop={shop} reviews={reviews}/>
         
@@ -91,7 +97,7 @@ export async function getStaticProps() {
   const brand = await fetchData('brands', { match: { shop_id: process.env.SHOP_ID } });
 
   const products = await fetchData('products', { match: { shop_id: process.env.SHOP_ID } });
-  const categories = await fetchData('categories', { match: { shop_id: process.env.SHOP_ID, show: true }, order: { id: 'desc' } });
+  const categories = await fetchData('categories', { match: { shop_id: process.env.SHOP_ID, show: true }, order: { order: 'desc' } });
   const reviews = await fetchData('reviews', { match: { shop_id: process.env.SHOP_ID } });
   const posts = await fetchData('posts', { match: { shop_id: process.env.SHOP_ID } });
 

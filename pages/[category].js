@@ -59,7 +59,7 @@ const CategoryPage = ({data, shop, brand, categories, category, filteredProducts
         </section>
         
         <ScrollingBanner items={data.saleBanner} />
-        <SimulatorPopup products={products} categories={categories}/>
+        {/* <SimulatorPopup products={products} categories={categories}/> */}
        
         <Products
           products={filteredProducts}

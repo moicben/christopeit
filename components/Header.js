@@ -122,21 +122,21 @@ const Header = ({ name, domain, logo,categories, data, shop, reviews }) => {
                 <a href='/bestsellers'>Bestsellers</a>
               </li>
               <li>
-                <a href='/halteres'>Haltères</a>
+                <a href='/velos-appartement'>Vélos</a>
               </li>
               <li>
-                <a href='/kits-halteres'>Kits</a>
+                <a href='/rameurs'>Rameurs</a>
               </li>
               <li>
-                <a href='/barres-musculation'>Barres</a>
+                <a href='/tapis-roulants'>Tapis</a>
               </li>
 
               <li className="dropdown fitness">
-                <a href="#"><i className='fas fa-chevron-down'/>Fitness</a>
+                <a href="#"><i className='fas fa-chevron-down'/>Musculation</a>
                 <ul className="dropdown-menu">
-                  <li><a href="/velos-appartement">Vélos</a></li>
-                  <li><a href="/rameurs">Rameurs</a></li>
-                  <li><a href="/tapis-roulants">Tapis</a></li>
+                  <li><a href="/halteres">Haltères</a></li>
+                  <li><a href="/kits-halteres">Kits</a></li>
+                  <li><a href="/barres-musculation">barres</a></li>
                 </ul>
               </li> 
              

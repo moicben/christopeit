@@ -65,7 +65,7 @@ p{
   font-weight: 300;
 }
 
-button {
+button, .btn-primary {
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   color: white;
@@ -74,6 +74,12 @@ button {
   cursor: pointer;
   font-weight: 400;
   text-transform: uppercase;
+}
+
+
+button:hover,
+.btn-primary:hover{
+  background-color: #a4071f
 }
 
 table {
@@ -136,7 +142,7 @@ td {
   height: 100%;
   position: absolute;
   z-index: 2;
-  opacity: 0.6;
+  opacity: 0.35;
 }
 
 .hero img,

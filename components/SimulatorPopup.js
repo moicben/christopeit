@@ -27,7 +27,7 @@ const SimulatorPopup = ({ products = [], categories = [], shop, data }) => {
       const timer = setTimeout(() => {
         setIsVisible(true);
         sessionStorage.setItem('SimulatorPopupShown', 'true');
-      }, 14000);
+      }, 16000);
       return () => clearTimeout(timer);
     }
   }, []);

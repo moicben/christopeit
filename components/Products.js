@@ -16,6 +16,7 @@ const Products = ({ title, products, description, showCategoryFilter = true, ini
   // 1) Nouveaux hooks pour le sticky
   const [stickyFilters, setStickyFilters] = useState(false);
   const filtersRef = useRef(null);
+  const productsSectionRef = useRef(null); // Référence pour la section des produits
 
   // Création d'un dictionnaire pour accéder rapidement aux slugs des catégories par leur ID
   const categorySlugMap = (categories || []).reduce((map, category) => {
@@ -187,19 +188,28 @@ const Products = ({ title, products, description, showCategoryFilter = true, ini
     return format(deliveryDate, 'EEE dd MMM', { locale: language});
   };
 
-  // 2) Effet scroll pour activer le sticky
+  // 2) Effet scroll pour activer/désactiver le sticky et cacher les filtres
   useEffect(() => {
     const handleScroll = () => {
-      if (!filtersRef.current) return;
+      if (!filtersRef.current || !productsSectionRef.current) return;
+
       const triggerOffset = filtersRef.current.offsetTop;
-      setStickyFilters(window.scrollY > triggerOffset);
+      const sectionBounds = productsSectionRef.current.getBoundingClientRect();
+
+      // Activer le sticky uniquement si la section est visible dans la fenêtre
+      const isSectionVisible = sectionBounds.top < window.innerHeight && sectionBounds.bottom > 0;
+
+      setStickyFilters(
+        isSectionVisible && window.scrollY > triggerOffset
+      );
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <section className="products">
+    <section className="products" ref={productsSectionRef}>
       <div className='wrapper'>
         {title && <h2>{title}</h2>}
 
@@ -207,25 +217,25 @@ const Products = ({ title, products, description, showCategoryFilter = true, ini
         <div
           ref={filtersRef}
           className={`product-filters${stickyFilters ? ' sticky' : ''}`}
+          style={{ display: stickyFilters ? 'flex' : 'none' }} // Cacher les filtres si stickyFilters est false
         >
           <div className='sort-dropdown'>
             <label htmlFor="sortOrder">Trier par : </label>
-              <select 
-                id="sortOrder"
-                value={sortOrder}
-                onChange={(e) => setSortOrder(e.target.value)}
-              >
-                <option value="bestsellers">Bestsellers</option>
-                <option value="az">Ordre alphabétique</option>
-                <option value="asc">Prix croissant (-/+)</option>
-                <option value="desc">Prix décroissant (+/-)</option>
-                <option value="weight_asc">Poids croissant</option>
-                <option value="weight_desc">Poids décroissant</option>
-              </select>
-              
+            <select 
+              id="sortOrder"
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
+            >
+              <option value="bestsellers">Bestsellers</option>
+              <option value="az">Ordre alphabétique</option>
+              <option value="asc">Prix croissant (-/+)</option>
+              <option value="desc">Prix décroissant (+/-)</option>
+              <option value="weight_asc">Poids croissant</option>
+              <option value="weight_desc">Poids décroissant</option>
+            </select>
           </div>
 
-          <div className='sort-dropdown'>
+          {/* <div className='sort-dropdown'>
            <label htmlFor="weightRange">Tranche de poids :</label>
            <select
              id="weightRange"
@@ -239,7 +249,7 @@ const Products = ({ title, products, description, showCategoryFilter = true, ini
              <option value="20-40">20 à 40 KG</option>
              <option value="40+">40 KG et +</option>
            </select>
-         </div>
+         </div> */}
 
           <div className='sort-dropdown'>
             <label htmlFor="priceRange">Tranche de prix : </label>
