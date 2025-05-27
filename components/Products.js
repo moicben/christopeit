@@ -235,7 +235,7 @@ const Products = ({ title, products, description, showCategoryFilter = true, ini
             </select>
           </div>
 
-          {/* <div className='sort-dropdown'>
+          <div className='sort-dropdown'>
            <label htmlFor="weightRange">Tranche de poids :</label>
            <select
              id="weightRange"
@@ -249,7 +249,7 @@ const Products = ({ title, products, description, showCategoryFilter = true, ini
              <option value="20-40">20 à 40 KG</option>
              <option value="40+">40 KG et +</option>
            </select>
-         </div> */}
+         </div>
 
           <div className='sort-dropdown'>
             <label htmlFor="priceRange">Tranche de prix : </label>

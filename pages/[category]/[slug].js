@@ -385,7 +385,7 @@ export async function getStaticProps({ params }) {
 
   // Récupération des catégories et produits depuis Supabase
   const categories = await fetchData('categories', { match: { shop_id: process.env.SHOP_ID, show: true }, order: { id: 'desc' } });
-  const products = await fetchData('products', { match: { shop_id: process.env.SHOP_ID, limit : 60 } });
+  const products = await fetchData('products', { match: { shop_id: process.env.SHOP_ID } });
   const reviews = await fetchData('reviews', { match: { shop_id: process.env.SHOP_ID } });
 
 

