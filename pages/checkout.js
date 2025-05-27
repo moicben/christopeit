@@ -61,7 +61,7 @@ const Checkout = ({data, shop, brand, payments}) => {
       gtag('config', 'AW-16785527373');
     `;
     document.head.appendChild(script2);
- 
+  
     // Nettoyage des scripts si nécessaire
     return () => {
       document.head.removeChild(script1);
