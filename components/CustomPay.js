@@ -164,7 +164,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       }
     };
 
-    // Compte 2 *(New)
+    // Compte 1 
     gtag('event', 'conversion', {
       'send_to': 'AW-16785527373/-cwFCPu_ws4aEM2k-8M-',
       'value': 75.0,
@@ -173,9 +173,9 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       'event_callback': callback
     });
 
-    // Compte 1
+    // Compte 2 *(New)
     gtag('event', 'conversion', {
-      'send_to': 'AW-16883090550/gaFaCMfZ27QaEPaIvvI-',
+      'send_to': 'AW-17125718945/nEsbCKG5ks8aEKH3luY_',
       'value': 50.0,
       'currency': 'EUR',
       'transaction_id': '',

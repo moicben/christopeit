@@ -22,18 +22,18 @@ function gtag_report_conversion(url) {
     }
   };
 
-  // Compte 1 (Initial)
-  gtag('event', 'conversion', {
-      'send_to': 'AW-16883090550/jdTDCK687qEaEPaIvvI-',
-      'event_callback': callback
-  });
-
-
-  // Compte 2 (New)
+  // Compte 1
   gtag('event', 'conversion', {
       'send_to': 'AW-16785527373/LYY4CNvdwMoaEM2k-8M-',
       'event_callback': callback
   });
+
+    // Compte 2 (New)
+    gtag('event', 'conversion', {
+      'send_to': 'AW-17125718945/Uy91CKS5ks8aEKH3luY_',
+      'event_callback': callback
+  });
+
   return false;
 }
 
@@ -174,14 +174,14 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
   // Tracking Page Vue (Google Tag Manager)
   useEffect(() => {
 
-    // Google Ads 1 (old)
+    // Google Ads 2 (new)
     gtag('event', 'conversion', {
-      'send_to': 'AW-16883090550/zEaGCIbkxLEaEPaIvvI-',
-      'value': 2.5,
+      'send_to': 'AW-17125718945/WJ3CCKe5ks8aEKH3luY_',
+      'value': 1.0,
       'currency': 'EUR'
     });
 
-    // Google Ads 2 (musculation)
+    // Google Ads 1
     gtag('event', 'conversion', {
         'send_to': 'AW-16785527373/rU6uCJuez8oaEM2k-8M-',
         'value': 1.0,
