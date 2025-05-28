@@ -76,12 +76,6 @@ button, .btn-primary {
   text-transform: uppercase;
 }
 
-
-button:hover,
-.btn-primary:hover{
-  background-color: #a4071f
-}
-
 table {
   border-collapse: collapse;
 }
