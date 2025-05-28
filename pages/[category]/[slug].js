@@ -188,7 +188,7 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
         'currency': 'EUR'
     });
 
-  }, []);
+  }, []); 
 
   return (
     <div className="container">
