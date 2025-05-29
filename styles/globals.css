@@ -76,6 +76,10 @@ button, .btn-primary {
   text-transform: uppercase;
 }
 
+button:hover, .btn-primary:hover {
+  filter: brightness(0.9); 
+}
+
 table {
   border-collapse: collapse;
 }

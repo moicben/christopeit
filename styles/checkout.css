@@ -393,10 +393,6 @@ margin-bottom: 1rem;
   letter-spacing: .25px;
 }
 
-.checkout-form button:hover {
-  background-color: #a50000;
-}
-
 .checkout-form button .loader {
   border: 3px solid #ffffff;
   border-top: 3px solid #979797;
