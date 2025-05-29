@@ -112,45 +112,30 @@ const Header = ({ name, domain, logo,categories, data, shop, reviews }) => {
        */}
       {/* <section className="sub">
         -15% sur nos équipements code : <span style={{ fontWeight: 500 }}>{data.checkoutPromoCode}</span> &nbsp;|&nbsp; Livraison sous 2 à 5 jours ouvrés &nbsp;|&nbsp; support disponible 7j/7
-      </section> */}
-      <header className="header">
+            </section>  */}
+            <header className="header">
         <div className='wrapper'>
           <a className="logo-header" href="/"><img src={logo} alt="Logo"/></a>
           <nav className="nav">
             <ul>
-              <li>
-                <a href='/bestsellers'>Bestsellers</a>
-              </li>
-              <li>
-                <a href='/velos-appartement'>Vélos</a>
-              </li>
-              <li>
-                <a href='/rameurs'>Rameurs</a>
-              </li>
-              <li>
-                <a href='/tapis-roulants'>Tapis</a>
-              </li>
-
-              <li className="dropdown fitness">
-                <a href="#"><i className='fas fa-chevron-down'/>Musculation</a>
-                <ul className="dropdown-menu">
-                  <li><a href="/halteres">Haltères</a></li>
-                  <li><a href="/kits-halteres">Kits</a></li>
-                  <li><a href="/barres-musculation">barres</a></li>
-                </ul>
-              </li> 
-             
-
+              
+            {categories && categories
+          .sort((a, b) => a.order - b.order)
+          .map((category, index) => (
+          <li key={index}>
+            <a href={`/${category.slug}`}>{category.name}</a>
+          </li>
+              ))}
 
               <li className="dropdown brand">
-                <a className='color-primary' href="#"><i className='fas fa-info border-primary'></i>{shop.name}</a>
-                <ul className="dropdown-menu">
-                  
-                  <li><a href="/about">{data.headerLink1}</a></li>
-                  <li> 
-                    <a
-                      href="#"
-                      onClick={(e) => {
+          <a className='color-primary' href="#"><i className='fas fa-info border-primary'></i>A propos / La marque</a>
+          <ul className="dropdown-menu">
+            
+            {/* <li><a href="/about">{data.headerLink1}</a></li> */}
+            <li> 
+              <a
+                href="#"
+                onClick={(e) => {
                         e.preventDefault(); // Empêche le comportement par défaut du lien
                         const badgeImage = document.querySelector("section.badge-container > img");
                         if (badgeImage) {

@@ -75,8 +75,13 @@ const ReviewsBadge = ({domain, logo, reviewCtaHead, reviews}) => {
         review.experienceDate &&
         review.author
       );
-    })
-    .sort((a, b) => new Date(b.id) - new Date(a.id))  // tri par date desc.
+        })
+        .sort((a, b) => {
+      // Convertir les dates string DD/MM/YYYY en objets Date pour le tri
+      const dateA = new Date(a.reviewDate.split('/').reverse().join('/'));
+      const dateB = new Date(b.reviewDate.split('/').reverse().join('/'));
+      return dateB - dateA; // tri par date décroissante
+        })
     .slice((currentPage - 1) * reviewsPerPage, currentPage * reviewsPerPage);
 
   const totalPages = Math.ceil(

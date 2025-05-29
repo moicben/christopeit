@@ -49,10 +49,11 @@ const Home = ({ data, shop, brand, products, categories, reviews }) => {
           <p>{data.heroDesc}</p>
           <a href="/bestsellers"><button>Découvrir les bestsellers</button></a>
           <div className='filter'></div>
-          <video ref={videoRef} autoPlay muted loop playsInline>
+          <img src={data.heroMedia} alt="Hero" />
+          {/* <video ref={videoRef} autoPlay muted loop playsInline>
             <source src='https://bpybtzxqypswjiizkzja.supabase.co/storage/v1/object/public/ecom/christopeit-france/hero.webm' type='video/webm' />
-          </video>
-          {/* <img src={data.heroMedia} alt="Hero" /> */}
+          </video> */}
+          
         </section>
 
         <ScrollingBanner items={data.saleBanner} />
@@ -76,7 +77,7 @@ const Home = ({ data, shop, brand, products, categories, reviews }) => {
           shop={shop}
         />
 
-        <Certifications/>
+        <Certifications categories={categories}/>
         
         <Testimonials data={data} shop={shop} reviews={reviews}/>
         
@@ -97,7 +98,7 @@ export async function getStaticProps() {
   const brand = await fetchData('brands', { match: { shop_id: process.env.SHOP_ID } });
 
   const products = await fetchData('products', { match: { shop_id: process.env.SHOP_ID } });
-  const categories = await fetchData('categories', { match: { shop_id: process.env.SHOP_ID, show: true }, order: { order: 'desc' } });
+  const categories = await fetchData('categories', { match: { shop_id: process.env.SHOP_ID, show: true }, order: { order: 'asc' } });
   const reviews = await fetchData('reviews', { match: { shop_id: process.env.SHOP_ID } });
   const posts = await fetchData('posts', { match: { shop_id: process.env.SHOP_ID } });
 

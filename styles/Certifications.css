@@ -21,10 +21,6 @@
   align-self: stretch; /* Étire chaque colonne pour occuper toute la hauteur */
 }
 
-.certification-content button:hover,
-.certification-content .btn-primary:hover {
-  background-color: #a4071f
-}
 
 
 .certification-item img {

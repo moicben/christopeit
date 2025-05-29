@@ -13,7 +13,7 @@ const About = ({ data,shop }) => {
               <h2>{data.aboutTitle}</h2>
               <p>{data.aboutDesc}</p>
               <div className='row'></div>
-              <button className='bg-primary' onClick={() => handleNavigation('/about')}>{data.aboutCta}</button>
+              <button className='bg-primary' onClick={() => handleNavigation('/bestsellers')}>{data.aboutCta}</button>
               {/* <button className='phantom' onClick={() => handleNavigation('/contact')}>Nous contacter</button> */}
             </div>
             <div className="about-image">

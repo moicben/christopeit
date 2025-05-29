@@ -90,7 +90,7 @@ export default function ProductInfos({ product, handleAddToCart, buttonText, sho
         <li>
           <i className="fas fa-shield-alt"></i>
           <span>
-            Retour offert<br></br> 60 jours
+            Retour offert<br></br> 90 jours
           </span>
         </li>
         <li>
@@ -150,7 +150,7 @@ export default function ProductInfos({ product, handleAddToCart, buttonText, sho
             <br />
             <br />
             <span className='color-primary'>Retours :</span> <b>Si un équipement ne vous convient pas, vous
-            disposez de 60 jours après réception pour le retourner gratuitement</b>.
+            disposez de 90 jours après réception pour le retourner gratuitement</b>.
             Une fois le colis retourné, nous procédons au remboursement sous 2 jours ouvrés.
             <br />
             <br />
