@@ -83,7 +83,7 @@ export default function ProductInfos({ product, handleAddToCart, buttonText, sho
         <button className="buy-now bg-primary" onClick={handleBuyNow}>
           {data.productBuyFor} {(product.price * 0.90).toFixed(2).replace('.', ',')}{shop.currency}
         </button>
-        <button className='bg-white' onClick={handleAddToCart}>{buttonText}</button>
+        <button className='bg-grey' onClick={handleAddToCart}>{buttonText}</button>
       </article>
 
       <ul className="product-badges">

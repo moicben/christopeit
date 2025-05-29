@@ -74,7 +74,11 @@ const MyHead = ({ title, description, name, domain, favicon, graph, font, colorP
 
           .bg-white{
             background-color: #fff;
-          }s
+          }
+
+          .bg-grey{
+            background-color: #f1f1f1;
+          }
 
           .bg-dark {
             background-color: ${bgDark};
