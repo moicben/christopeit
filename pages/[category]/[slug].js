@@ -22,17 +22,12 @@ function gtag_report_conversion(url) {
     }
   };
 
-  // Compte 1
+  // Macfix : Référence Haltère
   gtag('event', 'conversion', {
-      'send_to': 'AW-16785527373/LYY4CNvdwMoaEM2k-8M-',
-      'event_callback': callback
+    'send_to': 'AW-17128716600/XtutCLGr1M8aELjyzec_',
+    'event_callback': callback
   });
 
-    // Compte 2 (New)
-    gtag('event', 'conversion', {
-      'send_to': 'AW-17125718945/Uy91CKS5ks8aEKH3luY_',
-      'event_callback': callback
-  });
 
   return false;
 }
@@ -174,19 +169,8 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
   // Tracking Page Vue (Google Tag Manager)
   useEffect(() => {
 
-    // Google Ads 2 (new)
-    gtag('event', 'conversion', {
-      'send_to': 'AW-17125718945/WJ3CCKe5ks8aEKH3luY_',
-      'value': 1.0,
-      'currency': 'EUR'
-    });
-
-    // Google Ads 1
-    gtag('event', 'conversion', {
-        'send_to': 'AW-16785527373/rU6uCJuez8oaEM2k-8M-',
-        'value': 1.0,
-        'currency': 'EUR'
-    });
+    // Macfix : Référence Haltère
+    gtag('event', 'conversion', {'send_to': 'AW-17128716600/ImUSCLSr1M8aELjyzec_'});
 
   }, []); 
 

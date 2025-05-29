@@ -164,23 +164,12 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       }
     };
 
-    // Compte 1 
+    // Macfix : Référence Haltère
     gtag('event', 'conversion', {
-      'send_to': 'AW-16785527373/-cwFCPu_ws4aEM2k-8M-',
-      'value': 75.0,
-      'currency': 'EUR',
+      'send_to': 'AW-17128716600/mK8ECMKh1M8aELjyzec_',
       'transaction_id': '',
       'event_callback': callback
-    });
-
-    // Compte 2 *(New)
-    gtag('event', 'conversion', {
-      'send_to': 'AW-17125718945/nEsbCKG5ks8aEKH3luY_',
-      'value': 50.0,
-      'currency': 'EUR',
-      'transaction_id': '',
-      'event_callback': callback 
-    }); 
+  });
 
     
     return false;
