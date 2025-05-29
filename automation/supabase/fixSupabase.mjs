@@ -1,88 +1,72 @@
-import { createClient } from '@supabase/supabase-js';
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-const supabaseUrl = 'https://bpybtzxqypswjiizkzja.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJweWJ0enhxeXBzd2ppaXpremphIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI1NDE1NjYsImV4cCI6MjA1ODExNzU2Nn0.08Uh9FjenwJ23unlZxyXDDDf4ZurGPjZai1cKBB6r9o'
-
-// Crée une instance unique du client Supabase
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { supabase } from '../../lib/supabase.mjs';
 
 /**
- * Récupère les données d'une table donnée, modifie le contenu pour la table "posts"
- * et met à jour les données modifiées dans Supabase.
- * @param {string} table - Le nom de la table à interroger (ex: "products", "categories", "reviews", "content").
- * @param {Object} [options] - Options supplémentaires pour la requête.
- * @returns {Promise<Object[]>} - Les données initialement récupérées.
+ * Met à jour la colonne "order" de la table reviews
+ * pour trier les avis du plus récent au plus vieux basé sur reviewDate
  */
-async function fixSupabase(table, options = {}) {
-    const selectFields = '*';
-    const matchQuery   = options.match || {};
-
-    // On construit la query
-    let query = supabase
-        .from(table)
-        .select(selectFields)
-        .match(matchQuery);
-
-    // Pour la table reviews, on ajoute un tri sur reviewDate puis experienceDate
-    if (table === 'reviews') {
-        // on ne conserve que les IDs entre 400 et 639
-        query = query
-            .order('reviewDate',    { ascending: true })
-            .order('experienceDate',{ ascending: true })
-            .gte('id', 400)
-            .lte('id', 639);
-    }
-
-    const { data, error } = await query;
-    if (error) throw new Error(error.message);
+async function fixReviewsOrder() {
+  try {
+    console.log('🔄 Récupération des avis depuis Supabase...');
     
-    if (table === 'reviews' && data.length) {
-        // pour chaque review, on remplace le dernier caractère par "4"
-        await Promise.all(data.map(row => {
-            const rd = String(row.reviewDate);
-            const ed = String(row.experienceDate);
-            return supabase
-                .from('reviews')
-                .update({
-                    reviewDate:    rd.slice(0, -1) + '4',
-                    experienceDate: ed.slice(0, -1) + '4'
-                })
-                .eq('id', row.id);
-        }));
+    // Récupérer tous les avis avec leur reviewDate
+    const { data: reviews, error: fetchError } = await supabase
+      .from('reviews')
+      .select('id, reviewDate')
+      .eq('shop_id', 1) // Remplacer par l'ID de la boutique si nécessaire
+      .not('reviewDate', 'is', null);
+
+    if (fetchError) {
+      console.error('❌ Erreur lors de la récupération des avis:', fetchError.message);
+      return;
     }
 
-    // Pour la table products avec shop_id 2, on met à jour les category_id
-    if (table === 'products' && data.length) {
-        const categoryMapping = {
-            11: 47,  // category_id 11 → 47
-            10: 43,  // category_id 10 → 43
-            12: 48   // category_id 12 → 48
-        };
-
-        const productsToUpdate = data.filter(product => 
-            product.shop_id === 2 && categoryMapping.hasOwnProperty(product.category_id)
-        );
-
-        console.log(`Produits à mettre à jour: ${productsToUpdate.length}`);
-
-        await Promise.all(productsToUpdate.map(product => {
-            const newCategoryId = categoryMapping[product.category_id];
-            console.log(`Mise à jour produit ID ${product.id}: category_id ${product.category_id} → ${newCategoryId}`);
-            
-            return supabase
-                .from('products')
-                .update({ category_id: newCategoryId })
-                .eq('id', product.id);
-        }));
+    if (!reviews || reviews.length === 0) {
+      console.log('⚠️ Aucun avis trouvé avec une reviewDate valide');
+      return;
     }
 
-    return data;
+    console.log(`📊 ${reviews.length} avis récupérés`);
+
+    // Trier les avis par date (plus récent au plus vieux)
+    // Même logique que dans ReviewsBadge.js
+    const sortedReviews = reviews
+      .filter(review => review.reviewDate) // S'assurer que reviewDate existe
+      .sort((a, b) => {
+        // Convertir les dates string DD/MM/YYYY en objets Date pour le tri
+        const dateA = new Date(a.reviewDate.split('/').reverse().join('/'));
+        const dateB = new Date(b.reviewDate.split('/').reverse().join('/'));
+        return dateB - dateA; // tri par date décroissante (plus récent d'abord)
+      });
+
+    console.log('🔄 Mise à jour de l\'ordre des avis...');
+
+    // Mettre à jour chaque avis avec son nouvel ordre
+    for (let i = 0; i < sortedReviews.length; i++) {
+      const review = sortedReviews[i];
+      const newOrder = i + 1; // L'ordre commence à 1 (plus récent = 1)
+
+      const { error: updateError } = await supabase
+        .from('reviews')
+        .update({ order: newOrder })
+        .eq('id', review.id);
+
+      if (updateError) {
+        console.error(`❌ Erreur lors de la mise à jour de l'avis ${review.id}:`, updateError.message);
+      } else {
+        // Afficher la progression tous les 10 avis
+        if ((i + 1) % 10 === 0 || i === sortedReviews.length - 1) {
+          console.log(`✅ Progression: ${i + 1}/${sortedReviews.length} avis mis à jour`);
+        }
+      }
+    }
+
+    console.log('🎉 Mise à jour de l\'ordre des avis terminée !');
+    console.log(`📈 ${sortedReviews.length} avis ont été réordonnés du plus récent au plus vieux`);
+
+  } catch (error) {
+    console.error('❌ Erreur inattendue:', error.message);
+  }
 }
 
-// lance le fix pour les produits avec shop_id 2
-fixSupabase('products', { match: { shop_id: 2 } })
-  .then(res => console.log(`Traité ${res.length} produits avec shop_id 2.`))
-  .catch(err => console.error(err));
+// Exécuter le script
+fixReviewsOrder();

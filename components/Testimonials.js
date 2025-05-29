@@ -34,11 +34,10 @@ const Testimonials = ({shop, data, reviews}) => {
       prevIndex + reviewsPerPage >= reviews.length ? 0 : prevIndex + reviewsPerPage
     );
   };
-
-  // Trier les avis par id (date) décroissante
+  // Trier les avis par la colonne "order" (du plus récent au plus vieux)
   const sortedReviews = reviews
     .slice()                                     // duplique le tableau
-    .sort((a, b) => new Date(b.id) - new Date(a.id));
+    .sort((a, b) => (a.order || 999) - (b.order || 999)); // Tri croissant par order (1 = plus récent)
 
   const currentReviews = sortedReviews.slice(currentIndex, currentIndex + reviewsPerPage);
 

@@ -63,8 +63,7 @@ const ReviewsBadge = ({domain, logo, reviewCtaHead, reviews}) => {
     const starReviews = getReviewCountByStars(stars);
     return totalReviews > 0 ? ((starReviews / totalReviews) * 100).toFixed(2) : 0;
   };
-
-  // Filtrer les avis par étoiles si un filtre est sélectionné, puis trier par date décroissante
+  // Filtrer les avis par étoiles si un filtre est sélectionné, puis trier par la colonne "order"
   const filteredReviews = reviews
     .filter((review) => {
       const reviewStars = Number(review.stars);
@@ -77,10 +76,8 @@ const ReviewsBadge = ({domain, logo, reviewCtaHead, reviews}) => {
       );
         })
         .sort((a, b) => {
-      // Convertir les dates string DD/MM/YYYY en objets Date pour le tri
-      const dateA = new Date(a.reviewDate.split('/').reverse().join('/'));
-      const dateB = new Date(b.reviewDate.split('/').reverse().join('/'));
-      return dateB - dateA; // tri par date décroissante
+      // Trier par la colonne "order" (du plus récent au plus vieux)
+      return (a.order || 999) - (b.order || 999); // tri croissant par order (1 = plus récent)
         })
     .slice((currentPage - 1) * reviewsPerPage, currentPage * reviewsPerPage);
 
@@ -229,7 +226,7 @@ const ReviewsBadge = ({domain, logo, reviewCtaHead, reviews}) => {
               </ul>
             </div>
             <div className="pagination">
-              <p className="notice">Avis affichés par ordre alphabétique</p>
+              <p className="notice">Avis affichés par ordre chronologique (du plus récent au plus ancien)</p>
               <button
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
