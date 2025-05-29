@@ -65,7 +65,7 @@ const Home = ({ data, shop, brand, products, categories, reviews }) => {
             <p>{data.introDesc}</p>
           </div>
         </section>
-
+ 
         <Categories categories={categories} data={data}/>
  
         <Products 
