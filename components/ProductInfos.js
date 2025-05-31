@@ -42,6 +42,10 @@ export default function ProductInfos({ product, handleAddToCart, buttonText, sho
     return format(deliveryDate, 'EEE dd MMM', { locale: fr });
   };
 
+  const getCurrentMonth = () => {
+    return format(new Date(), 'MMMM', { locale: fr }).toUpperCase();
+  };
+
   return (
     <div className='product-info'>
       <div className='wrap-infos'>
@@ -79,7 +83,7 @@ export default function ProductInfos({ product, handleAddToCart, buttonText, sho
       <div className="product-description" dangerouslySetInnerHTML={{ __html: product.desc }} />
 
       <article className="purchase-row">
-        <p className="comptor">PROMO MAI 10%</p>
+        <p className="comptor">PROMO {getCurrentMonth()} 10%</p>
         <button className="buy-now bg-primary" onClick={handleBuyNow}>
           {data.productBuyFor} {(product.price * 0.90).toFixed(2).replace('.', ',')}{shop.currency}
         </button>

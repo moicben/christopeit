@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
+import { format } from 'date-fns';
+import { fr } from 'date-fns/locale';
 
 import Head from '../../components/Head';
 import Header from '../../components/Header';
@@ -80,6 +82,10 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
     const m = Math.floor((seconds % 3600) / 60);
     const s = seconds % 60;
     return `${h}h ${m}m ${s}s`;
+  };
+
+  const getCurrentMonth = () => {
+    return format(new Date(), 'MMMM', { locale: fr }).toUpperCase();
   };
 
   if (!product) { 
@@ -309,7 +315,7 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
                 )}
             </div>
             <article>
-              <span>PROMO MAI 10%</span>
+              <span>PROMO {getCurrentMonth()} 10%</span>
               <button onClick={handleBuyNow}>{data.productBuyFor} {(product.price * 0.90).toFixed(2).replace('.', ',')}{shop.currency}</button>
             </article>
         </div>

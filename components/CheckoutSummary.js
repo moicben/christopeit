@@ -42,6 +42,10 @@ const CheckoutSummary = ({ cart, data, shop, name }) => {
     return format(deliveryDate, 'EEEE d MMMM', { locale: fr });
   };
 
+  const getCurrentMonth = () => {
+    return format(new Date(), 'MMM', { locale: fr }).toUpperCase();
+  };
+
 
   return (
     <>
@@ -71,7 +75,7 @@ const CheckoutSummary = ({ cart, data, shop, name }) => {
           <h4>
             {promoApplied
               ? 'Promotion Simulateur Bienvenue'
-              : 'Promotion fin de saison : MAI10'}
+              : `Promotion fin de saison : ${getCurrentMonth()}10`}
           </h4>
           <p className="quantity">
             {promoApplied ? '' : `-${(promoRate * 100).toFixed(0)}%`}
