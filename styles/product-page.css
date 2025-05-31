@@ -524,7 +524,6 @@ details .product-content table{
 /* Product Advantages BASE */
 
 .wrapper.advantages{
-  background-color: #fcf6f2;
   display: flex;
   justify-content: center;
   min-width: 100%;
@@ -567,7 +566,7 @@ details .product-content table{
 }
 
 .wrapper.advantages article > span.vtmn-flex.flex-wrap.vtmn-items-center.vtmn-flex-grow.svelte-bupr9u{
-  margin: 0;
+  margin-bottom: 4rem;
 }
 
 .wrapper.advantages article > *:nth-child(1) {

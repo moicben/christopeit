@@ -259,10 +259,10 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
         </div>
       </section>
 
-        <Reviews data={data} />
+        <Reviews reviews={reviews} product={product.id}/>
   
         <section className="product-details">
-          {product.advantages && (<div className="wrapper advantages"><article dangerouslySetInnerHTML={{ __html: product.advantages }}/></div>)}
+          {product.advantages && (<div className="wrapper advantages bg-main"><article dangerouslySetInnerHTML={{ __html: product.advantages }}/></div>)}
           {product.more1 && (<div className="wrapper more" dangerouslySetInnerHTML={{ __html: product.more1 }}/>)}
           {product.more2 && (<div className="wrapper more" dangerouslySetInnerHTML={{ __html: product.more2 }}/>)}
           {product.more3 && (<div className="wrapper more" dangerouslySetInnerHTML={{ __html: product.more3 }}/>)}

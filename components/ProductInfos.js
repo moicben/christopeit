@@ -148,7 +148,7 @@ export default function ProductInfos({ product, handleAddToCart, buttonText, sho
             ouvrées avec un suivi en temps réel.
             <br />
             <br />
-            <span className='color-primary'>Suivi :</span> les délais de livraison varient entre 2 et 5
+            <span className='color-primary'>Suivi :</span> les délais de livraison varient entre 2 et 4
             jours ouvrés selon votre localisation. Vous recevrez par mail un
             numéro de suivi dès l’expédition.
             <br />

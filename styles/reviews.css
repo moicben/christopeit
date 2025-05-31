@@ -57,7 +57,7 @@
   .product-reviews .slide li,
   .product-reviews .slide h3{
     display: block;
-    max-height: 27px;
+
     overflow: hidden;
   }
   
@@ -73,7 +73,6 @@
   }
   
   .product-reviews .slide span{
-    height: 22px;
     overflow: hidden;
     color: #aaa;
     font-weight: 500;
@@ -84,11 +83,16 @@
   }
   
   .product-reviews .slide p{
-    height: 120px;
+    height: 160px;
     overflow-y: auto;
     margin-bottom: 0;
     font-size: .9rem;
   }
+
+    .product-reviews img{
+      margin-top: 1rem;
+      max-width: 240px;
+    }
 
 
 
