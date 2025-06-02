@@ -95,30 +95,18 @@ const MyHead = ({ title, description, name, domain, favicon, graph, font, colorP
         `}
       </style>
 
-      {/* Google tag 1 (Initial) */}
-      <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16883090550"></script>
+      {/* Google tag 1 (Anthony) */}
+      <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17143410321"></script>
       <script>
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
 
-          gtag('config', 'AW-16883090550');
+          gtag('config', 'AW-17143410321');
         `}
       </script>
 
-
-      {/* Google tag 2 */}
-      <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16785527373"></script>
-      <script>
-        {` 
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
- 
-          gtag('config', 'AW-16785527373');
-        `}
-      </script>
 
       <script>
         {`
