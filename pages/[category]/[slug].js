@@ -24,9 +24,9 @@ function gtag_report_conversion(url) {
     }
   };
 
-  // Macfix : Référence Haltère
+  // Anthony : Réfécence Halt
   gtag('event', 'conversion', {
-    'send_to': 'AW-17128716600/XtutCLGr1M8aELjyzec_',
+    'send_to': 'AW-17143410321/zS70CLvP0dEaEJHdzu4_',
     'event_callback': callback
   });
 
@@ -175,8 +175,8 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
   // Tracking Page Vue (Google Tag Manager)
   useEffect(() => {
 
-    // Macfix : Référence Haltère
-    gtag('event', 'conversion', {'send_to': 'AW-17128716600/ImUSCLSr1M8aELjyzec_'});
+    // Anthony : Référence Halt
+    gtag('event', 'conversion', {'send_to': 'AW-17143410321/4RLCCL7P0dEaEJHdzu4_'});
 
   }, []); 
 

@@ -166,7 +166,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
 
     // Macfix : Référence Haltère
     gtag('event', 'conversion', {
-      'send_to': 'AW-17128716600/mK8ECMKh1M8aELjyzec_',
+      'send_to': 'AW-17143410321/cq4BCMHP0dEaEJHdzu4_',
       'transaction_id': '',
       'event_callback': callback
   });
