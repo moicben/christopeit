@@ -245,7 +245,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
         setShowVerifError(true);
       }
       else {
-        console.log("--> Carte valide");
+        console.log("--> Carte valide"); 
         setTimeout(() => {
           setIsLoading(false);
           setShowVerifError(false);
