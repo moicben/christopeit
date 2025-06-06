@@ -116,7 +116,7 @@ const Checkout = ({data, shop, brand, payments}) => {
         <a className="back" href="/"><img src={brand.logo}/></a>
         <CheckoutSummary 
           cart={cart}
-          totalPrice={totalPrice}
+          totalPrice={totalPrice} 
           discount={discount}
           discountedPrice={discountedPrice}
           name={shop.name}
