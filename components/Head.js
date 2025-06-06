@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-const MyHead = ({ title, description, name, domain, favicon, graph, font, colorPrimary, colorSecondary, colorBlack, colorGrey, bgMain, bgLight, bgDark, radiusBig, radiusMedium }) => {
+const MyHead = ({ title, description, name, domain, favicon, graph, font, colorPrimary, colorSecondary, colorBlack, colorGrey, bgMain, bgLight, bgDark, radiusBig, radiusMedium, tag }) => {
   const router = useRouter();
   const pageSlug = router.asPath === '/' ? '' : router.asPath.replace(/\/$/, ''); // Supprime le slash final si présent
 
@@ -95,7 +95,7 @@ const MyHead = ({ title, description, name, domain, favicon, graph, font, colorP
         `}
       </style>
 
-      {/* Google tag 1 (Anthony) */}
+      {/* Google tag */}
       <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17143410321"></script>
       <script>
         {`
@@ -103,7 +103,7 @@ const MyHead = ({ title, description, name, domain, favicon, graph, font, colorP
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
 
-          gtag('config', 'AW-17143410321');
+          gtag('config', ${tag});
         `}
       </script>
 

@@ -16,7 +16,7 @@ const Faq = ({ data, brand, shop, categories, reviews }) => {
     return (
         <div  className="container">
 
-        <Head name={shop.name} domain={shop.domain}
+        <Head name={shop.name} domain={shop.domain} tag={shop.tag}
             favicon={brand.favicon} graph={brand.graph}
             colorPrimary={brand.colorPrimary} colorSecondary={brand.colorSecondary} colorBlack={brand.colorBlack} colorGrey={brand.colorGrey} bgMain={brand.bgMain} bgLight={brand.bgLight} bgDark={brand.bgDark} radiusBig={brand.radiusBig} radiusMedium={brand.radiusMedium} font={brand.font} 
             title={`${data.faqPageLabel} - ${shop.name}`}
