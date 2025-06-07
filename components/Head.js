@@ -28,9 +28,6 @@ const MyHead = ({ title, description, name, domain, favicon, graph, font, colorP
       {/* Custom CSS Style From Supabase Shop */}
       <style>
         {`
-          
-
-
           .radius-medium,
           button {
             border-radius: ${radiusMedium};
@@ -40,7 +37,6 @@ const MyHead = ({ title, description, name, domain, favicon, graph, font, colorP
           .card {
             border-radius: ${radiusBig};
           }
-
 
           .color-primary {
             color: ${colorPrimary} !important;
@@ -57,7 +53,6 @@ const MyHead = ({ title, description, name, domain, favicon, graph, font, colorP
           .color-secondary{
             color: ${colorSecondary};
           }
-
 
           .bg-primary,
           button {
@@ -84,7 +79,6 @@ const MyHead = ({ title, description, name, domain, favicon, graph, font, colorP
             background-color: ${bgDark};
           }
 
-
           .border-primary{
             border-color: ${colorPrimary} !important;
           }
@@ -97,19 +91,38 @@ const MyHead = ({ title, description, name, domain, favicon, graph, font, colorP
 
       {/* Google tag */}
       <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17143410321"></script>
-      <script>
-        {`
+      <script dangerouslySetInnerHTML={{
+        __html: `
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
+          gtag('config', '${tag}');
+        `
+      }} />
 
-          gtag('config', ${tag});
-        `}
-      </script>
+      {/* Meta Pixel Code */}
+      <script dangerouslySetInnerHTML={{
+        __html: `
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', ${pixel});
+          fbq('track', 'PageView');
+        `
+      }} />
+      <noscript>
+        <img height="1" width="1" style={{display:'none'}}
+        src={`https://www.facebook.com/tr?id=${pixel}&ev=PageView&noscript=1`}
+        />
+      </noscript>
 
-
-      <script>
-        {`
+      <script dangerouslySetInnerHTML={{
+        __html: `
           (function(h,o,t,j,a,r){
               h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
               h._hjSettings={hjid:5325018,hjsv:6};
@@ -118,8 +131,8 @@ const MyHead = ({ title, description, name, domain, favicon, graph, font, colorP
               r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
               a.appendChild(r);
           })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-        `}
-      </script>
+        `
+      }} />
 
       <script src="https://js.mollie.com/v1/mollie.js"></script>
     </Head>
