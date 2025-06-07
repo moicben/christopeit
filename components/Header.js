@@ -132,7 +132,7 @@ const Header = ({ name, domain, logo,categories, data, shop, reviews }) => {
           <ul className="dropdown-menu">
             
             {/* <li><a href="/about">{data.headerLink1}</a></li> */}
-            <li> 
+            <li>  
               <a
                 href="#"
                 onClick={(e) => {
