@@ -91,20 +91,16 @@ const MyHead = ({ title, description, name, domain, favicon, graph, font, colorP
 
 
       {/* Google tag */}
-      {
-        tag && (
-          <>
-            <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17143410321"></script>
-            <script dangerouslySetInnerHTML={{
-              __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${tag}');
-              `
-            }} />
-          </>
-        )}
+      <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17143410321"></script>
+      <script dangerouslySetInnerHTML={{
+        __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${tag}');
+        `
+      }} />
+   
 
 
       {/* Meta Pixel Code */}

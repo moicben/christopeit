@@ -270,7 +270,7 @@ const Products = ({ title, products, description, showCategoryFilter = true, ini
          
         </div>
 
-        <div className="product-list" ref={productListRef}>
+        <div className={`product-list ${shop.id === 3 && 'wedinery'}`} ref={productListRef}>
           {currentProducts.map(product => {
             const categorySlug = categorySlugMap[product.category_id]; // Récupération du slug de la catégorie via category_id
             if (!categorySlug) {

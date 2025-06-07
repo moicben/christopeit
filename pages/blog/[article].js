@@ -7,7 +7,7 @@ import Categories from '../../components/Categories';
 
 import { fetchData } from 'lib/supabase.mjs';
 
-const Article = ({ shop, data, brand, article, categories, reviews }) => {
+const Article = ({ shop, data, brand, article, categories, reviews, products }) => {
   const router = useRouter();
   const { article: articleId } = router.query;
 
@@ -54,7 +54,7 @@ const Article = ({ shop, data, brand, article, categories, reviews }) => {
           <button onClick={handleViewAll}>{data.blogViewAll}</button>
         </section>
       </main>
-      <Categories categories={categories} title="Découvrez nos équipements" data={data} />
+      <Categories categories={categories} title="Découvrez nos équipements" data={data} products={products}/>
       <Footer shop={shop} data={data} />
     </div>
   );
@@ -91,6 +91,7 @@ export async function getStaticProps({ params }) {
   const brand = await fetchData('brands', { match: { shop_id: process.env.SHOP_ID } });
   const categories = await fetchData('categories', { match: { shop_id: process.env.SHOP_ID, show: true }, order: { id: 'desc' } });
   const reviews = await fetchData('reviews', { match: { shop_id: process.env.SHOP_ID } });
+  const products = await fetchData('products', { match: { shop_id: process.env.SHOP_ID } });
 
   return {
     props: {
@@ -100,6 +101,7 @@ export async function getStaticProps({ params }) {
       article,
       categories,
       reviews,
+      products,
     },
   };
 }

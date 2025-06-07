@@ -66,7 +66,7 @@ const Home = ({ data, shop, brand, products, categories, reviews }) => {
           </div>
         </section>
  
-        <Categories categories={categories} data={data}/>
+        <Categories categories={categories} data={data} products={products}/>
  
         <Products 
           title={shop.name + ' Bestsellers'} 
@@ -77,7 +77,7 @@ const Home = ({ data, shop, brand, products, categories, reviews }) => {
           shop={shop}
         />
 
-        <Certifications categories={categories}/>
+        <Certifications categories={categories} data={data}/>
         
         <Testimonials data={data} shop={shop} reviews={reviews}/>
         

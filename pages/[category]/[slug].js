@@ -16,7 +16,23 @@ import ProductInfos from '../../components/ProductInfos';
 import {fetchData} from '../../lib/supabase.mjs'; // Assurez-vous que le chemin est correct
 
 
-// Event snippet for Clic "Ajouter au panier" conversion page
+
+
+export default function ProductDetail({ product, category, shop, brand, data, products, categories, relatedProducts, otherCategories, reviews}) {
+  const [cartCount, setCartCount] = useState(0);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const [visibleImageIndex, setVisibleImageIndex] = useState(0);
+  const [buttonText, setButtonText] = useState('Ajouter au panier');
+  const sliderRef = useRef(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [timeLeft, setTimeLeft] = useState(() => {
+    return 7 * 3600 + 37 * 60 + 20;
+  });
+  const [showBanner, setShowBanner] = useState(false);
+
+
+  // Event snippet for Clic "Ajouter au panier" conversion page
 function gtag_report_conversion(url) {
   var callback = function () {
     if (typeof(url) != 'undefined') {
@@ -33,21 +49,6 @@ function gtag_report_conversion(url) {
 
   return false;
 }
-
-export default function ProductDetail({ product, category, shop, brand, data, products, categories, relatedProducts, otherCategories, reviews}) {
-  const [cartCount, setCartCount] = useState(0);
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [quantity, setQuantity] = useState(1);
-  const [visibleImageIndex, setVisibleImageIndex] = useState(0);
-  const [buttonText, setButtonText] = useState('Ajouter au panier');
-  const sliderRef = useRef(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [timeLeft, setTimeLeft] = useState(() => {
-    return 7 * 3600 + 37 * 60 + 20;
-  });
-  const [showBanner, setShowBanner] = useState(false);
-
-
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -262,7 +263,7 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
         <Reviews reviews={reviews} product={product.id}/>
   
         <section className="product-details">
-          {product.advantages && (<div className="wrapper advantages bg-main"><article dangerouslySetInnerHTML={{ __html: product.advantages }}/></div>)}
+          {product.advantages && (<div className={`wrapper advantages bg-main ${shop.id !== 2 && 'full'}`}><article dangerouslySetInnerHTML={{ __html: product.advantages }}/></div>)}
           {product.more1 && (<div className="wrapper more" dangerouslySetInnerHTML={{ __html: product.more1 }}/>)}
           {product.more2 && (<div className="wrapper more" dangerouslySetInnerHTML={{ __html: product.more2 }}/>)}
           {product.more3 && (<div className="wrapper more" dangerouslySetInnerHTML={{ __html: product.more3 }}/>)}
@@ -281,7 +282,7 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
 
         <Testimonials data={data} shop={shop} reviews={reviews} />
 
-        <Categories title='Autres catégories' categories={otherCategories} data={data}/>
+        <Categories title='Autres catégories' categories={otherCategories} data={data} products={products}/>
         
       </main>
       {showBanner && (

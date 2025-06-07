@@ -50,7 +50,7 @@ const Footer = ({ shop,data }) => {
             <div className="footer-column">
               <h4>{data.footerColumnLabel1}</h4>
               <ul>
-                <li><a href="/all">{data.footerLink1}</a></li>
+                <li><a href="/bestsellers">{data.footerLink1}</a></li>
                 <li><a href="/about">{data.footerLink2}</a></li>
                 <li><a href="/contact">{data.footerLink3}</a></li>
                 <li><a href="/help">{data.footerLink4}</a></li>

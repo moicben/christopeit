@@ -113,7 +113,7 @@ const CategoryPage = ({data, shop, brand, categories, category, filteredProducts
         </section>
         
         <Testimonials data={data} shop={shop} reviews={reviews} />
-        <Categories categories={categories} title={data.categorySimilar} data={data}/>
+        <Categories categories={categories} title={data.categorySimilar} data={data} products={products}/>
       </main>
       <Footer shop={shop} data={data} />
     </div>

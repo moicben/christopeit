@@ -110,22 +110,34 @@ const Header = ({ name, domain, logo,categories, data, shop, reviews }) => {
       {/* <script src="https://static.elfsight.com/platform/platform.js" async></script>
       <div class="elfsight-app-ff817ebe-8d94-42a7-a8d9-ace1c29d4f7a" data-elfsight-app-lazy></div>
        */}
-      {/* <section className="sub">
-        -15% sur nos équipements code : <span style={{ fontWeight: 500 }}>{data.checkoutPromoCode}</span> &nbsp;|&nbsp; Livraison sous 2 à 5 jours ouvrés &nbsp;|&nbsp; support disponible 7j/7
-            </section>  */}
+
             <header className="header">
         <div className='wrapper'>
-          <a className="logo-header" href="/"><img src={logo} alt="Logo"/></a>
+          <a className="logo-header" href="/"><img src={logo} alt="Logo" style={shop.id === 3 ? { height: '50px' } : {}} /></a>
           <nav className="nav">
             <ul>
               
-            {categories && categories
-          .sort((a, b) => a.order - b.order)
-          .map((category, index) => (
-          <li key={index}>
-            <a href={`/${category.slug}`}>{category.name}</a>
-          </li>
-              ))}
+              {shop.id === 3 && (
+                <>
+                <li className="dropdown ">
+                  <a className='' href="/bestsellers/eliminateur-peluches">Éliminateur de peluches</a>
+                  <a className='' href="/bestsellers/defroisseur-protatif">Défroisseur portatif</a>
+                  <a className='' href="/bestsellers/nettoyeur-a-vapeur">nettoyeur à vapeur</a>
+                </li>
+                </>
+              )}
+              
+              {shop.id !== 3 && (
+                <>
+                  {categories && categories
+                .sort((a, b) => a.order - b.order)
+                .map((category, index) => (
+                <li key={index}>
+                  <a href={`/${category.slug}`}>{category.name}</a>
+                </li>
+                    ))}
+                </>
+              )}
 
               <li className="dropdown brand">
           <a className='color-primary' href="#"><i className='fas fa-info border-primary'></i>A propos / La marque</a>

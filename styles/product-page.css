@@ -613,6 +613,33 @@ details .product-content table{
 }
 
 
+
+/* Product Advantages FULL STYLE */
+.wrapper.advantages.full article>*:nth-child(1){
+  grid-column: span 2;
+}
+
+.wrapper.advantages.full article > div > div{
+  display: flex;
+  
+  align-items: center;
+  justify-content: center;
+}
+.wrapper.advantages.full article>div>div>div{
+ padding: 1rem;
+}
+
+.wrapper.advantages.full article p,
+.wrapper.advantages.full article h4,
+.wrapper.advantages.full article span{
+  font-size: 1.25rem ;
+  font-weight: 300;
+  color: #666;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+
 /* Wrapper More OLD */
 
 .wrapper.more>div{
@@ -1125,21 +1152,35 @@ h3.vtmn-typo_title-5.vtmn-mb-4{
   }
 
   /* Product Advantages NEW */
-    .wrapper.advantages img.svelte-11itto {
-      min-width: auto;
-      height: 48px !important;
-      width: auto;
-    }
+  .wrapper.advantages img.svelte-11itto {
+    min-width: auto;
+    height: 48px !important;
+    width: auto;
+  }
 
-    .wrapper.advantages h3{
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-      margin-right: 1rem;
-    }
+  .wrapper.advantages h3{
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+  }
 
-    .wrapper.advantages p.vtmn-mt-4.vtmn-mb-0.vtmn-w-full.vtmn-order-3.svelte-bupr9u{
-      font-size: 1rem;
-      margin-right: 1rem;
+  .wrapper.advantages p.vtmn-mt-4.vtmn-mb-0.vtmn-w-full.vtmn-order-3.svelte-bupr9u{
+    font-size: 1rem;
+    margin-right: 1rem;
+  }
+
+  /* Product Advantages FULL STYLE */
+    .wrapper.advantages.full article>div{
+        padding: 0;
+    }
+    
+  .wrapper.advantages.full article > div > div {
+    flex-direction: column;
+    align-items: center;
+  }
+
+    .wrapper.advantages.full article>div>div>div{
+    width: 100%;
     }
 
   .product-content {

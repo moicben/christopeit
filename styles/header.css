@@ -34,6 +34,7 @@
     padding: 2.25rem 4rem;
     position: relative;
     z-index: 11;
+    max-height: 97px;
   }
 
   .logo-header{

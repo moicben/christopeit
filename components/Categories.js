@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 
-const Categories = ({ categories, title, data }) => {
+const Categories = ({ categories, title, data, products }) => {
+  // Vérifier que la boutique a plus de 10 produits
+  if (!products || products.length <= 10) {
+    return null; // Ne rien afficher si 10 produits ou moins
+  }
+
   // Filter out "all" and "bestsellers"
   const filteredCategories = categories.filter(
     c => c.slug !== "all"
