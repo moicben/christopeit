@@ -5,7 +5,7 @@ const ScrollingBanner = ({ items }) => {
   const repeatedItems = [...items, ...items];
 
   return (
-    <div className="scrolling-banner">
+    <div className="scrolling-banner bg-dark">
       <div className="scrolling-banner-track">
         {repeatedItems.map((item, index) => (
           <div key={index} className="scrolling-banner-item">

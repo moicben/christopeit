@@ -76,22 +76,22 @@ const Footer = ({ shop,data }) => {
               </ul>
             </div>
             <div className="footer-column">
-              <h4>{data.footerColumnLabel3}</h4>
+              <h4>Newsletter</h4>
               {submitted ? (
                 <p>Thank you for your registration</p>
               ) : (
                 <form onSubmit={handleSubmit}> 
-                  <label htmlFor="email">{data.footerNewsletter}</label>
+                  <label htmlFor="email">Suivez nos actualités et restez informé de nos promotions exclusives !</label>
                   <input 
                     type="email" 
                     id="email" 
                     name="email" 
-                    placeholder={data.footerNewsletterInput}
+                    placeholder='Addresse e-mail' 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required 
                   />
-                  <button type="submit">{data.footerNewsletterCta}</button>
+                  <button type="submit">Rejoindre la newsletter</button>
                 </form>
               )}
             </div>

@@ -1,7 +1,6 @@
 .scrolling-banner {
   overflow: hidden;
   position: relative;
-  background-color: #111;
 }
 
 .scrolling-banner-track {
