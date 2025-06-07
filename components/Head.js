@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-const MyHead = ({ title, description, name, domain, favicon, graph, font, colorPrimary, colorSecondary, colorBlack, colorGrey, bgMain, bgLight, bgDark, radiusBig, radiusMedium, tag }) => {
+const MyHead = ({ title, description, name, domain, favicon, graph, font, colorPrimary, colorSecondary, colorBlack, colorGrey, bgMain, bgLight, bgDark, radiusBig, radiusMedium, tag, pixel }) => {
   const router = useRouter();
   const pageSlug = router.asPath === '/' ? '' : router.asPath.replace(/\/$/, ''); // Supprime le slash final si présent
 
@@ -89,38 +89,50 @@ const MyHead = ({ title, description, name, domain, favicon, graph, font, colorP
         `}
       </style>
 
+
       {/* Google tag */}
-      <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17143410321"></script>
-      <script dangerouslySetInnerHTML={{
-        __html: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${tag}');
-        `
-      }} />
+      {
+        tag && (
+          <>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17143410321"></script>
+            <script dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${tag}');
+              `
+            }} />
+          </>
+        )}
+
 
       {/* Meta Pixel Code */}
-      <script dangerouslySetInnerHTML={{
-        __html: `
-          !function(f,b,e,v,n,t,s)
-          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-          n.queue=[];t=b.createElement(e);t.async=!0;
-          t.src=v;s=b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t,s)}(window, document,'script',
-          'https://connect.facebook.net/en_US/fbevents.js');
-          fbq('init', ${pixel});
-          fbq('track', 'PageView');
-        `
-      }} />
-      <noscript>
-        <img height="1" width="1" style={{display:'none'}}
-        src={`https://www.facebook.com/tr?id=${pixel}&ev=PageView&noscript=1`}
-        />
-      </noscript>
+      {pixel && (
+        <>
+          <script dangerouslySetInnerHTML={{
+            __html: `
+              !function(f,b,e,v,n,t,s)
+              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+              n.queue=[];t=b.createElement(e);t.async=!0;
+              t.src=v;s=b.getElementsByTagName(e)[0];
+              s.parentNode.insertBefore(t,s)}(window, document,'script',
+              'https://connect.facebook.net/en_US/fbevents.js');
+              fbq('init', '${pixel}');
+              fbq('track', 'PageView');
+            `
+          }} />
+          <noscript>
+            <img height="1" width="1" style={{display:'none'}}
+            src={`https://www.facebook.com/tr?id=${pixel}&ev=PageView&noscript=1`}
+            />
+          </noscript>
+        </>
+      )}
 
+      {/* Hotjar Tracking Code */}
       <script dangerouslySetInnerHTML={{
         __html: `
           (function(h,o,t,j,a,r){
@@ -134,7 +146,6 @@ const MyHead = ({ title, description, name, domain, favicon, graph, font, colorP
         `
       }} />
 
-      <script src="https://js.mollie.com/v1/mollie.js"></script>
     </Head>
   );
 };
