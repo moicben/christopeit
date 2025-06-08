@@ -22,6 +22,33 @@ const Contact = ({ shop,brand, data, categories, reviews }) => {
   
   useEffect(() => {
     emailjs.init("8SL7vzVHt7qSqEd4i");
+    
+    // Add Google Ads conversion tracking script
+    const script = document.createElement('script');
+    script.innerHTML = `
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+            'send_to': 'AW-16883090550/cVA9CIWbm9YaEPaIvvI-',
+            'value': 5.0,
+            'currency': 'EUR',  
+            'event_callback': callback
+        });
+        return false;
+      }
+    `;
+    document.head.appendChild(script);
+    
+    return () => {
+      // Cleanup script on unmount
+      if (document.head.contains(script)) {
+        document.head.removeChild(script);
+      }
+    };
   }, []);
 
   const handleSubmit = (e) => {
@@ -33,6 +60,10 @@ const Contact = ({ shop,brand, data, categories, reviews }) => {
     emailjs.send('gmail-benedikt', 'new-contact', formObject)
       .then(() => {
         setFormSubmitted(true);
+        // Track Google Ads conversion
+        if (typeof window.gtag_report_conversion === 'function') {
+          window.gtag_report_conversion();
+        }
       })
       .catch((error) => {
         console.error('Failed to send email:', error);
