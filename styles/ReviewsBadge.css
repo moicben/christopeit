@@ -70,7 +70,15 @@
 
 
 
-
+.badge-container .review-total-count {
+  color: #111;
+  font-size: .45rem;
+  font-family: 'Inter';
+  font-weight: 800;
+  position: absolute;
+  left: 37px;
+  top: 47.09px;
+}
 
 
 
@@ -313,6 +321,8 @@
   color: #666;
   font-size: .75rem;
 }
+
+
 
 .review-filters button.active {
   background-color: #007bff;
@@ -567,4 +577,9 @@
     margin-right: 0;
     
   }
+
+    .badge-container .review-total-count{
+      left: 31px;
+        top: 40.09px;
+    }
 }

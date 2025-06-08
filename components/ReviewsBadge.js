@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
  // Import des avis
 
 
-const ReviewsBadge = ({domain, logo, reviewCtaHead, reviews}) => {
+const ReviewsBadge = ({count, domain, logo, reviewCtaHead, reviews}) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // État pour le chargement
   const [currentPage, setCurrentPage] = useState(1);
@@ -104,11 +104,12 @@ const ReviewsBadge = ({domain, logo, reviewCtaHead, reviews}) => {
   return (
     <>
       <img
-        src="https://bpybtzxqypswjiizkzja.supabase.co/storage/v1/object/public/ecom/christopeit-france/avis-verifies.png"
+        src="/avis-verifies.png"
         alt="Avis vérifiés"
         onClick={togglePopup}
         style={{ cursor: 'pointer' }}
       />
+      <span className='review-total-count'>{count}</span>
       {isLoading && (
         <div className="spinner-overlay">
           <div className="spinner"></div>
@@ -153,10 +154,10 @@ const ReviewsBadge = ({domain, logo, reviewCtaHead, reviews}) => {
                 </h5>
                 <img className="rate" src="/review-rate.png" alt="Note moyenne" />
                 <span className="info-rate">
-                  Basé sur <span className="bolder">378 avis</span> collectés au cours des 12
+                  Basé sur <span className="bolder">{Math.round(count * 0.36)}</span> collectés au cours des 12
                   derniers mois
                   <br />
-                  <span className="bolder">1464 avis depuis le 20/01/2019</span>
+                  <span className="bolder">{count} avis depuis le 20/01/2019</span>
                 </span>
               </article>
               <article className="control">

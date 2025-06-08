@@ -1,0 +1,71 @@
+
+/* Header  */
+.logo-header.wedinery img{
+  height: 48px;
+  width: auto;
+}
+
+
+/* Product List  */
+.wedinery .product-item img {
+  min-width: 100%;
+  height: 370px;
+  object-fit: cover;
+  border-radius: .5rem;
+}
+
+.wedinery .product-item .infos-wrap {
+  display: none;
+}
+
+
+.wedinery .product-item h3 {
+  margin-top: 1rem;
+  height: auto;
+}
+
+.product-list.wedinery {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.wedinery .wrapper.more img{
+  width: 400px;
+  height: 600px;
+  object-fit: cover;
+}
+
+
+
+
+@media (max-width: 1024px) {
+
+  /* Header Styles */
+  .wedinery.header{
+    position: static;
+    margin-top:-86px
+  }
+
+
+  /* Products List  */
+  .wedinery.product-list {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+  .wedinery .product-item img {
+    height: 320px;
+    width: 100%;
+  }
+
+
+    /* Product Page  */
+    .wedinery .large-image {
+      height: 360px;
+    }
+
+    .product-details iframe,
+    .product-details img{
+      height: auto !important;
+      max-width: 100% !important;
+    }
+    
+}

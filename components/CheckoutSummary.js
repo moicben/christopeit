@@ -57,12 +57,16 @@ const CheckoutSummary = ({ cart, data, shop, name }) => {
         </h1>
       </div>
 
-      <div className="cart-summary">
-        <ul>
+      <div className="cart-summary">        <ul>
           {cart.map((item, i) => (
             <li key={i}>
               <div className="cart-item">
-                <h4>{item.title}</h4>
+                <div className="item-details">
+                  <h4>{item.title}</h4>
+                  {item.selectedOption && (
+                    <p className="selected-option">{item.selectedOption.title}</p>
+                  )}
+                </div>
                 <p className="quantity">(x{item.quantity})</p>
                 <p>{item.price.toFixed(2)} {shop.currency}</p>
               </div>

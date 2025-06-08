@@ -111,9 +111,9 @@ const Header = ({ name, domain, logo,categories, data, shop, reviews }) => {
       <div class="elfsight-app-ff817ebe-8d94-42a7-a8d9-ace1c29d4f7a" data-elfsight-app-lazy></div>
        */}
 
-            <header className="header">
+        <header className={`header ${shop.id === 3 && 'wedinery'}`}>
         <div className='wrapper'>
-          <a className="logo-header" href="/"><img src={logo} alt="Logo" style={shop.id === 3 ? { height: '50px' } : {}} /></a>
+          <a className={`logo-header ${shop.id === 3 && 'wedinery'}`} href="/"><img src={logo} alt="Logo"/></a>
           <nav className="nav">
             <ul>
               
@@ -180,12 +180,14 @@ const Header = ({ name, domain, logo,categories, data, shop, reviews }) => {
           {cart.length === 0 ? (
             <p>{data.cartEmpty}</p>
           ) : (
-          <ul>
-            {cart.map((item, index) => (
+          <ul>            {cart.map((item, index) => (
               <li key={index}>
-                <img src={item.images[0]} alt={item.title} />
+                <img src={item.selectedOption?.img || item.images[0]} alt={item.title} />
                 <div>
                   <h3>{item.title}</h3>
+                  {item.selectedOption && (
+                    <p className="selected-option">{item.selectedOption.title}</p>
+                  )}
                   <p>{item.price.toLocaleString(shop.language, { minimumFractionDigits: 2 })} {shop.currency}</p>
                   <div className="quantity-selector">
                     <button onClick={() => handleQuantityChange(index, item.quantity > 1 ? item.quantity - 1 : 1)}>-</button>
@@ -216,7 +218,7 @@ const Header = ({ name, domain, logo,categories, data, shop, reviews }) => {
         )}
 
       <section className="badge-container">
-          <ReviewsBadge domain={shop.domain} logo={logo} reviews={reviews} reviewCtaHead={data.reviewCtaHead}/>
+          <ReviewsBadge domain={shop.domain} logo={logo} count={data.reviewCount} reviews={reviews} reviewCtaHead={data.reviewCtaHead}/>
       </section>
     </>
   );

@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { format, addDays } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
-export default function ProductInfos({ product, handleAddToCart, buttonText, shop, data }) {
-  // utilitaire pour extraire un tableau de poids numériques
+export default function ProductInfos({ product, handleAddToCart, buttonText, shop, data, onOptionChange }) {  // État pour gérer l'option sélectionnée
+  const [selectedOption, setSelectedOption] = useState(0);
+
+  // Fonction pour gérer le changement d'option
+  const handleOptionChange = (index) => {
+    setSelectedOption(index);
+    if (onOptionChange && productOptions[index]?.img) {
+      onOptionChange(productOptions[index].img);
+    }
+  };// utilitaire pour extraire un tableau de poids numériques
   const getWeights = (weightJson) => {
     if (!weightJson) return [];
     let arr = Array.isArray(weightJson)
@@ -18,11 +26,26 @@ export default function ProductInfos({ product, handleAddToCart, buttonText, sho
     return arr.map(v => Number(v)).filter(n => !isNaN(n));
   };
 
+  // utilitaire pour parser les options du produit
+  const getProductOptions = (optionsJson) => {
+    if (!optionsJson) return [];
+    if (Array.isArray(optionsJson)) return optionsJson;
+    try {
+      return JSON.parse(optionsJson);
+    } catch {
+      return [];
+    }
+  };
+
   const handleBuyNow = () => {
     //vider le panier actuel :
     localStorage.setItem('cart', JSON.stringify([]));
-    handleAddToCart();
+    handleAddToCart(selectedOption);
     window.location.href = '/checkout';
+  };
+
+  const handleAddToCartWithOption = () => {
+    handleAddToCart(selectedOption);
   };
   
 
@@ -41,10 +64,12 @@ export default function ProductInfos({ product, handleAddToCart, buttonText, sho
     const deliveryDate = addDays(today, deliveryDays);
     return format(deliveryDate, 'EEE dd MMM', { locale: fr });
   };
-
   const getCurrentMonth = () => {
     return format(new Date(), 'MMMM', { locale: fr }).toUpperCase();
   };
+
+  // Récupérer les options du produit
+  const productOptions = getProductOptions(product.options);
 
   return (
     <div className='product-info'>
@@ -63,8 +88,7 @@ export default function ProductInfos({ product, handleAddToCart, buttonText, sho
           ? `${min}KG`
           : `${min}-${max}KG`;
         return <span className='weight'>{label}</span>;
-      })()}
-      </div>
+      })()}      </div>
       <h1>{product.title}</h1>
       {product.discounted ? (
         <>
@@ -78,16 +102,39 @@ export default function ProductInfos({ product, handleAddToCart, buttonText, sho
       )}
       <p className={`stock ${product.stock.startsWith('Plus que') ? 'low' : ''}`}>
         <span>⋅</span>{product.stock} {product.stock.startsWith('Plus que') ? 'en stock' : ''}
-      </p>
-      <p className='delivery'>{data.productDeliveryLabel} {getDeliveryDate(product.delivery)}</p>
+      </p>      <p className='delivery'>{data.productDeliveryLabel} {getDeliveryDate(product.delivery)}</p>
       <div className="product-description" dangerouslySetInnerHTML={{ __html: product.desc }} />
 
+      {/* Section des options de produit - déplacée au-dessus de purchase-row */}
+      {productOptions.length > 0 && (
+        <div className="product-options">
+          <h4>Options disponibles :</h4>
+          <div className="options-grid">
+            {productOptions.map((option, index) => (
+              <div 
+                key={index}
+                className={`option-card ${selectedOption === index ? 'selected' : ''}`}
+                onClick={() => handleOptionChange(index)}
+              >
+                {option.img && (
+                  <img 
+                    src={option.img} 
+                    alt={option.title}
+                    className="option-image"
+                  />
+                )}
+                <span className="option-title">{option.title}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <article className="purchase-row">
-        <p className="comptor">PROMO {getCurrentMonth()} 10%</p>
-        <button className="buy-now bg-primary" onClick={handleBuyNow}>
+        <p className="comptor">PROMO {getCurrentMonth()} 10%</p>        <button className="buy-now bg-primary" onClick={handleBuyNow}>
           {data.productBuyFor} {(product.price * 0.90).toFixed(2).replace('.', ',')}{shop.currency}
         </button>
-        <button className='bg-grey' onClick={handleAddToCart}>{buttonText}</button>
+        <button className='bg-grey' onClick={handleAddToCartWithOption}>{buttonText}</button>
       </article>
 
       <ul className="product-badges">

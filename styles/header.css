@@ -375,6 +375,14 @@
   font-weight: 500 !important;
 }
 
+/* Styles pour les options sélectionnées dans le panier */
+.cart-drawer .selected-option {
+  font-size: 0.8rem;
+  color: #666;
+  margin: 0.25rem 0;
+  font-style: italic;
+}
+
 
 
 
@@ -398,6 +406,7 @@
     
     .header .wrapper{
         padding: 1.5rem;
+        
     }
 
     .logo-header img{
@@ -561,4 +570,3 @@
     }
     
 }
-  

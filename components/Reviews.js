@@ -4,8 +4,8 @@ const Reviews = ({ reviews, product }) => {
     const sliderRef = useRef(null);
     
     // Debug: afficher les données reçues
-    console.log('Reviews component - product ID:', product);
-    console.log('Reviews component - all reviews:', reviews);
+    // console.log('Reviews component - product ID:', product);
+    // console.log('Reviews component - all reviews:', reviews);
       // Filtrer les avis par l'ID du produit
     const productReviews = reviews ? reviews.filter(review => {
         // console.log('Comparing review.product_id:', review.product_id, 'with product:', product);
@@ -13,10 +13,10 @@ const Reviews = ({ reviews, product }) => {
         return String(review.product_id) === String(product);
     }) : [];
     
-    console.log('Filtered product reviews:', productReviews);
+    //console.log('Filtered product reviews:', productReviews);
     
     if (!productReviews || productReviews.length === 0) {
-        console.log('No reviews found for this product');
+        //console.log('No reviews found for this product');
         return null;
     }
 

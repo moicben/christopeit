@@ -90,9 +90,10 @@ section.product-hero {
 .large-image {
   width: 100%;
   height: 500px;
-  max-height: 500px;
   object-fit: contain;
   transition: transform 0.5s ease, transform-origin 0.5s ease;
+  object-fit: cover;
+  border-radius: 8px;
   /* Ajout de la transition pour le zoom et l'origine de la transformation */
 }
 
@@ -518,8 +519,93 @@ details .product-content table{
   margin-bottom: 0;
 }
 
+/* Styles pour les options de produit */
+.product-options {
+  margin: -2rem 0 3rem 0;
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background-color: #fafafa;
+}
 
+.product-options h4 {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.9rem;
+  color: #666;
+}
 
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.75rem;
+}
+
+.option-card {
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.option-card:hover {
+  border-color: #007bff;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
+}
+
+.option-card.selected {
+  border-color: #007bff;
+  background-color: #f0f8ff;
+  box-shadow: 0 2px 12px rgba(0, 123, 255, 0.2);
+}
+
+.option-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 0.25rem;
+}
+
+.option-title {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #333;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.option-card.selected .option-title {
+  color: #007bff;
+  font-weight: 600;
+}
+
+/* Responsive pour les options */
+@media (max-width: 768px) {
+  .options-grid {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 0.5rem;
+  }
+  
+  .option-card {
+    padding: 0.5rem;
+  }
+  
+  .option-image {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .option-title {
+    font-size: 0.7rem;
+  }
+}
 
 /* Product Advantages BASE */
 
@@ -897,7 +983,7 @@ h3.vtmn-typo_title-5.vtmn-mb-4{
   }
 
   section.product-hero {
-  padding: 2rem 1rem;
+  padding: 1rem;
   }
 
   .product-columns{
@@ -922,6 +1008,7 @@ h3.vtmn-typo_title-5.vtmn-mb-4{
   height: 300px;
   margin-left: 0;
   margin-bottom: 1.5rem;
+  
   }
 
   .next-button{
@@ -1208,8 +1295,25 @@ h3.vtmn-typo_title-5.vtmn-mb-4{
     margin-block: 1rem;
   }
 
-  .cta-banner{
-    display: none;
+  .cta-banner-container {
+    bottom: 0;
+    top: auto;
+    background-color: rgba(255, 255, 255, 0.75);
   }
+
+    .cta-banner{
+      justify-content: flex-end;
+      padding-right: 2rem;
+    }
+
+    .cta-banner .banner-content{
+      display: none;
+      
+      
+    }
+
+        .cta-banner>article>span{
+          color: #333;
+        }
 
 }

@@ -92,23 +92,41 @@ function gtag_report_conversion(url) {
   if (!product) { 
     return <div>Produit ou site non trouvé</div>;
   }
-
-  const handleAddToCart = async () => {
+  const handleAddToCart = async (selectedOptionIndex = 0) => {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const productIndex = cart.findIndex(item => item.id === product.id);
+    
+    // Récupérer les options du produit si elles existent
+    const getProductOptions = (optionsJson) => {
+      if (!optionsJson) return [];
+      if (Array.isArray(optionsJson)) return optionsJson;
+      try {
+        return JSON.parse(optionsJson);
+      } catch {
+        return [];
+      }
+    };
+    
+    const productOptions = getProductOptions(product.options);
+    const selectedOption = productOptions[selectedOptionIndex] || null;
+    
+    // Créer un objet produit avec l'option sélectionnée
+    const productWithOption = {
+      ...product,
+      selectedOption: selectedOption,
+      uniqueKey: `${product.id}_${selectedOptionIndex}` // Clé unique pour différencier les options
+    };
+    
+    const productIndex = cart.findIndex(item => 
+      item.id === product.id && 
+      item.uniqueKey === productWithOption.uniqueKey
+    );
 
     if (productIndex !== -1) {
-      // Si le produit est déjà dans le panier et identique, augmenter la quantité
-      if (JSON.stringify(cart[productIndex]) === JSON.stringify({ ...product, quantity: cart[productIndex].quantity })) {
-        cart[productIndex].quantity += 1;
-      } else {
-        // Si le produit est différent, ajouter comme un nouveau produit
-        const productWithQuantity = { ...product, quantity: 1 };
-        cart.push(productWithQuantity);
-      }
+      // Si le produit avec cette option est déjà dans le panier, augmenter la quantité
+      cart[productIndex].quantity += 1;
     } else {
-      // Sinon, ajouter le produit avec la quantité spécifiée
-      const productWithQuantity = { ...product, quantity: 1 };
+      // Sinon, ajouter le produit avec l'option sélectionnée
+      const productWithQuantity = { ...productWithOption, quantity: 1 };
       cart.push(productWithQuantity);
     }
 
@@ -138,9 +156,23 @@ function gtag_report_conversion(url) {
 
     //console.log(cart);
   };
-
   const handleImageClick = (index) => {
     setSelectedImageIndex(index);
+  };
+
+  // Fonction pour changer l'image principale quand une option est sélectionnée
+  const handleOptionImageChange = (optionImageUrl) => {
+    // Trouver l'index de l'image d'option dans le tableau des images ou l'ajouter temporairement
+    const existingIndex = images.findIndex(img => img === optionImageUrl);
+    if (existingIndex !== -1) {
+      setSelectedImageIndex(existingIndex);
+    } else {
+      // Si l'image d'option n'est pas dans les images du produit, on change directement l'image affichée
+      const largeImage = document.querySelector('.large-image');
+      if (largeImage) {
+        largeImage.src = optionImageUrl;
+      }
+    }
   };
 
   const handleNextImages = () => {
@@ -215,7 +247,7 @@ function gtag_report_conversion(url) {
             description={product.description}
       />
       
-      <main className='product-page'>
+      <main className={`product-page ${shop.id === 3 && 'wedinery'}`}>
         <Header logo={brand.logo} categories={categories} data={data} shop={shop} reviews={reviews} />
         <ScrollingBanner items={data.saleBanner} />
         {isPopupVisible && (
@@ -280,7 +312,14 @@ function gtag_report_conversion(url) {
               )}
             </div>
           </div>
-          <ProductInfos data={data} product={product} handleAddToCart={handleAddToCart} buttonText={buttonText} shop={shop}/>
+          <ProductInfos 
+            data={data} 
+            product={product} 
+            handleAddToCart={handleAddToCart} 
+            buttonText={buttonText} 
+            shop={shop}
+            onOptionChange={handleOptionImageChange}
+          />
         </div>
       </section>
 
