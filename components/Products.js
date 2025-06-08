@@ -214,61 +214,65 @@ const Products = ({ title, products, description, showCategoryFilter = true, ini
         {title && <h2>{title}</h2>}
 
         {/* 3) on lie le ref et on ajoute la classe sticky */}
-        <div
-          ref={filtersRef}
-          className={`product-filters${stickyFilters ? ' sticky' : ''}`}
-          style={{ display: stickyFilters ? 'flex' : 'none' }} // Cacher les filtres si stickyFilters est false
-        >
-          <div className='sort-dropdown'>
-            <label htmlFor="sortOrder">Trier par : </label>
-            <select 
-              id="sortOrder"
-              value={sortOrder}
-              onChange={(e) => setSortOrder(e.target.value)}
+        {products.length > 10 && (
+        <>
+          <div
+            ref={filtersRef}
+            className={`product-filters${stickyFilters ? ' sticky' : ''}`}
+            style={{ display: stickyFilters ? 'flex' : 'none' }} // Cacher les filtres si stickyFilters est false
+          >
+            <div className='sort-dropdown'>
+              <label htmlFor="sortOrder">Trier par : </label>
+              <select 
+                id="sortOrder"
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value)}
+              >
+                <option value="bestsellers">Bestsellers</option>
+                <option value="az">Ordre alphabétique</option>
+                <option value="asc">Prix croissant (-/+)</option>
+                <option value="desc">Prix décroissant (+/-)</option> 
+                <option value="weight_asc">Poids croissant</option>
+                <option value="weight_desc">Poids décroissant</option>
+              </select>
+            </div>
+
+            <div className='sort-dropdown'>
+            <label htmlFor="weightRange">Tranche de poids :</label>
+            <select
+              id="weightRange"
+              value={weightRange}
+              onChange={e => setWeightRange(e.target.value)}
             >
-              <option value="bestsellers">Bestsellers</option>
-              <option value="az">Ordre alphabétique</option>
-              <option value="asc">Prix croissant (-/+)</option>
-              <option value="desc">Prix décroissant (+/-)</option> 
-              <option value="weight_asc">Poids croissant</option>
-              <option value="weight_desc">Poids décroissant</option>
+              <option value="all">Tous</option>
+              <option value="0-5">0 à 5 KG</option>
+              <option value="5-10">5 à 10 KG</option>
+              <option value="10-20">10 à 20 KG</option>
+              <option value="20-40">20 à 40 KG</option>
+              <option value="40+">40 KG et +</option>
             </select>
           </div>
 
-          <div className='sort-dropdown'>
-           <label htmlFor="weightRange">Tranche de poids :</label>
-           <select
-             id="weightRange"
-             value={weightRange}
-             onChange={e => setWeightRange(e.target.value)}
-           >
-             <option value="all">Tous</option>
-             <option value="0-5">0 à 5 KG</option>
-             <option value="5-10">5 à 10 KG</option>
-             <option value="10-20">10 à 20 KG</option>
-             <option value="20-40">20 à 40 KG</option>
-             <option value="40+">40 KG et +</option>
-           </select>
-         </div>
-
-          <div className='sort-dropdown'>
-            <label htmlFor="priceRange">Tranche de prix : </label>
-            <select 
-              id="priceRange"
-              value={priceRange}
-              onChange={(e) => setPriceRange(e.target.value)}
-            >
-              <option value="all">Toutes</option>
-              <option value="0-50">0 - 50 {shop.currency}</option>
-              <option value="50-100">100 - 200 {shop.currency}</option>
-              <option value="100-200">100 - 200 {shop.currency}</option>
-              <option value="200-300">200 - 300 {shop.currency}</option>
-              <option value="300-400">300 - 400 {shop.currency}</option>
-              <option value="400+">400+ {shop.currency}</option>
-            </select>
+            <div className='sort-dropdown'>
+              <label htmlFor="priceRange">Tranche de prix : </label>
+              <select 
+                id="priceRange"
+                value={priceRange}
+                onChange={(e) => setPriceRange(e.target.value)}
+              >
+                <option value="all">Toutes</option>
+                <option value="0-50">0 - 50 {shop.currency}</option>
+                <option value="50-100">100 - 200 {shop.currency}</option>
+                <option value="100-200">100 - 200 {shop.currency}</option>
+                <option value="200-300">200 - 300 {shop.currency}</option>
+                <option value="300-400">300 - 400 {shop.currency}</option>
+                <option value="400+">400+ {shop.currency}</option>
+              </select>
+            </div>
+          
           </div>
-         
-        </div>
+        </>
+        )}
 
         <div className={`product-list ${shop.id === 3 && 'wedinery'}`} ref={productListRef}>
           {currentProducts.map(product => {

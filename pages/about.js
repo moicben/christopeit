@@ -29,7 +29,7 @@ const APropos = ({ data, shop, brand, categories, reviews }) => {
   return (
     <div className="container">
 
-      <Head name={shop.name} domain={shop.domain} tag={shop.tag}
+      <Head name={shop.name} domain={shop.domain} tag={shop.tag} pixel={shop.pixel}
             favicon={brand.favicon} graph={brand.graph}
             colorPrimary={brand.colorPrimary} colorSecondary={brand.colorSecondary} colorBlack={brand.colorBlack} colorGrey={brand.colorGrey} bgMain={brand.bgMain} bgLight={brand.bgLight} bgDark={brand.bgDark} radiusBig={brand.radiusBig} radiusMedium={brand.radiusMedium} font={brand.font} 
             title={`${data.aboutPageLabel} - ${shop.name}`}
