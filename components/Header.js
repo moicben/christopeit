@@ -119,11 +119,9 @@ const Header = ({ name, domain, logo,categories, data, shop, reviews }) => {
               
               {shop.id === 3 && (
                 <>
-                <li className="dropdown ">
-                  <a className='' href="/bestsellers/eliminateur-peluches">Éliminateur de peluches</a>
-                  <a className='' href="/bestsellers/defroisseur-protatif">Défroisseur portatif</a>
-                  <a className='' href="/bestsellers/nettoyeur-a-vapeur">nettoyeur à vapeur</a>
-                </li>
+                <li><a className='' href="/bestsellers/eliminateur-peluches">Éliminateur de peluches</a></li>
+                <li><a className='' href="/bestsellers/defroisseur-protatif">Défroisseur portatif</a></li>
+                <li> <a className='' href="/bestsellers/nettoyeur-a-vapeur">nettoyeur à vapeur</a></li>
                 </>
               )}
               
