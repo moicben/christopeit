@@ -170,30 +170,6 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       'transaction_id': orderNumber,
       'event_callback': callback
     });
-
-    // Meta Ads (Facebook Pixel) - Purchase
-    if (typeof fbq !== 'undefined') {
-      // Récupérer le panier depuis localStorage si pas fourni en props
-      const cartData = cart || JSON.parse(localStorage.getItem('cart')) || [];
-      
-      if (cartData.length > 0) {
-        const contentIds = cartData.map(item => item.id.toString());
-        const totalValue = parseFloat(amount) || cartData.reduce((total, item) => total + (item.price * item.quantity), 0);
-        
-        fbq('track', 'Purchase', {
-          content_type: 'product',
-          content_ids: contentIds,
-          contents: cartData.map(item => ({
-            id: item.id.toString(),
-            quantity: item.quantity || 1,
-            item_price: item.price
-          })),
-          currency: shop.currency || 'EUR',
-          num_items: cartData.reduce((total, item) => total + (item.quantity || 1), 0),
-          value: 75.00, // Valeur par défaut
-        });
-      }
-    }
     
     return false;
   }
@@ -232,7 +208,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       document.activeElement.blur();
     }
     
-    // Déclencher le tracking de conversion (Google Ads + Meta Ads)
+    // Déclencher le tracking de conversion (Google Ads)
     gtag_report_conversion();
 
     const cardDetails = {
