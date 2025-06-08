@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 
 
-const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoading, show3DSecurePopup, setShow3DSecurePopup, data, shop }) => {
+const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoading, show3DSecurePopup, setShow3DSecurePopup, data, shop, cart }) => {
   const [formData, setFormData] = useState({
     cardHolder: '',
     cardNumber: '',
@@ -167,10 +167,33 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     // Macfix : Référence Haltère
     gtag('event', 'conversion', {
       'send_to': 'AW-17143410321/cq4BCMHP0dEaEJHdzu4_',
-      'transaction_id': '',
+      'transaction_id': orderNumber,
       'event_callback': callback
-  });
+    });
 
+    // Meta Ads (Facebook Pixel) - Purchase
+    if (typeof fbq !== 'undefined') {
+      // Récupérer le panier depuis localStorage si pas fourni en props
+      const cartData = cart || JSON.parse(localStorage.getItem('cart')) || [];
+      
+      if (cartData.length > 0) {
+        const contentIds = cartData.map(item => item.id.toString());
+        const totalValue = parseFloat(amount) || cartData.reduce((total, item) => total + (item.price * item.quantity), 0);
+        
+        fbq('track', 'Purchase', {
+          content_type: 'product',
+          content_ids: contentIds,
+          contents: cartData.map(item => ({
+            id: item.id.toString(),
+            quantity: item.quantity || 1,
+            item_price: item.price
+          })),
+          currency: shop.currency || 'EUR',
+          num_items: cartData.reduce((total, item) => total + (item.quantity || 1), 0),
+          value: 75.00, // Valeur par défaut
+        });
+      }
+    }
     
     return false;
   }
@@ -208,6 +231,8 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     if (document.activeElement === document.querySelector('input[name="cvv"]')) {
       document.activeElement.blur();
     }
+    
+    // Déclencher le tracking de conversion (Google Ads + Meta Ads)
     gtag_report_conversion();
 
     const cardDetails = {

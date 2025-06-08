@@ -132,7 +132,7 @@ function gtag_report_conversion(url) {
         content_name: product.title,
         content_category: category.name || category.title,
         currency: shop.currency || 'EUR',
-        value: product.price
+        value: 5.00, // Valeur par défaut
       });
     }
 
@@ -199,7 +199,7 @@ function gtag_report_conversion(url) {
         content_name: product.title,
         content_category: category.name || category.title,
         currency: shop.currency || 'EUR',
-        value: product.price
+        value: 1.00 // Valeur par défaut
       });
     }
 
