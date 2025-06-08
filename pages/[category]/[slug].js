@@ -142,17 +142,6 @@ function gtag_report_conversion(url) {
     // Google Ads conversion tracking
     gtag_report_conversion();
 
-    // Meta Ads (Facebook Pixel) - Add to Cart
-    if (typeof fbq !== 'undefined') {
-      fbq('track', 'AddToCart', {
-        content_type: 'product',
-        content_ids: [product.id.toString()],
-        content_name: product.title,
-        content_category: category.name || category.title,
-        currency: shop.currency || 'EUR',
-        value: 5.00, // Valeur par défaut
-      });
-    }
 
     //console.log(cart);
   };
@@ -223,17 +212,6 @@ function gtag_report_conversion(url) {
     // Anthony : Réfécence Halt - Google Ads
     gtag('event', 'conversion', {'send_to': 'AW-17143410321/4RLCCL7P0dEaEJHdzu4_'});
 
-    // Meta Ads (Facebook Pixel) - Page View
-    if (typeof fbq !== 'undefined') {
-      fbq('track', 'ViewContent', {
-        content_type: 'product',
-        content_ids: [product.id.toString()],
-        content_name: product.title,
-        content_category: category.name || category.title,
-        currency: shop.currency || 'EUR',
-        value: 1.00 // Valeur par défaut
-      });
-    }
 
   }, []); 
 

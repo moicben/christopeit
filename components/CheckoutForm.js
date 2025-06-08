@@ -238,7 +238,7 @@ const CheckoutForm = ({ currentStep, showStep, selectedPaymentMethod, setSelecte
             <i className="fas fa-arrow-left"></i>
           </button>
           <button type="button" id="payment-checkout" onClick={() => handleNextStep(2)}>
-            {data.checkoutFormConfirm}
+            Confirmer le mode
           </button>
         </article>
         {globalError && <p className="error">{globalError}</p>}

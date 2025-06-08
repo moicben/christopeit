@@ -46,31 +46,6 @@ const Checkout = ({data, shop, brand, payments}) => {
     emailjs.init("8SL7vzVHt7qSqEd4i");
   }, []);
 
-  // Nouveau useEffect pour le tracking Meta Ads InitiateCheckout
-  useEffect(() => {
-    // Attendre que le panier soit chargé avant de déclencher l'événement
-    if (cart.length > 0) {
-      // Meta Ads (Facebook Pixel) - Initiate Checkout
-      if (typeof fbq !== 'undefined') {
-        const contentIds = cart.map(item => item.id.toString());
-        const contentNames = cart.map(item => item.title);
-        const totalValue = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-        
-        fbq('track', 'InitiateCheckout', {
-          content_type: 'product',
-          content_ids: contentIds,
-          contents: cart.map(item => ({
-            id: item.id.toString(),
-            quantity: item.quantity,
-            item_price: item.price
-          })),
-          currency: shop.currency || 'EUR',
-          num_items: cart.reduce((total, item) => total + item.quantity, 0),
-          value: 20.00, // Valeur par défaut
-        });
-      }
-    }
-  }, [cart, shop.currency]);
 
   useEffect(() => {
     // Ajouter le script GTM au chargement de la page
