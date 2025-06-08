@@ -33,7 +33,7 @@ const Contact = ({ shop,brand, data, categories, reviews }) => {
           }
         };
         gtag('event', 'conversion', {
-            'send_to': 'AW-16883090550/cVA9CIWbm9YaEPaIvvI-',
+            'send_to': '${shop.tag}/${shop.tagContact}',
             'value': 5.0,
             'currency': 'EUR',  
             'event_callback': callback

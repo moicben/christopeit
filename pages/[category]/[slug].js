@@ -32,7 +32,7 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
   const [showBanner, setShowBanner] = useState(false);
 
 
-  // Event snippet for Clic "Ajouter au panier" conversion page
+  // Google Ads Event "Ajouter au panier" conversion page
 function gtag_report_conversion(url) {
   var callback = function () {
     if (typeof(url) != 'undefined') {
@@ -42,7 +42,7 @@ function gtag_report_conversion(url) {
 
   // Anthony : Réfécence Halt
   gtag('event', 'conversion', {
-    'send_to': 'AW-17143410321/zS70CLvP0dEaEJHdzu4_',
+    'send_to': `${shop.tag}/${shop.tagCart}`,
     'event_callback': callback
   });
 
@@ -210,7 +210,7 @@ function gtag_report_conversion(url) {
   // Tracking Page Vue (Google Tag Manager)
   useEffect(() => {
     // Anthony : Réfécence Halt - Google Ads
-    gtag('event', 'conversion', {'send_to': 'AW-17143410321/4RLCCL7P0dEaEJHdzu4_'});
+    gtag('event', 'conversion', {'send_to': `${shop.tag}/${shop.tagView}`});
 
 
   }, []); 

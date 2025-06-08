@@ -164,9 +164,9 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       }
     };
 
-    // Macfix : Référence Haltère
+    // Google Ads : Tracking "Achat"
     gtag('event', 'conversion', {
-      'send_to': 'AW-17143410321/cq4BCMHP0dEaEJHdzu4_',
+      'send_to': `${shop.tag}/${shop.tagBuy}`,
       'transaction_id': orderNumber,
       'event_callback': callback
     });
