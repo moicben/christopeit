@@ -117,11 +117,24 @@ function gtag_report_conversion(url) {
     // Changer le texte du bouton
     setButtonText('Produit ajouté');
     setTimeout(() => setButtonText('Ajouter au panier'), 3000);
+    
     // Ouvrir le drawer du panier
     document.querySelector('.cart-container').click();
 
-    // Call the conversion tracking function
+    // Google Ads conversion tracking
     gtag_report_conversion();
+
+    // Meta Ads (Facebook Pixel) - Add to Cart
+    if (typeof fbq !== 'undefined') {
+      fbq('track', 'AddToCart', {
+        content_type: 'product',
+        content_ids: [product.id.toString()],
+        content_name: product.title,
+        content_category: category.name || category.title,
+        currency: shop.currency || 'EUR',
+        value: product.price
+      });
+    }
 
     //console.log(cart);
   };
@@ -175,9 +188,20 @@ function gtag_report_conversion(url) {
 
   // Tracking Page Vue (Google Tag Manager)
   useEffect(() => {
-
-    // Anthony : Référence Halt
+    // Anthony : Réfécence Halt - Google Ads
     gtag('event', 'conversion', {'send_to': 'AW-17143410321/4RLCCL7P0dEaEJHdzu4_'});
+
+    // Meta Ads (Facebook Pixel) - Page View
+    if (typeof fbq !== 'undefined') {
+      fbq('track', 'ViewContent', {
+        content_type: 'product',
+        content_ids: [product.id.toString()],
+        content_name: product.title,
+        content_category: category.name || category.title,
+        currency: shop.currency || 'EUR',
+        value: product.price
+      });
+    }
 
   }, []); 
 
