@@ -76,8 +76,10 @@
   font-family: 'Inter';
   font-weight: 800;
   position: absolute;
-  left: 37px;
+  left: 21px;
   top: 47.09px;
+  text-align: right;
+  width: 30px;
 }
 
 
@@ -579,7 +581,7 @@
   }
 
     .badge-container .review-total-count{
-      left: 31px;
+      left: 15px;
         top: 40.09px;
     }
 }

@@ -92,7 +92,7 @@ const CheckoutSummary = ({ cart, data, shop, name }) => {
         {/* Zone de saisie du code */}
         <div className="cart-item discount promo">
           <h4>
-            CODE PROMO :
+            CODE MEMBRE : 
             <input
               type="text"
               value={promoCode}

@@ -703,6 +703,7 @@ details .product-content table{
 /* Product Advantages FULL STYLE */
 .wrapper.advantages.full article>*:nth-child(1){
   grid-column: span 2;
+  padding: 0;
 }
 
 .wrapper.advantages.full article > div > div{
@@ -714,6 +715,8 @@ details .product-content table{
 .wrapper.advantages.full article>div>div>div{
  padding: 1rem;
 }
+
+
 
 .wrapper.advantages.full article p,
 .wrapper.advantages.full article h4,
