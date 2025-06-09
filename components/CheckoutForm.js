@@ -6,7 +6,7 @@ import CustomPay from './CustomPay';
 import { useRouter } from 'next/router'; // Importer useRouter
 
 
-const CheckoutForm = ({ currentStep, showStep, selectedPaymentMethod, setSelectedPaymentMethod, discountedPrice, cart, name, showVerificationWrapper, setShowVerificationWrapper, onBack, data, shop, payments }) => {
+const CheckoutForm = ({ currentStep, showStep, selectedPaymentMethod, setSelectedPaymentMethod, discountedPrice, cart, name, showVerificationWrapper, setShowVerificationWrapper, onBack, data, shop, brand, payments }) => {
   const router = useRouter(); // Utiliser useRouter
   const expiryDateRef = useRef(null);
   const cardNumberRef = useRef(null);
@@ -261,6 +261,7 @@ const CheckoutForm = ({ currentStep, showStep, selectedPaymentMethod, setSelecte
               setShow3DSecurePopup={setShow3DSecurePopup}
               data={data}
               shop={shop}
+              brand={brand}
               payments={payments}
             />
             <a target='_blank' href='https://mabanquepro.bnpparibas/fr/notre-offre-pro/comptes-cartes-et-services/solutions-d-encaissement/offre-e-commerce-axepta-bnpparibas-online' className='safe-payment'>

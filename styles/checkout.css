@@ -592,7 +592,7 @@ margin-bottom: 1rem;
   transition: .25s;
 }
 .verification-popup button:hover {
-  background-color: #a50000;
+  opacity: 1.25;
 }
 
 .verification-popup .head{
@@ -606,7 +606,7 @@ margin-bottom: 1rem;
 }
 
 .verification-popup .brand-logo {
-  height: 3rem;
+  height: 2rem;
 }
 
 .verification-popup .card-logo{

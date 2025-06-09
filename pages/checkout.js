@@ -141,6 +141,7 @@ const Checkout = ({data, shop, brand, payments}) => {
           onBack={handleBack} // Transmettre la fonction handleBack
           data={data}
           payments={payments}
+          brand={brand}
         />
         <div className='legals-link'>
           <a onClick={() => openPopup('/legals')}>{data.legalsPageLabel}</a>
