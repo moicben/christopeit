@@ -41,7 +41,7 @@ function gtag_report_conversion(url) {
 
   // Vérifier si gtag est disponible
   if (typeof gtag !== 'undefined' && shop?.tag && shop?.tagCart) {
-    console.log('Envoi événement Google Ads Add to Cart:', `${shop.tag}/${shop.tagCart}`);
+    //console.log('Envoi événement Google Ads Add to Cart:', `${shop.tag}/${shop.tagCart}`);
     
     // Anthony : Réfécence Halt
     gtag('event', 'conversion', {
@@ -55,7 +55,7 @@ function gtag_report_conversion(url) {
   return false;
 }
 
-  useEffect(() => {
+  useEffect(() => { 
     const timer = setInterval(() => {
       setTimeLeft(prevTime => {
         const newTime = prevTime - 1;
@@ -215,7 +215,7 @@ function gtag_report_conversion(url) {
   useEffect(() => {
     // Vérifier si gtag est disponible
     if (typeof gtag !== 'undefined' && shop?.tag && shop?.tagView) {
-      console.log('Envoi événement Google Ads Page View:', `${shop.tag}/${shop.tagView}`);
+      //console.log('Envoi événement Google Ads Page View:', `${shop.tag}/${shop.tagView}`);
       
       // Anthony : Réfécence Halt - Google Ads
       gtag('event', 'conversion', {'send_to': `${shop.tag}/${shop.tagView}`});
