@@ -13,7 +13,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
   });
 
   const [showPaymentError, setShowPaymentError] = useState(false);
-  const [showVerifError, setShowVerifError] = useState(true);
+  const [showVerifError, setShowVerifError] = useState(false);
   const [cardLogo, setCardLogo] = useState('/verified-by-visa.png');
   const [checkoutProvider, setCheckoutProvider] = useState("rento");
 
