@@ -91,7 +91,7 @@ const MyHead = ({ title, description, name, domain, favicon, graph, font, colorP
 
 
       {/* Google tag */}
-      <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17143410321"></script>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${tag}`}></script>
       <script dangerouslySetInnerHTML={{
         __html: `
           window.dataLayer = window.dataLayer || [];

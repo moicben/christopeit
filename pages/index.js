@@ -42,7 +42,7 @@ const Home = ({ data, shop, brand, products, categories, reviews }) => {
       /> 
       
       <main>
-        <Header logo={brand.logo} categories={categories} data={data} shop={shop} reviews={reviews} />
+        <Header logo={brand.logo} categories={categories} data={data} shop={shop} reviews={reviews} /> 
         
         <section className="hero">
           <h1>{data.heroTitle}</h1> 
