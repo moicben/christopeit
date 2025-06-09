@@ -90,19 +90,6 @@ const MyHead = ({ title, description, name, domain, favicon, graph, font, colorP
       </style>
 
 
-      {/* Google tag */}
-      <script async src={`https://www.googletagmanager.com/gtag/js?id=${tag}`}></script>
-      <script dangerouslySetInnerHTML={{
-        __html: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${tag}');
-        `
-      }} />
-   
-
-
       {/* Meta Pixel Code */}
       {pixel && (
         <>
@@ -125,6 +112,21 @@ const MyHead = ({ title, description, name, domain, favicon, graph, font, colorP
             src={`https://www.facebook.com/tr?id=${pixel}&ev=PageView&noscript=1`}
             />
           </noscript> 
+        </>
+      )}      
+      
+      {/* Google Tag Manager */}
+      {tag && (
+        <>
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${tag}`} />
+          <script dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${tag}');
+            `
+          }} />
         </>
       )}
 

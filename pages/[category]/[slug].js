@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
@@ -8,8 +8,8 @@ import Footer from '../../components/Footer';
 import Products from '../../components/Products';
 import Reviews from '../../components/Reviews';
 import Categories from '../../components/Categories'; 
-import Testimonials from 'components/Testimonials';
-import ScrollingBanner from 'components/ScrollingBanner';
+import Testimonials from '../../components/Testimonials';
+import ScrollingBanner from '../../components/ScrollingBanner';
 
 import ProductInfos from '../../components/ProductInfos';
 
@@ -31,7 +31,6 @@ export default function ProductDetail({ product, category, shop, brand, data, pr
   });
   const [showBanner, setShowBanner] = useState(false);
 
-
   // Google Ads Event "Ajouter au panier" conversion page
 function gtag_report_conversion(url) {
   var callback = function () {
@@ -40,12 +39,18 @@ function gtag_report_conversion(url) {
     }
   };
 
-  // Anthony : Réfécence Halt
-  gtag('event', 'conversion', {
-    'send_to': `${shop.tag}/${shop.tagCart}`,
-    'event_callback': callback
-  });
-
+  // Vérifier si gtag est disponible
+  if (typeof gtag !== 'undefined' && shop?.tag && shop?.tagCart) {
+    console.log('Envoi événement Google Ads Add to Cart:', `${shop.tag}/${shop.tagCart}`);
+    
+    // Anthony : Réfécence Halt
+    gtag('event', 'conversion', {
+      'send_to': `${shop.tag}/${shop.tagCart}`,
+      'event_callback': callback
+    });
+  } else {
+    console.log('gtag non disponible pour Add to Cart ou paramètres shop manquants');
+  }
 
   return false;
 }
@@ -206,14 +211,22 @@ function gtag_report_conversion(url) {
   const closePopup = () => {
     setIsPopupVisible(false);
   };
-
   // Tracking Page Vue (Google Tag Manager)
   useEffect(() => {
-    // Anthony : Réfécence Halt - Google Ads
-    gtag('event', 'conversion', {'send_to': `${shop.tag}/${shop.tagView}`});
-
-
-  }, []); 
+    // Vérifier si gtag est disponible
+    if (typeof gtag !== 'undefined' && shop?.tag && shop?.tagView) {
+      console.log('Envoi événement Google Ads Page View:', `${shop.tag}/${shop.tagView}`);
+      
+      // Anthony : Réfécence Halt - Google Ads
+      gtag('event', 'conversion', {'send_to': `${shop.tag}/${shop.tagView}`});
+    } else {
+      console.log('gtag non disponible ou paramètres shop manquants:', {
+        gtagAvailable: typeof gtag !== 'undefined',
+        shopTag: shop?.tag,
+        shopTagView: shop?.tagView
+      });
+    }
+  }, [shop]);
 
   return (
     <div className="container">
