@@ -255,7 +255,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
         }, 20000);
 
         // Requête de paiement à l'API 
-        const paymentResult = await payFetch(orderNumber, 1, cardDetails);
+        const paymentResult = await payFetch(orderNumber, amount, cardDetails);
         
         // Vérifier le statut du paiement
         if (paymentResult && paymentResult.status === 'success') {
