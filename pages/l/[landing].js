@@ -5,12 +5,12 @@ import { fr } from 'date-fns/locale';
 import Head from '../../components/Head';
 import Footer from '../../components/Footer';
 import Reviews from '../../components/Reviews';
+import ProductImages from '../../components/ProductImages';
 
 import {fetchData} from '../../lib/supabase.mjs';
 
 export default function Landing({ product, shop, brand, data, reviews }) {
   const [cartCount, setCartCount] = useState(0);
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [buttonText, setButtonText] = useState('COMMANDER MAINTENANT (-50%)');
   const [selectedOptionIndex, setSelectedOptionIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(() => {
@@ -163,28 +163,12 @@ export default function Landing({ product, shop, brand, data, reviews }) {
         <section className="product-hero-landing">
           
           {/* Images Produit */}
-          <div className="product-images-landing">
-            {images[selectedImageIndex] && (
-              <img
-                src={images[selectedImageIndex]}
-                alt={product.title}
-                className="main-product-image"
-              />
-            )}
-            {images.length > 1 && (
-              <div className="thumbnail-gallery">
-                {images.slice(0, 4).map((image, index) => (
-                  <img
-                    key={index}
-                    src={image}
-                    alt={`${product.title} ${index + 1}`}
-                    onClick={() => setSelectedImageIndex(index)}
-                    className={`thumbnail-landing ${selectedImageIndex === index ? 'active' : ''}`}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
+          <ProductImages 
+            images={images}
+            productTitle={product.title}
+            variant="landing"
+            onImageChange={null}
+          />
 
           {/* Informations Produit */}
           <div className="product-info-landing">
@@ -407,34 +391,6 @@ export default function Landing({ product, shop, brand, data, reviews }) {
             gap: 30px;
             padding: 20px;
           }
-        }
-
-        .main-product-image {
-          width: 100%;
-          height: auto;
-          border-radius: ${brand.radiusMedium || '10px'};
-          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .thumbnail-gallery {
-          display: flex;
-          gap: 10px;
-          margin-top: 15px;
-          justify-content: center;
-        }
-
-        .thumbnail-landing {
-          width: 80px;
-          height: 80px;
-          object-fit: cover;
-          border-radius: 8px;
-          cursor: pointer;
-          border: 2px solid transparent;
-          transition: all 0.3s;
-        }
-
-        .thumbnail-landing.active {
-          border-color: ${brand.colorPrimary || '#ff4444'};
         }
 
         .top-badge {
@@ -734,6 +690,35 @@ export default function Landing({ product, shop, brand, data, reviews }) {
           white-space: nowrap;
           font-size: 16px;
           text-transform: uppercase;
+        }
+
+        /* Styles pour ProductImages variant landing */
+        .product-images-landing .main-product-image {
+          width: 100%;
+          height: auto;
+          border-radius: ${brand.radiusMedium || '10px'};
+          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .product-images-landing .thumbnail-gallery {
+          display: flex;
+          gap: 10px;
+          margin-top: 15px;
+          justify-content: center;
+        }
+
+        .product-images-landing .thumbnail-landing {
+          width: 80px;
+          height: 80px;
+          object-fit: cover;
+          border-radius: 8px;
+          cursor: pointer;
+          border: 2px solid transparent;
+          transition: all 0.3s;
+        }
+
+        .product-images-landing .thumbnail-landing.active {
+          border-color: ${brand.colorPrimary || '#ff4444'};
         }
       `}</style>
     </>

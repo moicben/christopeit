@@ -10,22 +10,17 @@ import Reviews from '../../components/Reviews';
 import Categories from '../../components/Categories'; 
 import Testimonials from '../../components/Testimonials';
 import ScrollingBanner from '../../components/ScrollingBanner';
+import ProductImages from '../../components/ProductImages';
 
 import ProductInfos from '../../components/ProductInfos';
 
 import {fetchData} from '../../lib/supabase.mjs'; // Assurez-vous que le chemin est correct
 
-
-
-
 export default function ProductDetail({ product, category, shop, brand, data, products, categories, relatedProducts, otherCategories, reviews}) {
   const [cartCount, setCartCount] = useState(0);
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [visibleImageIndex, setVisibleImageIndex] = useState(0);
   const [buttonText, setButtonText] = useState('Ajouter au panier');
   const sliderRef = useRef(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [timeLeft, setTimeLeft] = useState(() => {
     return 7 * 3600 + 37 * 60 + 20;
   });
@@ -97,6 +92,7 @@ function gtag_report_conversion(url) {
   if (!product) { 
     return <div>Produit ou site non trouvé</div>;
   }
+
   const handleAddToCart = async (selectedOptionIndex = 0) => {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     
@@ -147,70 +143,20 @@ function gtag_report_conversion(url) {
     // Google Ads conversion tracking
     gtag_report_conversion();
 
-
     //console.log(cart);
-  };
-  const handleImageClick = (index) => {
-    setSelectedImageIndex(index);
   };
 
   // Fonction pour changer l'image principale quand une option est sélectionnée
   const handleOptionImageChange = (optionImageUrl) => {
-    // Trouver l'index de l'image d'option dans le tableau des images ou l'ajouter temporairement
-    const existingIndex = images.findIndex(img => img === optionImageUrl);
-    if (existingIndex !== -1) {
-      setSelectedImageIndex(existingIndex);
-    } else {
-      // Si l'image d'option n'est pas dans les images du produit, on change directement l'image affichée
-      const largeImage = document.querySelector('.large-image');
-      if (largeImage) {
-        largeImage.src = optionImageUrl;
-      }
-    }
+    // Cette fonction peut maintenant être simplifiée car le composant ProductImages gère l'état
+    console.log('Option image changed:', optionImageUrl);
   };
 
-  const handleNextImages = () => {
-    if (visibleImageIndex + 1 < images.length) {
-      setVisibleImageIndex(visibleImageIndex + 1);
-      setSelectedImageIndex(visibleImageIndex + 1); // Update the large image
-    } else {
-      setVisibleImageIndex(0); // Reset to the beginning
-      setSelectedImageIndex(0); // Reset the large image
-    }
-  };
-
-  const handleMouseMove = (e) => {
-    const { left, top, width, height } = e.target.getBoundingClientRect();
-    const x = ((e.clientX - left) / width) * 100;
-    const y = ((e.clientY - top) / height) * 100;
-    setMousePosition({ x, y });
-  };
-
-  useEffect(() => {
-    const largeImage = document.querySelector('.large-image');
-    if (largeImage) {
-      largeImage.style.setProperty('--mouse-x', `${mousePosition.x}%`);
-      largeImage.style.setProperty('--mouse-y', `${mousePosition.y}%`);
-    }
-  }, [mousePosition]);
-
-  const images = product.images || [];
-  const visibleImages = images.slice(visibleImageIndex, visibleImageIndex + 4);
-  if (visibleImages.length < 4) {
-    visibleImages.push(...images.slice(0, 4 - visibleImages.length));
+  function handleBuyNow() {
+    handleAddToCart();
+    window.location.href = '/checkout';
   }
 
-  const [isPopupVisible, setIsPopupVisible] = useState(false);
-
-  // Fonction pour ouvrir la popup
-  const openPopup = () => {
-    setIsPopupVisible(true);
-  };
-
-  // Fonction pour fermer la popup
-  const closePopup = () => {
-    setIsPopupVisible(false);
-  };
   // Tracking Page Vue (Google Tag Manager)
   useEffect(() => {
     // Vérifier si gtag est disponible
@@ -228,6 +174,8 @@ function gtag_report_conversion(url) {
     }
   }, [shop]);
 
+  const images = product.images || [];
+
   return (
     <div className="container">
 
@@ -241,68 +189,15 @@ function gtag_report_conversion(url) {
       <main className={`product-page ${shop.id === 3 && 'wedinery'}`}>
         <Header logo={brand.logo} categories={categories} data={data} shop={shop} reviews={reviews} />
         <ScrollingBanner items={data.saleBanner} />
-        {isPopupVisible && (
-          <div className="popup-overlay" onClick={closePopup}>
-            <button class="close-popup"><i class="fas fa-times"></i></button>
-            <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-              <img
-                src={images[selectedImageIndex]}
-                alt={product.title}
-                className="popup-image"
-              />
-              <div className="popup-thumbnail-container">
-                {visibleImages.map((image, index) => (
-                  image && (
-                    <img
-                      key={index + visibleImageIndex}
-                      src={image}
-                      alt={`${product.title} ${index + 1}`}
-                      onClick={() => handleImageClick(index + visibleImageIndex)}
-                      className={`thumbnail ${selectedImageIndex === index + visibleImageIndex ? 'selected' : ''}`}
-                    />
-                  )
-                ))}
-                {images.length > 4 && (
-                  <button className="next-button" onClick={handleNextImages}>
-                    <i className="fas fa-chevron-right"></i>
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
         
         <section className="product-hero">
         <div className="product-columns">
-          <div className="product-image">
-            {images[selectedImageIndex] && (
-              <img
-                src={images[selectedImageIndex]}
-                alt={product.title}
-                className="large-image"
-                onMouseMove={handleMouseMove}
-                onClick={openPopup}
-              />
-            )}
-            <div className="thumbnail-container">
-              {visibleImages.map((image, index) => (
-                image && (
-                  <img
-                    key={index + visibleImageIndex}
-                    src={image}
-                    alt={`${product.title} ${index + 1}`}
-                    onClick={() => handleImageClick(index + visibleImageIndex)}
-                    className={`thumbnail ${selectedImageIndex === index + visibleImageIndex ? 'selected' : ''}`}
-                  />
-                )
-              ))}
-              {images.length > 4 && (
-                <button className="next-button" onClick={handleNextImages}>
-                  <i className="fas fa-chevron-right"></i>
-                </button>
-              )}
-            </div>
-          </div>
+          <ProductImages 
+            images={images}
+            productTitle={product.title}
+            variant="default"
+            onImageChange={null}
+          />
           <ProductInfos 
             data={data} 
             product={product} 
@@ -323,8 +218,6 @@ function gtag_report_conversion(url) {
           {product.more3 && (<div className="wrapper more" dangerouslySetInnerHTML={{ __html: product.more3 }}/>)}
         </section>
   
-        
-
         <Products
           categories={categories}
           products={relatedProducts}
@@ -379,11 +272,6 @@ function gtag_report_conversion(url) {
       <Footer shop={shop} data={data} />
     </div>
   );
-
-  function handleBuyNow() {
-    handleAddToCart();
-    window.location.href = '/checkout';
-  }
 }
 
 export async function getStaticPaths() {
