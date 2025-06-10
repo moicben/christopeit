@@ -297,6 +297,24 @@ export default function Landing({ product, shop, brand, data, reviews }) {
           </div>
         </section>
 
+        {/* Section Détails du Produit */}
+        <section className="product-details-landing">
+          {product.advantages && (
+            <div className="wrapper advantages bg-main">
+              <article dangerouslySetInnerHTML={{ __html: product.advantages }}/>
+            </div>
+          )}
+          {product.more1 && (
+            <div className="wrapper more" dangerouslySetInnerHTML={{ __html: product.more1 }}/>
+          )}
+          {product.more2 && (
+            <div className="wrapper more" dangerouslySetInnerHTML={{ __html: product.more2 }}/>
+          )}
+          {product.more3 && (
+            <div className="wrapper more" dangerouslySetInnerHTML={{ __html: product.more3 }}/>
+          )}
+        </section>
+
         {/* CTA Sticky Mobile */}
         <div className="sticky-cta-mobile">
           <div className="sticky-price">
@@ -683,6 +701,65 @@ export default function Landing({ product, shop, brand, data, reviews }) {
           font-weight: bold;
           color: #666;
           font-size: 14px;
+        }
+
+        .product-details-landing {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 40px 20px;
+        }
+
+        .product-details-landing .wrapper {
+          margin-bottom: 30px;
+          padding: 30px;
+          border-radius: ${brand.radiusMedium || '10px'};
+          box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .product-details-landing .wrapper.advantages {
+          background: ${brand.bgMain || '#f8f9fa'};
+          border: 2px solid ${brand.colorPrimary || '#ff4444'};
+        }
+
+        .product-details-landing .wrapper.more {
+          background: white;
+          border: 1px solid #e0e0e0;
+        }
+
+        .product-details-landing article {
+          font-size: 16px;
+          line-height: 1.6;
+          color: ${brand.colorBlack || '#333'};
+        }
+
+        .product-details-landing article h1,
+        .product-details-landing article h2,
+        .product-details-landing article h3 {
+          color: ${brand.colorBlack || '#333'};
+          margin-bottom: 15px;
+        }
+
+        .product-details-landing article ul {
+          margin: 15px 0;
+          padding-left: 20px;
+        }
+
+        .product-details-landing article li {
+          margin-bottom: 8px;
+        }
+
+        .product-details-landing article p {
+          margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+          .product-details-landing {
+            padding: 20px;
+          }
+          
+          .product-details-landing .wrapper {
+            padding: 20px;
+          }
         }
 
         .sticky-cta-mobile {
