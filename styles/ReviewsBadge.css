@@ -99,6 +99,7 @@
   display: flex;
   justify-content: center;
   z-index: 1000;
+  align-items: center;
 }
 
 .popup-content {
@@ -515,8 +516,8 @@
 
   .popup-content{
     padding: 1rem;
-    margin: 2rem;
-    height: 92vh;
+    margin: 0rem;
+    height: 75vh;
   }
 
   .close-popup{

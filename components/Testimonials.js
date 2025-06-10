@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
+import ReviewsBadge from './ReviewsBadge';
 
 const Testimonials = ({shop, data, reviews}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [reviewsPerPage, setReviewsPerPage] = useState(4); // Par défaut, 4 avis par page
+  const hiddenBadgeRef = useRef(null);
 
   // Détecter si l'utilisateur est sur un appareil mobile
   useEffect(() => {
@@ -23,6 +24,8 @@ const Testimonials = ({shop, data, reviews}) => {
     };
   }, []);
 
+
+
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? Math.max(0, reviews.length - reviewsPerPage) : prevIndex - reviewsPerPage
@@ -34,6 +37,30 @@ const Testimonials = ({shop, data, reviews}) => {
       prevIndex + reviewsPerPage >= reviews.length ? 0 : prevIndex + reviewsPerPage
     );
   };
+
+  const handleOpenReviews = () => {
+    // Essayer d'abord de cliquer sur le badge du header
+    const headerBadge = document.querySelector("section.badge-container > img");
+    
+    if (headerBadge) {
+      headerBadge.click();
+    } else {
+      // Si pas de badge dans le header, cliquer sur le badge caché
+      setTimeout(() => {
+        if (hiddenBadgeRef.current) {
+          const hiddenBadgeImg = hiddenBadgeRef.current.querySelector('img[alt="Avis vérifiés"]');
+          if (hiddenBadgeImg) {
+            console.log('Clicking hidden badge...');
+            hiddenBadgeImg.click();
+          } else {
+            console.log('No hidden badge img found');
+          }
+        } else {
+          console.log('No hidden badge ref');
+        }
+      }, 50);
+    }
+  };
   // Trier les avis par la colonne "order" (du plus récent au plus vieux)
   const sortedReviews = reviews
     .slice()                                     // duplique le tableau
@@ -44,7 +71,7 @@ const Testimonials = ({shop, data, reviews}) => {
   return (
     <section className="testimonials" id='reviews'>
       <div className="wrapper">
-        <img onClick={(e) => { document.querySelector("section.badge-container > img").click() }} src="https://bpybtzxqypswjiizkzja.supabase.co/storage/v1/object/public/ecom/christopeit-france/avis-verifies.svg" alt="Avis vérifiés" />
+        <img onClick={handleOpenReviews} src="https://bpybtzxqypswjiizkzja.supabase.co/storage/v1/object/public/ecom/christopeit-france/avis-verifies.svg" alt="Avis vérifiés" />
         <h2>{data.reviewLabel} <span>{shop.domain.toLowerCase()}</span></h2>
         <span className="info-rate">{data.reviewDesc}</span>
         <div className="testimonials-slider">
@@ -79,7 +106,27 @@ const Testimonials = ({shop, data, reviews}) => {
             &#8250;
           </button>
         </div>
-        <button onClick={(e) => { document.querySelector("section.badge-container > img").click() }} className='view-more'>{data.reviewCta}</button>
+        <button onClick={handleOpenReviews} className='view-more'>{data.reviewCta}</button>
+      </div>
+
+      {/* ReviewsBadge caché pour les pages sans header */}
+      <div 
+        ref={hiddenBadgeRef} 
+        style={{ 
+          position: 'fixed', 
+          left: '-1000px', 
+          top: '-1000px',
+          zIndex: -1,
+          pointerEvents: 'auto'
+        }}
+      >
+        <ReviewsBadge 
+          count={reviews.length}
+          domain={shop.domain}
+          logo={shop.logo || '/logo.png'}
+          reviewCtaHead={data.reviewCtaHead || 'Voir tous les avis'}
+          reviews={reviews}
+        />
       </div>
     </section>
   );

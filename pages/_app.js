@@ -18,6 +18,7 @@ import '../styles/Testimonials.css';
 import '../styles/SimulatorPopup.css';
 import '../styles/Certifications.css';
 import '../styles/wedinery.css';
+import '../styles/landing.css';
 
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"

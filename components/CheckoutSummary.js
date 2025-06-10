@@ -77,21 +77,24 @@ const CheckoutSummary = ({ cart, data, shop, name }) => {
 
         {/* Zone de saisie du code */}
         <div className="cart-item discount promo">
-          <h4>
-            CODE PROMO : 
-            <input
-              type="text"
-              onChange={e => setPromoCode(e.target.value.toUpperCase())}
-              value={getCurrentMonth() + '10'}
-              maxLength={9}
-              disabled={promoApplied}
-            />
+          <div className='item-details'>
+            <h4>
+              CODE PROMO :
+              <input
+                type="text"
+                onChange={e => setPromoCode(e.target.value.toUpperCase())}
+                value={getCurrentMonth() + '10'}
+                maxLength={9}
+                disabled={promoApplied}
+              />
 
-          </h4>
-          <p className="quantity">
-            
+            </h4>
+          </div>
+          
+          <p className="quantity delivery">
+            -10%
           </p>
-          <p className='color-primary'>{promoApplied ? promoCode : ''}</p>
+          <p>{discountAmount.toFixed(2)} {shop.currency}</p>
         </div>
 
         {/* Livraison, sous‐total avant promo, etc. */}

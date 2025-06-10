@@ -882,6 +882,14 @@ margin-bottom: 1rem;
     margin-bottom: 0.5rem;
   }
 
+  .cart-item .item-details{
+    max-width: 70%;
+  }
+
+    .cart-item .delivery{
+      right: 18.5%;
+    }
+
   .left-column,
   .right-column {
     width: 100%;
