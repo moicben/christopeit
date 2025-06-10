@@ -283,19 +283,8 @@ export default function Landing({ product, shop, brand, data, reviews }) {
           </div>
         </section>
 
-        {/* Avis Clients Condensés */}
-        <section className="reviews-landing">
-          <h2>⭐ Avis vérifiés clients</h2>
-          <div className="reviews-grid-landing">
-            {reviews.slice(0, 3).map((review, index) => (
-              <div key={index} className="review-card-landing">
-                <div className="stars">{'⭐'.repeat(5)}</div>
-                <p>"{review.comment}"</p>
-                <span>- {review.name}</span>
-              </div>
-            ))}
-          </div>
-        </section>
+        {/* Avis Clients avec le composant Reviews existant */}
+        <Reviews reviews={reviews} product={product.id} />
 
         {/* CTA Sticky Mobile */}
         <div className="sticky-cta-mobile">
@@ -632,57 +621,6 @@ export default function Landing({ product, shop, brand, data, reviews }) {
           border-radius: 8px;
           font-size: 13px;
           border: 1px solid #e0e0e0;
-        }
-
-        .reviews-landing {
-          background: ${brand.bgLight || '#f8f9fa'};
-          padding: 50px 20px;
-          text-align: center;
-        }
-
-        .reviews-landing h2 {
-          margin-bottom: 40px;
-          font-size: 28px;
-          color: ${brand.colorBlack || '#000'};
-        }
-
-        .reviews-grid-landing {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 25px;
-          max-width: 1000px;
-          margin: 0 auto;
-        }
-
-        .review-card-landing {
-          background: white;
-          padding: 25px;
-          border-radius: 15px;
-          box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-          transition: transform 0.3s;
-        }
-
-        .review-card-landing:hover {
-          transform: translateY(-5px);
-        }
-
-        .stars {
-          font-size: 20px;
-          margin-bottom: 15px;
-        }
-
-        .review-card-landing p {
-          font-style: italic;
-          margin: 15px 0;
-          color: #333;
-          font-size: 15px;
-          line-height: 1.5;
-        }
-
-        .review-card-landing span {
-          font-weight: bold;
-          color: #666;
-          font-size: 14px;
         }
 
         .sticky-cta-mobile {
