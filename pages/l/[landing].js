@@ -3,7 +3,6 @@ import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
 import Head from '../../components/Head';
-import Footer from '../../components/Footer';
 import Reviews from '../../components/Reviews';
 
 import {fetchData} from '../../lib/supabase.mjs';
@@ -311,7 +310,84 @@ export default function Landing({ product, shop, brand, data, reviews }) {
           </button>
         </div>
 
-        <Footer shop={shop} data={data} />
+        {/* Footer Landing Page */}
+        <footer className="landing-footer">
+          <div className="footer-content">
+            <div className="footer-main">
+              <div className="footer-logo-section">
+                <img src={brand.logo} alt={shop.name} className="footer-logo" />
+                <h3>{shop.name}</h3>
+                <p className="footer-description">
+                  {data?.about || "Votre boutique de confiance pour des produits de qualité exceptionnelle."}
+                </p>
+              </div>
+              
+              <div className="footer-info">
+                <h4>Informations boutique</h4>
+                <div className="info-item">
+                  <strong>📧 Service client :</strong><br/>
+                  <span>{shop.email || "contact@" + shop.domain}</span>
+                </div>
+                <div className="info-item">
+                  <strong>🚚 Livraison :</strong><br/>
+                  <span>Gratuite dès 50€ - Expédition sous 24h</span>
+                </div>
+                <div className="info-item">
+                  <strong>🛡️ Garanties :</strong><br/>
+                  <span>Satisfait ou remboursé 90 jours</span>
+                </div>
+              </div>
+
+              <div className="footer-policies">
+                <h4>Nos engagements</h4>
+                <div className="policy-item">
+                  <strong>✅ Paiements sécurisés</strong><br/>
+                  <span>Toutes vos transactions sont protégées</span>
+                </div>
+                <div className="policy-item">
+                  <strong>🔒 Données protégées</strong><br/>
+                  <span>Vos informations restent confidentielles</span>
+                </div>
+                <div className="policy-item">
+                  <strong>🌟 Qualité garantie</strong><br/>
+                  <span>Produits testés et certifiés</span>
+                </div>
+              </div>
+
+              <div className="footer-contact">
+                <h4>Une question ?</h4>
+                <div className="contact-info">
+                  <div className="contact-item">
+                    <strong>📞 Téléphone :</strong><br/>
+                    <span>{shop.phone || "Service disponible 7j/7"}</span>
+                  </div>
+                  <div className="contact-item">
+                    <strong>⏰ Horaires :</strong><br/>
+                    <span>Lun-Dim : 8h00 - 20h00</span>
+                  </div>
+                  <div className="contact-item">
+                    <strong>📍 Localisation :</strong><br/>
+                    <span>{shop.address || "France métropolitaine"}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="footer-bottom">
+              <div className="footer-legal">
+                <p>&copy; {new Date().getFullYear()} {shop.name}. Tous droits réservés.</p>
+                <p className="legal-text">
+                  Conditions générales de vente • Politique de confidentialité • Mentions légales
+                </p>
+              </div>
+              <div className="footer-badges">
+                <div className="badge">🔒 SSL</div>
+                <div className="badge">✅ Vérifié</div>
+                <div className="badge">🛡️ Sécurisé</div>
+              </div>
+            </div>
+          </div>
+        </footer>
       </div>
 
       <style jsx>{`
@@ -734,6 +810,145 @@ export default function Landing({ product, shop, brand, data, reviews }) {
           white-space: nowrap;
           font-size: 16px;
           text-transform: uppercase;
+        }
+
+        .landing-footer {
+          background: ${brand.bgDark || '#2c3e50'};
+          color: white;
+          padding: 50px 20px 30px 20px;
+          margin-top: 60px;
+        }
+
+        .footer-content {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .footer-main {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 40px;
+          margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+          .footer-main {
+            grid-template-columns: 1fr;
+            gap: 30px;
+            text-align: center;
+          }
+        }
+
+        .footer-logo-section h3 {
+          color: white;
+          font-size: 24px;
+          margin: 15px 0 10px 0;
+          font-weight: bold;
+        }
+
+        .footer-logo {
+          height: 50px;
+          margin-bottom: 15px;
+          filter: brightness(0) invert(1);
+        }
+
+        .footer-description {
+          font-size: 14px;
+          color: #bdc3c7;
+          line-height: 1.6;
+          margin: 0;
+        }
+
+        .footer-info h4,
+        .footer-policies h4,
+        .footer-contact h4 {
+          color: ${brand.colorPrimary || '#ff4444'};
+          font-size: 18px;
+          margin-bottom: 20px;
+          font-weight: bold;
+        }
+
+        .info-item,
+        .policy-item,
+        .contact-item {
+          margin-bottom: 15px;
+          font-size: 14px;
+        }
+
+        .info-item strong,
+        .policy-item strong,
+        .contact-item strong {
+          color: white;
+          font-weight: bold;
+          display: block;
+          margin-bottom: 5px;
+        }
+
+        .info-item span,
+        .policy-item span,
+        .contact-item span {
+          color: #bdc3c7;
+          line-height: 1.4;
+        }
+
+        .contact-info {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+          .contact-info {
+            align-items: center;
+          }
+        }
+
+        .footer-bottom {
+          border-top: 1px solid #34495e;
+          padding-top: 30px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        @media (max-width: 768px) {
+          .footer-bottom {
+            flex-direction: column;
+            gap: 20px;
+            text-align: center;
+          }
+        }
+
+        .footer-legal p {
+          font-size: 13px;
+          color: #bdc3c7;
+          margin: 5px 0;
+        }
+
+        .legal-text {
+          font-size: 12px !important;
+          color: #95a5a6 !important;
+        }
+
+        .footer-badges {
+          display: flex;
+          gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+          .footer-badges {
+            justify-content: center;
+          }
+        }
+
+        .badge {
+          background: ${brand.colorPrimary || '#ff4444'};
+          color: white;
+          padding: 8px 16px;
+          border-radius: 20px;
+          font-size: 12px;
+          font-weight: bold;
+          border: 2px solid ${brand.colorPrimary || '#ff4444'};
         }
       `}</style>
     </>
