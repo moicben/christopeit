@@ -75,7 +75,7 @@ const Checkout = ({data, shop, brand, payments}) => {
     return total + (price * item.quantity);
   }, 0).toFixed(2);
 
-  const discount = (totalPrice * 0.15).toFixed(2);
+  const discount = (totalPrice * 0.10).toFixed(2);
   const discountedPrice = (totalPrice - discount).toFixed(2);
 
   const paymentFees = selectedPaymentMethod === 'card' ? (discountedPrice * 0.025).toFixed(2) : 0;

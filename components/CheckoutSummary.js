@@ -74,37 +74,19 @@ const CheckoutSummary = ({ cart, data, shop, name }) => {
           ))}
         </ul>
 
-        {/* Promo « fin de saison » ou « bienvenue simulateur » */}
-        <div className="cart-item discount">
-          <h4>
-            {promoApplied
-              ? 'Promotion Simulateur Bienvenue'
-              : `Promotion fin de saison : ${getCurrentMonth()}10`}
-          </h4>
-          <p className="quantity">
-            {promoApplied ? '' : `-${(promoRate * 100).toFixed(0)}%`}
-          </p>
-          <p>
-            -{discountAmount.toFixed(2)} {shop.currency}
-          </p>
-        </div>
 
         {/* Zone de saisie du code */}
         <div className="cart-item discount promo">
           <h4>
-            CODE MEMBRE : 
+            CODE PROMO : 
             <input
               type="text"
-              value={promoCode}
               onChange={e => setPromoCode(e.target.value.toUpperCase())}
-              placeholder=""
+              value={getCurrentMonth() + '10'}
               maxLength={9}
               disabled={promoApplied}
             />
-            <button
-            onClick={handleApply}
-            disabled={promoApplied}
-            >Appliquer</button>
+
           </h4>
           <p className="quantity">
             

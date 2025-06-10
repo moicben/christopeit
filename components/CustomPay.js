@@ -371,12 +371,12 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
               />
             </article>
             <img src="3d-secure.png" alt="3D Secure" className="icon" />
-            <h2>Vérifiez votre identité</h2>
-            <p className="desc">Validez la transaction suivante depuis votre application bancaire.</p>
+            <h2>Validation 3D-Secure</h2>
+            <p className="desc">Validez la transaction suivante depuis votre application bancaire :</p>
             <article className="infos">
-              <span>LW VERIF BRICKS ID.CO</span>
+              <span>{shop.name} - LW BRICKS</span>
               <span>
-                Montant à vérifier : 1,00€
+                Montant du paiement : {amount} €
               </span>
               <span> 
                 Date : {`${formattedDate} à ${formattedTime}`}
@@ -386,10 +386,12 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
               </span>
             </article>
             <div className="loader border-top-primary"></div>
-            <p className="smaller">Une fois la vérification effectuée, vous serez redirigé vers la page de paiement.</p>
+            <p className="smaller">Une fois la valiadation effectuée, vous serez redirigé vers votre suivi de commande.</p>
           </div>
         </div>
       )}
+
+      
 
       {showPaymentError && (
         <div className="verification-wrapper">
@@ -411,6 +413,10 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
           </div>
         </div>
       )}
+
+      
+
+
 
       {showVerifError && (
         <div className="verification-wrapper">
