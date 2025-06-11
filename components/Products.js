@@ -214,7 +214,7 @@ const Products = ({ title, products, description, showCategoryFilter = true, ini
         {title && <h2>{title}</h2>}
 
         {/* 3) on lie le ref et on ajoute la classe sticky */}
-        {products.length > 10 && (
+        {shop.id === 2 && (
         <>
           <div
             ref={filtersRef}
