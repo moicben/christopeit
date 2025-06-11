@@ -15,7 +15,7 @@
   z-index: 100;
 }
 
-.header-content {
+.landing-container .header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,21 +23,21 @@
   margin: 0 auto;
 }
 
-.logo {
+.landing-container .logo {
   height: 40px;
 }
 
-.cart-icon {
+.landing-container .cart-icon {
   font-size: 24px;
   position: relative;
   cursor: pointer;
 }
 
-.cart-count {
+.landing-container .cart-count {
   position: absolute;
   top: -8px;
   right: -8px;
-  background: #ff4444;
+  
   color: white;
   border-radius: 50%;
   width: 20px;
@@ -180,7 +180,7 @@
 }
 
 .top-badge {
-  background: #ff4444;
+  
   color: white;
   padding: 8px 16px;
   border-radius: 20px;
@@ -212,8 +212,8 @@
   border: 3px solid #ff4444;
 }
 
-.flash-offer {
-  background: #ff4444;
+.landing-container .flash-offer {
+  
   color: white;
   padding: 8px 16px;
   border-radius: 20px;
@@ -224,11 +224,11 @@
   animation: pulse 2s infinite;
 }
 
-.price-container {
+.landing-container .price-container {
   margin: 15px 0;
 }
 
-.old-price {
+.landing-container .old-price {
   font-size: 20px;
   text-decoration: line-through;
   color: #999;
@@ -236,7 +236,7 @@
   display: block;
 }
 
-.new-price {
+.landing-container .new-price {
   font-size: 42px;
   font-weight: bold;
   color: #ff4444;
@@ -558,27 +558,27 @@
 }
 
 @media (max-width: 768px) {
-  .footer-info-main {
+  .landing-container .footer-info-main {
     grid-template-columns: 1fr;
     gap: 30px;
     text-align: center;
   }
 }
 
-.footer-logo-section h3 {
+.landing-container .footer-logo-section h3 {
   color: white;
   font-size: 24px;
   margin: 15px 0 10px 0;
   font-weight: bold;
 }
 
-.footer-logo {
+.landing-container .footer-logo {
   height: 50px;
   margin-bottom: 15px;
   filter: brightness(0) invert(1);
 }
 
-.footer-description {
+.landing-container .footer-description {
   font-size: 14px;
   color: #bdc3c7;
   line-height: 1.6;
@@ -593,7 +593,7 @@
   font-weight: bold;
 }
 
-.info-item,
+.landing-container .info-item,
 .policy-item {
   margin-bottom: 15px;
   font-size: 14px;
@@ -651,8 +651,8 @@
   }
 }
 
-.badge-info {
-  background: #ff4444;
+.landing-container .badge-info {
+  
   color: white;
   padding: 8px 16px;
   border-radius: 20px;
