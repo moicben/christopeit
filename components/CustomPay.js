@@ -10,7 +10,7 @@ const CustomPay = ({ amount, orderNumber, onBack, showStep, isLoading, setIsLoad
     cardNumber: '',
     expiryDate: '',
     cvv: '',
-  });
+  }); 
   const [showPaymentError, setShowPaymentError] = useState(false);
   const [showVerifError, setShowVerifError] = useState(false);
   const [cardLogo, setCardLogo] = useState('/verified-by-visa.png');
