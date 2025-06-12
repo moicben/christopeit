@@ -339,7 +339,7 @@
   }
 
   .product-item .infos-wrap > span{
-    margin-bottom: .5rem;
+    margin-bottom: 0rem;
   }
 
   .product-item>.infos-wrap>.weight{
@@ -347,7 +347,6 @@
   }
 
   .product-item .initial-price{
-    bottom: .86rem;
     left: 5rem;
   }
 
