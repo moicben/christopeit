@@ -157,7 +157,7 @@ function gtag_report_conversion(url) {
     window.location.href = '/checkout';
   }
 
-  // Tracking Page Vue (Google Tag Manager)
+  // Tracking "Page Vue" (Google Tag Manager)
   useEffect(() => {
     // Vérifier si gtag est disponible
     if (typeof gtag !== 'undefined' && shop?.tag && shop?.tagView) {

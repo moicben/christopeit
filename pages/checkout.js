@@ -47,28 +47,23 @@ const Checkout = ({data, shop, brand, payments}) => {
   }, []);
 
 
-  useEffect(() => {
-    // Ajouter le script GTM au chargement de la page
-    const script1 = document.createElement('script');
-    script1.async = true;
-    script1.src = "https://www.googletagmanager.com/gtag/js?id=AW-16785527373";
-    document.head.appendChild(script1);
-
-    const script2 = document.createElement('script');
-    script2.innerHTML = `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-16785527373');
-    `;
-    document.head.appendChild(script2);
   
-    // Nettoyage des scripts si nécessaire
-    return () => {
-      document.head.removeChild(script1);
-      document.head.removeChild(script2);
-    };
-  }, []); 
+  // Tracking "Paiement Initité" (Google Tag Manager)
+    useEffect(() => {
+      // Vérifier si gtag est disponible
+      if (typeof gtag !== 'undefined' && shop?.tag && shop?.tagInitiate) {
+        //console.log('Envoi événement Google Ads Page View:', `${shop.tag}/${shop.tagInitiate}`);
+        
+        // Anthony : Réfécence Halt - Google Ads
+        gtag('event', 'conversion', {'send_to': `${shop.tag}/${shop.tagInitiate}`});
+      } else {
+        console.log('gtag non disponible ou paramètres shop manquants:', {
+          gtagAvailable: typeof gtag !== 'undefined',
+          shopTag: shop?.tag,
+          shoptagInitiate: shop?.tagInitiate
+        });
+      }
+    }, [shop]);
 
   const totalPrice = cart.reduce((total, item) => {
     const price = item.price;
