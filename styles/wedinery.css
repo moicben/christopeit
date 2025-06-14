@@ -61,8 +61,8 @@
       height: 360px;
     }
 
-    .product-details iframe,
-    .product-details img{
+    .wedinery .product-details iframe,
+    .wedinery .product-details img{
       height: auto !important;
       max-width: 100% !important;
     }

@@ -515,8 +515,10 @@ details .product-content table{
 }
 
 .product-details .wrapper h3 {
-  font-weight: 500;
+  font-weight: 200 ;
   margin-bottom: 0;
+  text-align: center;
+  color: #666;
 }
 
 /* Styles pour les options de produit */
@@ -627,12 +629,6 @@ details .product-content table{
   padding: 4rem;
 }
 
-
-.wrapper.advantages h3{
-  color: #666;
-  font-size: 1.25rem;
-  margin-bottom: -1rem;
-}
 
 
 .wrapper.advantages article > div {
@@ -1008,7 +1004,7 @@ h3.vtmn-typo_title-5.vtmn-mb-4{
 
   .large-image {
   width: 100%;
-  height: 300px;
+  height: auto;
   margin-left: 0;
   margin-bottom: 1.5rem;
   
@@ -1188,11 +1184,11 @@ h3.vtmn-typo_title-5.vtmn-mb-4{
   }
 
   .wrapper.more > div > div > div{
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
 
     .wrapper.more>div>div>div img{
-      margin-bottom: -4rem;
+      margin-top: -2rem;
     }
 
   .wrapper.more>div>div>div>p:first-child{
