@@ -143,12 +143,9 @@
   font-size: 2.5rem;
   margin: 0 auto 4rem auto;
   text-align: center;
+  max-width: 720px;
 }
 
-.guide h2{
-  width: 640px;
-  max-width: 100%;
-}
 
 .guide .wrapper,
 .why .wrapper,
