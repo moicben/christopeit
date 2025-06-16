@@ -49,7 +49,7 @@ const Home = ({ data, shop, brand, products, categories, reviews }) => {
           <p>{data.heroDesc}</p>
           <a href="/bestsellers"><button>Découvrir les bestsellers</button></a>
           <div className='filter'></div>
-          <img src={data.heroMedia} alt="Hero" />
+          <img src={data.heroMedia} alt={shop.name} />
           {/* <video ref={videoRef} autoPlay muted loop playsInline>
             <source src='https://bpybtzxqypswjiizkzja.supabase.co/storage/v1/object/public/ecom/christopeit-france/hero.webm' type='video/webm' />
           </video> */}
